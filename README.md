@@ -2,6 +2,8 @@
 
 Five working homepage designs for [aba-r.com](https://aba-r.com), plus a cover page that presents them side by side.
 
+**Live:** https://txanonymousxt.github.io/abar-website-directions/ — opens on any phone or laptop.
+
 | File | Direction |
 | --- | --- |
 | `index.html` | Cover page — start here |
@@ -16,7 +18,7 @@ Five working homepage designs for [aba-r.com](https://aba-r.com), plus a cover p
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/TXAnonymousXT/abar-website-directions.git
    ```
 
 2. Open `index.html` in Chrome, Edge or Safari. That's all — there is nothing to install or build.
