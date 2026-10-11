@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR Real Estate — Every floor to let</title>
+<meta name="description" content="Homes, offices and shopfronts for rent across Qatar. ABAR leases and manages them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,200..800&family=Martian+Mono:wdth,wght@75..112.5,300..600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#DCDCD6;
+  --paper-2:#E8E8E3;
+  --sheet:#F2F2EE;
+  --ink:#111213;
+  --graphite:#5B5E5B;
+  --hair:rgba(17,18,19,.16);
+  --hair-2:rgba(17,18,19,.08);
+  --marker:#F2E61B;
+  --wood:#C9A479;
+  --sans:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono:"Martian Mono", ui-monospace, monospace;
+  --arabic:"IBM Plex Sans Arabic", "Geeza Pro", sans-serif;
+  --gut:clamp(18px,2.6vw,40px);
+  --ease:cubic-bezier(.65,0,.15,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--sans);font-variation-settings:"wdth" 100;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+::selection{background:var(--marker)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.mono{font:400 10.5px/1.5 var(--mono);font-variation-settings:"wdth" 87.5;letter-spacing:.04em;text-transform:uppercase}
+.mk{background:linear-gradient(transparent 52%,var(--marker) 52%,var(--marker) 94%,transparent 94%) no-repeat 0 0/0% 100%;transition:background-size .9s var(--ease)}
+.mk.on,a:hover>.mk{background-size:100% 100%}
+h1,h2,h3{text-wrap:balance}
+
+/* ---------- drafting crosshair ---------- */
+.xh{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:0;transition:opacity .3s}
+.xh.on{opacity:1}
+.xh i{position:absolute;background:var(--ink);opacity:.16}
+.xh .xv{top:0;bottom:0;width:1px}
+.xh .xhz{left:0;right:0;height:1px}
+.xh span{position:absolute;font:400 9.5px/1 var(--mono);letter-spacing:.04em;background:var(--ink);color:var(--paper);padding:4px 6px;white-space:nowrap}
+
+/* ---------- title-block header ---------- */
+.tb{position:fixed;top:0;left:0;right:0;z-index:40;display:grid;grid-template-columns:auto 1fr auto auto auto;align-items:stretch;border-bottom:1px solid var(--ink);background:rgba(220,220,214,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);height:58px}
+.tb>*{display:flex;align-items:center;padding:0 22px;border-right:1px solid var(--hair);text-decoration:none}
+.tb>*:last-child{border-right:0}
+.brand{gap:12px}
+.brand svg{width:40px}
+.brand b{font:700 15px/1 var(--sans);font-variation-settings:"wdth" 125;letter-spacing:.18em}
+.brand small{display:block;font:400 8px/1 var(--mono);letter-spacing:.2em;margin-top:5px;color:var(--graphite)}
+.tb nav{gap:28px}
+.tb nav a{text-decoration:none;font:500 13px/1 var(--sans);font-variation-settings:"wdth" 112}
+.tb .sheet{color:var(--graphite)}
+.tb .ar{font:500 15px/1 var(--arabic)}
+.tb .cta{background:var(--ink);color:var(--paper);font:600 13px/1 var(--sans);font-variation-settings:"wdth" 112;gap:12px;transition:background .3s,color .3s}
+.tb .cta:hover{background:var(--marker);color:var(--ink)}
+
+/* ---------- build: model + scrolling floors ---------- */
+.build{position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+#model{position:absolute;inset:0;width:100%;height:100%;cursor:grab}
+#model.hov{cursor:pointer}
+.grid-lines{position:absolute;inset:58px 0 0;pointer-events:none;display:grid;grid-template-columns:repeat(6,1fr);padding:0 var(--gut)}
+.grid-lines i{border-left:1px dashed var(--hair-2);position:relative}
+.grid-lines i:last-child{border-right:1px dashed var(--hair-2)}
+.grid-lines b{position:absolute;top:14px;left:0;transform:translateX(-50%);width:24px;height:24px;border:1px solid var(--hair);border-radius:50%;display:grid;place-items:center;font:500 9.5px/1 var(--mono);color:var(--graphite);background:var(--paper)}
+.leaders{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.leaders line{stroke:var(--ink);stroke-width:1}
+.leaders circle{fill:var(--ink)}
+.labels{position:absolute;inset:0;pointer-events:none}
+.flab{position:absolute;left:0;top:0;white-space:nowrap;font:400 10px/1 var(--mono);font-variation-settings:"wdth" 87.5;letter-spacing:.04em;text-transform:uppercase;transform:translate(0,-50%);opacity:0;transition:opacity .4s;display:flex;gap:8px;align-items:center;padding:5px 8px;background:var(--paper);border:1px solid var(--hair)}
+.flab b{font-weight:600}
+.flab.act{background:var(--marker);border-color:var(--ink)}
+.meta{position:absolute;right:var(--gut);bottom:22px;display:flex;align-items:flex-end;gap:28px;color:var(--graphite);pointer-events:none;background:rgba(220,220,214,.9);padding:10px 14px;border:1px solid var(--hair)}
+.meta .north{display:flex;flex-direction:column;align-items:center;gap:6px}
+.meta .north svg{width:22px;height:30px}
+.meta .bar{display:flex;flex-direction:column;gap:6px}
+.meta .bar svg{width:160px;height:12px}
+.dim b{text-transform:none;display:block;font:300 30px/1 var(--sans);font-variation-settings:"wdth" 75;color:var(--ink);margin-top:6px;letter-spacing:-.01em;min-width:3.6em}
+
+.flow{position:relative;margin-top:-100vh;margin-top:-100svh;pointer-events:none}
+.flow>*{pointer-events:auto}
+.hero{min-height:100vh;min-height:100svh;padding:118px var(--gut) 110px;display:grid;grid-template-columns:repeat(12,1fr);column-gap:20px;align-content:center;pointer-events:none}
+.hero>*{pointer-events:auto}
+.hero__copy{grid-column:1/span 5}
+.hero h1{font:700 clamp(2.8rem,5.4vw,5.6rem)/.92 var(--sans);font-variation-settings:"wdth" 125;letter-spacing:-.035em;margin:22px 0 0}
+.hero h1 .apart{display:inline-block;font-weight:200;letter-spacing:var(--apart,-.02em);transition:letter-spacing .2s linear}
+.hero p{max-width:40ch;color:#2c2e2c;margin:26px 0 0;font-size:17px}
+.hero p em{font-style:normal}
+
+.brief{grid-column:1/span 5;margin-top:38px;border-top:1px solid var(--ink);background:rgba(232,232,227,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.brief .row{display:grid;grid-template-columns:110px 1fr;align-items:center;border-bottom:1px solid var(--hair);min-height:50px;padding:0 14px}
+.brief .row>.mono{color:var(--graphite)}
+.seg{display:flex;gap:0;flex-wrap:wrap}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:inline-block;padding:7px 12px;font:500 13px/1 var(--sans);font-variation-settings:"wdth" 112;border:1px solid var(--hair);margin:-1px 0 0 -1px;cursor:pointer;transition:background .25s}
+.seg input:checked+span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.seg input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
+.brief select{appearance:none;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23111213'/%3E%3C/svg%3E") no-repeat right 2px center/10px;border:0;padding:8px 22px 8px 0;font:500 14px/1 var(--sans);font-variation-settings:"wdth" 112;cursor:pointer;width:100%}
+.range{display:flex;align-items:center;gap:14px}
+.range input{flex:1;accent-color:var(--ink)}
+.range output{font:500 13px/1 var(--mono);min-width:96px;text-align:right}
+.brief .go{display:flex;justify-content:space-between;align-items:center;width:100%;border:0;background:var(--ink);color:var(--paper);padding:18px 16px;cursor:pointer;font:600 14px/1 var(--sans);font-variation-settings:"wdth" 118;letter-spacing:.01em;text-decoration:none;transition:background .3s,color .3s}
+.brief .go:hover{background:var(--marker);color:var(--ink)}
+.brief .go svg{width:22px}
+.hint{grid-column:1/span 5;margin-top:22px;display:flex;align-items:center;gap:12px;color:var(--graphite)}
+.hint i{width:1px;height:34px;background:var(--ink);position:relative;overflow:hidden}
+.hint i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--paper);animation:drop 1.8s var(--ease) infinite}
+@keyframes drop{to{top:100%}}
+
+.step{min-height:100vh;min-height:100svh;display:grid;grid-template-columns:repeat(12,1fr);column-gap:20px;align-content:center;padding:90px var(--gut);pointer-events:none}
+.step .card{grid-column:1/span 4;pointer-events:auto;background:var(--sheet);border:1px solid var(--ink);box-shadow:8px 8px 0 rgba(17,18,19,.08);opacity:0;transform:translateY(24px);transition:opacity .6s,transform .8s var(--ease-out)}
+.step.act .card{opacity:1;transform:none}
+.card__head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--ink);padding:10px 14px}
+.card__head .lvl{font:700 13px/1 var(--mono);font-variation-settings:"wdth" 112}
+.card__body{padding:18px 18px 4px}
+.card h3{font:650 clamp(1.4rem,1.9vw,1.9rem)/1.02 var(--sans);font-variation-settings:"wdth" 118;letter-spacing:-.02em;margin:0}
+.card .where{display:flex;gap:10px;align-items:baseline;margin:8px 0 0;color:var(--graphite);font-size:14px}
+.card .where [lang=ar]{font-family:var(--arabic)}
+.card p{font-size:14.5px;margin:12px 0 0;color:#2c2e2c}
+.plan{width:100%;height:auto;margin:16px 0 6px;max-height:38vh}
+.plan .w{stroke:var(--ink);fill:none;stroke-linecap:square}
+.plan .wo{stroke:var(--ink);fill:none}
+.plan .gap{stroke:var(--sheet)}
+.plan .gl{stroke:var(--ink);fill:none}
+.plan .dr{stroke:var(--ink);fill:none}
+.plan .rl{font-family:var(--mono);fill:var(--ink);text-transform:uppercase;letter-spacing:.04em;text-anchor:middle}
+.plan .ra{font-family:var(--mono);fill:var(--graphite);text-anchor:middle}
+.plan .dl{stroke:var(--graphite);fill:none}
+.plan .dt{font-family:var(--mono);fill:var(--graphite);text-anchor:middle}
+.plan .col{fill:var(--ink)}
+.plan .hatch{fill:url(#hatch)}
+.plan .ln{stroke-dasharray:1;stroke-dashoffset:1}
+.plan.drawn .ln{animation:draw 1.7s var(--ease) forwards}
+.plan.drawn .wo{animation-duration:2.2s}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.plan text{opacity:0;transition:opacity .6s .9s}
+.plan.drawn text{opacity:1}
+.spec{display:grid;grid-template-columns:1fr 1fr;margin:0;border-top:1px solid var(--ink)}
+.spec div{padding:10px 14px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.spec div:nth-child(2n){border-right:0}
+.spec dt{font:400 9.5px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--graphite)}
+.spec dd{margin:3px 0 0;font:600 15px/1.2 var(--sans);font-variation-settings:"wdth" 112}
+.card .act-btn{display:flex;justify-content:space-between;align-items:center;padding:14px;text-decoration:none;font:600 13.5px/1 var(--sans);font-variation-settings:"wdth" 118;transition:background .3s}
+.card .act-btn:hover{background:var(--marker)}
+.card .act-btn svg{width:20px}
+.tail{height:30vh}
+
+/* ---------- sections ---------- */
+.sec{padding:clamp(90px,10vw,150px) var(--gut);position:relative;border-top:1px solid var(--ink)}
+.sec-head{display:grid;grid-template-columns:repeat(12,1fr);column-gap:20px;align-items:end;margin-bottom:48px}
+.sec-head .mono{grid-column:1/span 3;color:var(--graphite);align-self:start;padding-top:12px}
+.sec-head h2{grid-column:4/span 6;font:700 clamp(2.2rem,4.2vw,4.2rem)/.95 var(--sans);font-variation-settings:"wdth" 125;letter-spacing:-.035em;margin:0}
+.sec-head h2 .lt{font-weight:200}
+.sec-head p{grid-column:4/span 5;margin:22px 0 0;color:#2c2e2c;font-size:17px}
+.sec-head .ar{grid-column:11/-1;justify-self:end;font:500 20px/1.4 var(--arabic);color:var(--graphite)}
+
+/* schedule */
+.filters{display:flex;flex-wrap:wrap;gap:0;margin:0 0 24px}
+.filters button{background:none;border:1px solid var(--ink);margin-left:-1px;padding:10px 16px;font:500 13px/1 var(--sans);font-variation-settings:"wdth" 112;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.filters .count{margin-left:auto;align-self:center;color:var(--graphite)}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font:400 10px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--graphite);padding:12px 12px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);white-space:nowrap}
+thead th button{background:none;border:0;padding:0;cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;display:inline-flex;gap:6px}
+thead th.num,td.num{text-align:right}
+tbody tr.u{cursor:pointer;background:linear-gradient(var(--marker),var(--marker)) no-repeat 0 0/0% 100%;transition:background-size .55s var(--ease)}
+tbody tr.u:hover,tbody tr.u.open,tbody tr.u:focus-visible{background-size:100% 100%}
+tbody td{padding:15px 12px;border-bottom:1px solid var(--hair);font-size:15px;vertical-align:middle}
+td.id{font:600 12px/1 var(--mono);font-variation-settings:"wdth" 100}
+td.area b{font-weight:600}
+td.area small{display:block;color:var(--graphite);font-size:13px}
+td.rent{font:600 16px/1 var(--sans);font-variation-settings:"wdth" 112;white-space:nowrap}
+td.av .now{display:inline-block;padding:4px 7px;border:1px solid var(--ink);font:500 10px/1 var(--mono);text-transform:uppercase}
+td.arrow svg{width:18px;margin-left:auto;transition:transform .4s var(--ease)}
+tr.u.open td.arrow svg{transform:rotate(90deg)}
+tr.more td{padding:0;border-bottom:1px solid var(--ink)}
+tr.more .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr;gap:40px;padding:28px 12px 34px;background:var(--sheet)}
+tr.more .plan{max-height:420px;margin:0;align-self:center}
+tr.more h4{font:650 26px/1.05 var(--sans);font-variation-settings:"wdth" 118;margin:0 0 10px;letter-spacing:-.02em}
+tr.more p{margin:0 0 20px;color:#2c2e2c}
+tr.more .btn{display:inline-flex;gap:12px;align-items:center;background:var(--ink);color:var(--paper);padding:14px 18px;text-decoration:none;font:600 13.5px/1 var(--sans);font-variation-settings:"wdth" 118}
+tr.more .btn:hover{background:var(--marker);color:var(--ink)}
+tr[hidden]{display:none}
+
+/* owners: programme chart */
+.prog{border-top:1px solid var(--ink)}
+.prog-scale{display:grid;grid-template-columns:minmax(220px,3fr) 7fr;border-bottom:1px solid var(--ink)}
+.prog-scale .weeks{display:grid;grid-template-columns:repeat(6,1fr)}
+.prog-scale .weeks span{padding:10px 8px;border-left:1px solid var(--hair);color:var(--graphite)}
+.prog-scale .mono:first-child{padding:10px 0;color:var(--graphite)}
+.prog-row{display:grid;grid-template-columns:minmax(220px,3fr) 7fr;border-bottom:1px solid var(--hair);min-height:118px}
+.prog-row .txt{padding:22px 24px 22px 0}
+.prog-row h3{font:650 22px/1.1 var(--sans);font-variation-settings:"wdth" 118;margin:0 0 6px;display:flex;gap:12px;align-items:baseline}
+.prog-row h3 .mono{color:var(--graphite)}
+.prog-row p{margin:0;font-size:14.5px;color:#2c2e2c;max-width:44ch}
+.prog-row .track{position:relative;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/6 - 1px),var(--hair-2) calc(100%/6 - 1px) calc(100%/6))}
+.prog-row .bar{position:absolute;top:50%;height:30px;transform:translateY(-50%) scaleX(0);transform-origin:left;background:var(--marker);border:1px solid var(--ink);transition:transform 1.2s var(--ease);display:flex;align-items:center;padding:0 10px;font:500 10px/1 var(--mono);text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.prog-row .bar.ongoing{background:repeating-linear-gradient(-45deg,var(--marker) 0 8px,#fff7a0 8px 16px);border-right:0}
+.prog-row .bar.ongoing::after{content:"";position:absolute;right:-1px;top:-1px;bottom:-1px;width:18px;background:linear-gradient(90deg,transparent,var(--paper))}
+.prog.in .bar{transform:translateY(-50%) scaleX(1)}
+.prog.in .prog-row:nth-child(3) .bar{transition-delay:.15s}.prog.in .prog-row:nth-child(4) .bar{transition-delay:.3s}.prog.in .prog-row:nth-child(5) .bar{transition-delay:.45s}
+.owners-foot{display:flex;justify-content:space-between;align-items:center;gap:30px;margin-top:40px;flex-wrap:wrap}
+.owners-foot p{margin:0;max-width:60ch;color:#2c2e2c}
+.btn-ink{display:inline-flex;gap:14px;align-items:center;background:var(--ink);color:var(--paper);padding:17px 22px;text-decoration:none;font:600 14px/1 var(--sans);font-variation-settings:"wdth" 118;transition:background .3s,color .3s}
+.btn-ink:hover{background:var(--marker);color:var(--ink)}
+.btn-ink svg{width:20px}
+
+/* office: title block */
+.office{display:grid;grid-template-columns:repeat(12,1fr);column-gap:20px;row-gap:40px}
+.office .sec-head{grid-column:1/-1;margin-bottom:0}
+.tblock{grid-column:1/span 7;border:1.5px solid var(--ink);display:grid;grid-template-columns:1.4fr 1fr 1fr;background:var(--sheet)}
+.tblock>div{padding:14px 16px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);min-height:84px}
+.tblock .mono{color:var(--graphite);display:block;margin-bottom:8px}
+.tblock .v{font:600 17px/1.35 var(--sans);font-variation-settings:"wdth" 112}
+.tblock .v a{text-decoration:none}
+.tblock .v a:hover{background:var(--marker)}
+.tblock .big{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-right:0}
+.tblock .big .v{font:700 clamp(1.8rem,3vw,2.8rem)/.95 var(--sans);font-variation-settings:"wdth" 125;letter-spacing:-.03em}
+.tblock .big svg{width:110px;flex:none}
+.tblock .c3{border-right:0}
+.tblock .last{border-bottom:0}
+.book{grid-column:9/-1;align-self:start}
+.book h3{font:650 24px/1.1 var(--sans);font-variation-settings:"wdth" 118;margin:0 0 18px}
+.fld{display:block;border-top:1px solid var(--ink);padding:12px 0 6px}
+.fld .mono{color:var(--graphite)}
+.fld input,.fld select{width:100%;border:0;background:transparent;padding:8px 0 6px;font:500 17px/1.3 var(--sans);font-variation-settings:"wdth" 112;border-radius:0}
+.fld input:focus,.fld select:focus{outline:none;background:linear-gradient(transparent 60%,var(--marker) 60%)}
+.book .btn-ink{width:100%;justify-content:space-between;margin-top:14px;border:0;cursor:pointer}
+.book .ok{display:none;margin-top:14px;font-size:14px}
+.book.done .ok{display:block}
+
+footer{border-top:1px solid var(--ink);display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:center;padding:22px var(--gut);font-size:13px;color:var(--graphite)}
+footer .ar{font:500 14px/1 var(--arabic)}
+
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s,transform 1s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .tb nav{display:none}
+  .tb .sheet{display:none}
+  .tb{grid-template-columns:auto 1fr auto auto}
+  .tb .ar{justify-self:end}
+  .hero__copy,.brief,.hint{grid-column:1/span 7}
+  .step .card{grid-column:1/span 6}
+  .meta{display:none}
+}
+@media (min-width:761px) and (max-height:880px){
+  .step{padding:76px var(--gut) 24px}
+  .card p{display:none}
+  .plan{max-height:30vh;margin-top:10px}
+  .card h3{font-size:1.5rem}
+}
+@media (max-width:760px){
+  .tb{height:52px;grid-template-columns:auto 1fr auto}
+  .tb .ar{display:none}
+  .tb>*{padding:0 14px}
+  .tb .cta{font-size:12px}
+  .grid-lines{display:none}
+  .hero{padding:84px var(--gut) 40px;align-content:start}
+  .hero__copy,.brief,.hint{grid-column:1/-1}
+  .hero__copy{background:linear-gradient(var(--paper) 78%,rgba(220,220,214,0));margin:0 calc(var(--gut)*-1);padding:0 var(--gut) 34px}
+  .hero h1{font-size:2.5rem}
+  .brief .row{grid-template-columns:84px 1fr;padding:0 10px}
+  .seg span{padding:7px 9px;font-size:12.5px}
+  .range output{min-width:0;font-size:11px}
+  .step:not(.act) .card{opacity:0}
+  .hero p{font-size:15.5px}
+  .brief{margin-top:38vh}
+  .hint{display:none}
+  .step{align-content:end;padding-bottom:20px}
+  .step .card{grid-column:1/-1}
+  .plan{max-height:22vh}
+  .card p{display:none}
+  .dim,.meta{display:none}
+  .sec-head h2,.sec-head p,.sec-head .mono{grid-column:1/-1}
+  .sec-head .ar{grid-column:1/-1;justify-self:start;margin-top:14px}
+  thead{display:none}
+  tbody tr.u{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:14px 4px;border-bottom:1px solid var(--hair)}
+  tbody tr.u td{border:0;padding:0}
+  td.type,td.beds,td.size,td.arrow{display:none}
+  td.id{grid-column:1/-1;margin-bottom:4px}
+  td.av{grid-column:1/-1;margin-top:6px}
+  tr.more .wrap{grid-template-columns:1fr;gap:20px}
+  .prog-scale{grid-template-columns:1fr}
+  .prog-scale .mono:first-child{display:none}
+  .prog-row{grid-template-columns:1fr;min-height:0}
+  .prog-row .track{height:44px}
+  .prog-row .txt{padding:20px 0 12px}
+  .tblock{grid-column:1/-1;grid-template-columns:1fr 1fr}
+  .tblock .c3{border-right:1px solid var(--ink)}
+  .tblock>div:nth-child(2n+1):not(.big){border-right:1px solid var(--ink)}
+  .book{grid-column:1/-1}
+  footer{grid-template-columns:1fr}
+  .xh{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+.still *,.still *::before,.still *::after{transition:none!important}
+.still .rv{opacity:1;transform:none}
+.still .plan.drawn .ln{animation:none;stroke-dashoffset:0}
+</style>
+</head>
+<body>
+
+<div class="xh" aria-hidden="true"><i class="xv"></i><i class="xhz"></i><span></span></div>
+
+<header class="tb">
+  <a class="brand" href="#top" aria-label="ABAR Real Estate, home">
+    <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+    <span><b>ABAR</b><small>REAL ESTATE</small></span>
+  </a>
+  <nav aria-label="Main"><a href="#units"><span class="mk">Units</span></a><a href="#schedule"><span class="mk">Schedule</span></a><a href="#owners"><span class="mk">Owners</span></a><a href="#office"><span class="mk">Office</span></a></nav>
+  <span class="sheet mono">Sheet A-000 · Rev 11·10·26</span>
+  <a class="ar" href="#" lang="ar">عربي</a>
+  <a class="cta" href="#office">Book a viewing <svg width="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+</header>
+
+<main id="top">
+<section class="build" id="units" aria-label="Available units">
+  <div class="stage">
+    <div class="grid-lines" aria-hidden="true"><i><b>A</b></i><i><b>B</b></i><i><b>C</b></i><i><b>D</b></i><i><b>E</b></i><i><b>F</b></i></div>
+    <canvas id="model" aria-label="Interactive model of a building. Each floor is an available unit." role="img"></canvas>
+    <svg class="leaders" id="leaders" aria-hidden="true"></svg>
+    <div class="labels" id="labels" aria-hidden="true"></div>
+    <div class="meta mono" aria-hidden="true">
+      <div class="north"><svg viewBox="0 0 22 30"><path d="M11 2L4 26l7-5 7 5z" fill="none" stroke="currentColor"/><path d="M11 2v19l-7 5z" fill="currentColor"/></svg>N</div>
+      <div class="bar"><svg viewBox="0 0 160 12"><rect x=".5" y="3.5" width="40" height="5" fill="currentColor"/><rect x="40.5" y="3.5" width="40" height="5" fill="none" stroke="currentColor"/><rect x="80.5" y="3.5" width="79" height="5" fill="currentColor"/></svg><span>0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20 m</span></div>
+      <span class="dim">Overall height<b id="dimH">24.6 m</b></span>
+      <span>Axonometric · NTS</span>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="hero">
+      <div class="hero__copy">
+        <span class="mono">ABAR Real Estate — rentals &amp; property management, Qatar</span>
+        <h1>Take the building <span class="apart" id="apart">apart.</span></h1>
+        <p>Every floor of this model is a real unit you can rent from us today — from a shopfront on Lusail Boulevard to a penthouse on The Pearl.</p>
+      </div>
+      <form class="brief" id="brief" aria-label="Find a unit" onsubmit="return false">
+        <div class="row"><span class="mono">Programme</span>
+          <div class="seg" role="radiogroup" aria-label="Programme"><label><input type="radio" name="use" value="live" checked><span>Live</span></label><label><input type="radio" name="use" value="work"><span>Work</span></label><label><input type="radio" name="use" value="all"><span>Either</span></label></div>
+        </div>
+        <div class="row"><label class="mono" for="area">Area</label>
+          <select id="area"><option value="">All of Qatar</option><option>Doha</option><option>Lusail</option><option>The Pearl</option><option>Katara</option><option>Al Wakrah</option><option>Al Wukair</option><option>Al Khor</option><option>Industrial Area</option></select>
+        </div>
+        <div class="row"><span class="mono">Bedrooms</span>
+          <div class="seg" role="radiogroup" aria-label="Bedrooms"><label><input type="radio" name="beds" value="0" checked><span>Any</span></label><label><input type="radio" name="beds" value="1"><span>1+</span></label><label><input type="radio" name="beds" value="2"><span>2+</span></label><label><input type="radio" name="beds" value="3"><span>3+</span></label><label><input type="radio" name="beds" value="4"><span>4+</span></label></div>
+        </div>
+        <div class="row"><label class="mono" for="budget">Up to</label>
+          <div class="range"><input id="budget" type="range" min="6000" max="45000" step="500" value="45000"><output id="budgetOut" class="mono">QAR 45,000</output></div>
+        </div>
+        <a class="go" href="#schedule" id="briefGo"><span id="briefCount">Show matching units</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </form>
+      <div class="hint mono"><i></i>Scroll to open the building · drag to turn it</div>
+    </div>
+    <div id="steps"></div>
+    <div class="tail"></div>
+  </div>
+</section>
+
+<section class="sec" id="schedule" aria-labelledby="sch-title">
+  <div class="sec-head">
+    <span class="mono rv">Schedule of units</span>
+    <h2 id="sch-title" class="rv">Everything we have <span class="lt">to let, this week</span></h2>
+    <span class="ar rv" lang="ar">الوحدات المتاحة</span>
+    <p class="rv">Every listing is visited and measured by our team before it goes on this schedule. Select a row to see its plan.</p>
+  </div>
+  <div class="filters rv" role="group" aria-label="Filter units">
+    <button type="button" data-f="all" aria-pressed="true">All units</button>
+    <button type="button" data-f="live" aria-pressed="false">Homes</button>
+    <button type="button" data-f="work" aria-pressed="false">Workspace</button>
+    <span class="count mono" id="count"></span>
+  </div>
+  <table class="rv">
+    <thead><tr><th>Unit</th><th>Location</th><th class="type">Type</th><th class="num beds">Beds</th><th class="num size">Size m²</th><th class="num"><button type="button" id="sortRent">Rent QAR / mo <span aria-hidden="true">↕</span></button></th><th>Available</th><th class="arrow"><span class="sr" style="position:absolute;clip:rect(0 0 0 0)">Open</span></th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+</section>
+
+<section class="sec" id="owners" aria-labelledby="own-title">
+  <div class="sec-head">
+    <span class="mono rv">For property owners</span>
+    <h2 id="own-title" class="rv">From empty to let <span class="lt">in about four weeks</span></h2>
+    <span class="ar rv" lang="ar">خدمات الملاك</span>
+    <p class="rv">A typical programme for an apartment or villa handed to us for management. Larger buildings run on the same stages, with a longer survey.</p>
+  </div>
+  <div class="prog" id="prog">
+    <div class="prog-scale"><span class="mono">Stage</span><div class="weeks mono"><span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span><span>Month 2</span><span>Ongoing</span></div></div>
+    <div class="prog-row"><div class="txt"><h3><span class="mono">1</span>Survey</h3><p>We visit, measure and photograph the property, and tell you honestly what it will rent for.</p></div><div class="track"><div class="bar" style="left:0;width:16.66%">Visit + valuation</div></div></div>
+    <div class="prog-row"><div class="txt"><h3><span class="mono">2</span>List</h3><p>Measured plans, proper photographs and a fair price, published where tenants in Qatar actually search.</p></div><div class="track"><div class="bar" style="left:8%;width:25%">Plans · photos · listing</div></div></div>
+    <div class="prog-row"><div class="txt"><h3><span class="mono">3</span>Lease</h3><p>Viewings, tenant screening and references, then a contract drafted, signed and registered.</p></div><div class="track"><div class="bar" style="left:22%;width:45%">Viewings · screening · contract</div></div></div>
+    <div class="prog-row"><div class="txt"><h3><span class="mono">4</span>Manage</h3><p>Rent collected, repairs handled by vetted contractors, renewals planned early. A statement every month.</p></div><div class="track"><div class="bar ongoing" style="left:62%;width:38%">Rent · repairs · renewals</div></div></div>
+  </div>
+  <div class="owners-foot rv">
+    <p>We manage single apartments, villa compounds and whole residential buildings across Doha, Lusail, The Pearl and Al Wakrah.</p>
+    <a class="btn-ink" href="#office">Ask for a valuation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<section class="sec office" id="office" aria-labelledby="off-title">
+  <div class="sec-head">
+    <span class="mono rv">Office</span>
+    <h2 id="off-title" class="rv">Come and see the <span class="lt">real thing</span></h2>
+    <span class="ar rv" lang="ar">تواصل معنا</span>
+  </div>
+  <div class="tblock rv">
+    <div class="big"><div><span class="mono">Project</span><span class="v">Your next lease</span></div>
+      <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg></div>
+    <div><span class="mono">Office</span><span class="v">Street 267, Building 23<br>2nd floor, Office 1<br>Muaither, Doha</span></div>
+    <div><span class="mono">Telephone</span><span class="v"><a href="tel:+97400000000">+974 0000 0000</a></span></div>
+    <div class="c3"><span class="mono">Email</span><span class="v"><a href="mailto:info@aba-r.com">info@aba-r.com</a></span></div>
+    <div class="last"><span class="mono">Post</span><span class="v">P.O. Box 23345<br>Doha, State of Qatar</span></div>
+    <div class="last"><span class="mono">Hours</span><span class="v">Sun – Thu<br>8:00 – 18:00</span></div>
+    <div class="last c3"><span class="mono">Sheet</span><span class="v">A-900<br><span class="mono" style="margin:0">Scale 1:1</span></span></div>
+  </div>
+  <form class="book rv" id="book" onsubmit="event.preventDefault();this.classList.add('done')">
+    <h3>Book a viewing</h3>
+    <label class="fld"><span class="mono">Name</span><input autocomplete="name" required></label>
+    <label class="fld"><span class="mono">Mobile</span><input type="tel" autocomplete="tel" required></label>
+    <label class="fld"><span class="mono">Unit</span><select id="unitSel"><option>Not sure yet — advise me</option></select></label>
+    <label class="fld"><span class="mono">Preferred day</span><select><option>This week</option><option>Next week</option><option>A weekend morning</option></select></label>
+    <button class="btn-ink" type="submit">Request viewing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+    <p class="ok mono" role="status">Request received — we’ll confirm a time by phone.</p>
+  </form>
+</section>
+</main>
+
+<footer>
+  <span>© 2026 ABAR Real Estate · Doha, State of Qatar</span>
+  <span class="mono">Listings shown are examples for this design proposal</span>
+  <span class="ar" lang="ar">الدوحة — قطر</span>
+</footer>
+
+<script>
+/* ============================================================
+   Data — every floor of the model is a unit
+   ============================================================ */
+const FLOORS=[
+  {lvl:'L00',short:'Retail',type:'retail',kind:'Retail',title:'A shopfront on Lusail Boulevard',area:'Lusail',ar:'لوسيل',text:'Double-height glazing on the Boulevard’s busiest stretch, with a store room and service access behind.',size:140,rent:28000,avail:'1 Jan',fit:'Shell & core',plan:'retail'},
+  {lvl:'L01',short:'Office',type:'office',kind:'Office',title:'A fitted floor in West Bay',area:'Doha · West Bay',ar:'الدوحة',text:'Open plan for around thirty desks, three meeting rooms, a pantry, and sea views on two sides.',size:310,rent:36000,avail:'Now',fit:'Fitted',plan:'office'},
+  {lvl:'L02',short:'1 bed',type:'apt',kind:'Apartment · 1 bed',title:'One bedroom in Msheireb Downtown',area:'Doha · Msheireb',ar:'مشيرب',text:'A quiet one-bedroom a short walk from the metro and Msheireb’s galleries and cafés.',size:76,rent:9000,avail:'1 Dec',fit:'Semi-furnished',plan:'bed1'},
+  {lvl:'L03',short:'2 bed',type:'apt',kind:'Apartment · 2 bed',title:'Two bedrooms at Porto Arabia',area:'The Pearl',ar:'اللؤلؤة',text:'Marina-facing, with a balcony wide enough for dinner outside through the winter.',size:145,rent:12500,avail:'Now',fit:'Furnished',plan:'bed2'},
+  {lvl:'L04',short:'3 bed',type:'apt',kind:'Apartment · 3 bed',title:'Three bedrooms on Lusail Marina',area:'Lusail',ar:'لوسيل',text:'A corner unit with a terrace on the water and a kitchen built for a family.',size:190,rent:14000,avail:'15 Nov',fit:'Unfurnished',plan:'bed3'},
+  {lvl:'L05',short:'Penthouse',type:'pent',kind:'Penthouse · 3 bed',title:'The top floor at Viva Bahriya',area:'The Pearl',ar:'اللؤلؤة',text:'Three bedrooms, a dressing room and an eighteen-metre terrace facing the Gulf.',size:410,rent:42000,avail:'Now',fit:'Furnished',plan:'penthouse'},
+];
+const UNITS=[
+  {id:'A-301',loc:'The Pearl',sub:'Porto Arabia',type:'Apartment',use:'live',beds:2,size:145,rent:12500,avail:'Now',plan:'bed2',note:'Marina-facing two-bed with a deep balcony. Furnished, with two parking bays and building gym.'},
+  {id:'A-114',loc:'Lusail',sub:'Marina District',type:'Apartment',use:'live',beds:1,size:88,rent:8200,avail:'1 Nov',plan:'bed1',note:'Light one-bed two minutes from the tram. Chilled water and internet included.'},
+  {id:'V-07',loc:'Al Wakrah',sub:'Near the old souq',type:'Villa',use:'live',beds:5,size:520,rent:18000,avail:'Now',plan:'villa',note:'Standalone villa with a separate majlis, courtyard, maid’s room and covered parking.'},
+  {id:'A-2205',loc:'Doha',sub:'West Bay',type:'Apartment',use:'live',beds:3,size:190,rent:14000,avail:'15 Nov',plan:'bed3',note:'High-floor three-bed with sea views, terrace and a family-sized kitchen.'},
+  {id:'V-12',loc:'Al Wukair',sub:'Gated compound',type:'Compound villa',use:'live',beds:4,size:380,rent:11500,avail:'Now',plan:'villa',note:'Compound villa with shared pool, gym and playground. Gardener included.'},
+  {id:'O-08',loc:'Lusail',sub:'Boulevard',type:'Office',use:'work',beds:0,size:310,rent:36000,avail:'Now',plan:'office',note:'Fitted floor with meeting rooms, pantry and six basement parking bays.'},
+  {id:'A-09',loc:'Doha',sub:'Msheireb Downtown',type:'Apartment',use:'live',beds:1,size:76,rent:9000,avail:'1 Dec',plan:'bed1',note:'Semi-furnished one-bed in a car-free district, close to Msheireb metro.'},
+  {id:'T-03',loc:'Katara',sub:'By the beach',type:'Townhouse',use:'live',beds:3,size:240,rent:19500,avail:'Now',plan:'bed3',note:'Three-storey townhouse with a roof terrace, a short walk from Katara beach.'},
+  {id:'R-01',loc:'Lusail',sub:'Boulevard',type:'Retail',use:'work',beds:0,size:140,rent:28000,avail:'1 Jan',plan:'retail',note:'Ground-floor shopfront with double-height glazing and rear service access.'},
+  {id:'P-4102',loc:'The Pearl',sub:'Viva Bahriya',type:'Penthouse',use:'live',beds:3,size:410,rent:42000,avail:'Now',plan:'penthouse',note:'Full top floor with an eighteen-metre terrace, dressing room and private lift.'},
+  {id:'V-21',loc:'Al Khor',sub:'Coastal',type:'Villa',use:'live',beds:4,size:360,rent:9800,avail:'Now',plan:'villa',note:'Quiet villa near the coast with a large garden and a separate majlis.'},
+  {id:'W-02',loc:'Industrial Area',sub:'Street 24',type:'Warehouse',use:'work',beds:0,size:1200,rent:30000,avail:'1 Nov',plan:'warehouse',note:'Clear-span warehouse, 9 m eaves, two loading doors and a site office.'},
+];
+
+/* ============================================================
+   Floor plans, drawn from room lists (metres)
+   rooms [x,y,w,h,label,areaOverride?]  doors [x,y,size,orient h|H|v|V]  windows [x1,y1,x2,y2]
+   ============================================================ */
+const PLANS={
+  retail:{w:20,h:12,rooms:[[0,0,20,8.4,'Sales floor'],[0,8.4,11,3.6,'Back of house'],[11,8.4,3,3.6,'WC'],[14,8.4,6,3.6,'Store']],doors:[[4,8.4,1.2,'h'],[11.9,8.4,.9,'h'],[15,8.4,1,'h'],[9.2,0,1.6,'h']],win:[[.5,0,8.8,0],[11.2,0,19.5,0],[20,1,20,7.6]],cols:[[5,2.6],[10,2.6],[15,2.6]]},
+  office:{w:24,h:14,rooms:[[0,0,6,4.6,'Meeting'],[0,4.6,6,4.6,'Meeting'],[0,9.2,6,4.8,'Meeting'],[6,0,18,14,'Open office','~190 m²'],[17.5,1.2,5,4.2,'Core','Lifts + stairs'],[18,10,6,4,'Pantry']],doors:[[6,1.4,1,'V'],[6,6,1,'V'],[6,10.6,1,'V'],[19,5.4,1,'h'],[19,10,1,'H']],win:[[0,.6,0,3.9],[0,5.2,0,8.6],[0,9.8,0,13.4],[6.8,0,23.4,0],[24,.8,24,9.2],[7,14,17,14]],cols:[[10.5,3.5],[10.5,10.5],[14,11.6]]},
+  bed1:{w:9,h:10.6,rooms:[[0,0,5.4,1.6,'Balcony'],[0,1.6,5.4,5,'Living'],[5.4,0,3.6,3.4,'Kitchen'],[5.4,3.4,3.6,2.6,'Bath'],[5.4,6,3.6,4.6,'Entry'],[0,6.6,5.4,4,'Bedroom']],doors:[[5.4,7.2,.9,'V'],[6.2,6,.8,'H'],[7.2,10.6,.9,'H'],[5.4,4.6,.9,'V']],win:[[.4,1.6,5,1.6],[0,7.2,0,10],[6,0,8.4,0],[0,2.2,0,6]],hatch:[[0,0,5.4,1.6]]},
+  bed2:{w:12,h:12.4,rooms:[[0,0,7,1.8,'Balcony'],[0,1.8,7,5.4,'Living'],[7,0,5,3.6,'Kitchen'],[7,3.6,5,4.4,'Bedroom 2'],[0,7.2,4.6,5.2,'Bedroom'],[4.6,7.2,2.4,2.8,'Ensuite'],[4.6,10,2.4,2.4,'Entry'],[7,8,2.6,4.4,'Bath'],[9.6,8,2.4,4.4,'Laundry']],doors:[[4.6,8.4,.8,'V'],[7,4.6,.9,'v'],[7.8,8,.8,'H'],[5.2,12.4,.9,'H'],[10.2,8,.8,'H']],win:[[.5,1.8,6.5,1.8],[7.6,0,11.4,0],[12,4.2,12,7.4],[0,7.8,0,11.8],[0,2.4,0,6.6]],hatch:[[0,0,7,1.8]]},
+  bed3:{w:15,h:13,rooms:[[0,0,9,2,'Terrace'],[0,2,9,6,'Living + dining'],[9,0,6,4,'Kitchen'],[9,4,6,4,'Bedroom 3'],[0,8,5,5,'Bedroom'],[5,8,4,2.6,'Bath'],[5,10.6,4,2.4,'Entry'],[9,8,6,5,'Bedroom 2']],doors:[[5,9,.9,'V'],[9,5,.9,'v'],[9,9.2,.9,'v'],[6.4,13,1,'H'],[6,8,.8,'h']],win:[[.6,2,8.4,2],[9.6,0,14.4,0],[15,4.6,15,7.4],[15,8.6,15,12.4],[0,8.6,0,12.4],[0,2.6,0,7.4]],hatch:[[0,0,9,2]]},
+  penthouse:{w:18,h:15.5,rooms:[[0,0,18,3.5,'Terrace'],[0,3.5,9,6,'Living'],[9,3.5,4.5,6,'Dining'],[13.5,3.5,4.5,3.6,'Kitchen'],[13.5,7.1,4.5,2.4,'Pantry'],[0,9.5,6.5,6,'Main bedroom'],[6.5,9.5,3.5,3,'Ensuite'],[6.5,12.5,3.5,3,'Dressing'],[10,9.5,4,6,'Bedroom 2'],[14,9.5,4,6,'Bedroom 3']],doors:[[6.5,13,.9,'V'],[10,10.2,.9,'v'],[14,10.2,.9,'v'],[7,9.5,.8,'h'],[14.4,7.1,.8,'h']],win:[[.6,3.5,8.4,3.5],[9.6,3.5,12.9,3.5],[14,3.5,17.4,3.5],[0,10,0,15],[18,10,18,15],[10.6,15.5,13.4,15.5],[14.6,15.5,17.4,15.5]],hatch:[[0,0,18,3.5]]},
+  villa:{w:20,h:16,rooms:[[0,0,9,7,'Majlis'],[9,0,6,7,'Living'],[15,0,5,5,'Kitchen'],[15,5,5,2,'Store'],[0,7,6,9,'Family room'],[6,7,4,4,'Entrance'],[10,7,5,4,'Dining'],[15,7,5,4,'Maid'],[6,11,9,5,'Courtyard'],[15,11,5,5,'Garage']],doors:[[9,2.6,1,'v'],[6,8.2,1,'V'],[10,8,1,'v'],[15,8,1,'v'],[15,1.6,1,'v'],[7.4,11,1.2,'h']],win:[[.8,0,8.2,0],[9.6,0,14.4,0],[15.6,0,19.4,0],[0,1,0,6],[0,8,0,15],[20,12,20,15.4]],hatch:[[6,11,9,5]]},
+  warehouse:{w:30,h:20,rooms:[[0,0,30,15,'Warehouse floor','~450 m² clear'],[0,15,8,5,'Site office'],[8,15,4,5,'WC'],[12,15,18,5,'Loading bay']],doors:[[3,15,1,'h'],[9,15,.9,'h']],win:[[1,0,29,0],[14,20,20,20],[22,20,28,20]],cols:[[7.5,5],[15,5],[22.5,5],[7.5,10],[15,10],[22.5,10]]},
+};
+function planSVG(key,cls='plan'){
+  const P=PLANS[key],s=10,pad=26,W=P.w*s,H=P.h*s;
+  const vbW=W+pad*2,k=vbW/440,f=n=>(n*s).toFixed(1);
+  let o=`<svg class="${cls}" viewBox="${-pad} ${-pad-14*k} ${vbW} ${H+pad*2+14*k}" role="img" aria-label="Floor plan"><defs><pattern id="hatch" width="${6*k}" height="${6*k}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="${6*k}" stroke="#111213" stroke-width="${.5*k}" opacity=".35"/></pattern></defs>`;
+  (P.hatch||[]).forEach(([x,y,w,h])=>o+=`<rect class="hatch" x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}"/>`);
+  P.rooms.forEach(([x,y,w,h])=>o+=`<rect class="w ln" pathLength="1" x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" stroke-width="${1.3*k}"/>`);
+  o+=`<rect class="wo ln" pathLength="1" x="0" y="0" width="${W}" height="${H}" stroke-width="${3.6*k}"/>`;
+  (P.win||[]).forEach(([x1,y1,x2,y2])=>{const hz=y1===y2,dx=hz?0:1.4*k,dy=hz?1.4*k:0;
+    o+=`<line class="gap" x1="${f(x1)}" y1="${f(y1)}" x2="${f(x2)}" y2="${f(y2)}" stroke-width="${4.2*k}"/>`;
+    o+=`<line class="gl ln" pathLength="1" x1="${+f(x1)-dx}" y1="${+f(y1)-dy}" x2="${+f(x2)-dx}" y2="${+f(y2)-dy}" stroke-width="${.7*k}"/><line class="gl ln" pathLength="1" x1="${+f(x1)+dx}" y1="${+f(y1)+dy}" x2="${+f(x2)+dx}" y2="${+f(y2)+dy}" stroke-width="${.7*k}"/>`});
+  (P.doors||[]).forEach(([x,y,d,or])=>{const X=x*s,Y=y*s,D=d*s;let gap,leaf,arc;
+    if(or==='h'||or==='H'){const sg=or==='h'?1:-1;gap=`M${X} ${Y}H${X+D}`;leaf=`M${X} ${Y}V${Y+sg*D}`;arc=`M${X+D} ${Y}A${D} ${D} 0 0 ${sg>0?1:0} ${X} ${Y+sg*D}`}
+    else{const sg=or==='v'?1:-1;gap=`M${X} ${Y}V${Y+D}`;leaf=`M${X} ${Y}H${X+sg*D}`;arc=`M${X} ${Y+D}A${D} ${D} 0 0 ${sg>0?0:1} ${X+sg*D} ${Y}`}
+    o+=`<path class="gap" d="${gap}" stroke-width="${4.2*k}"/><path class="dr ln" pathLength="1" d="${leaf}" stroke-width="${1.1*k}"/><path class="dr ln" pathLength="1" d="${arc}" stroke-width="${.6*k}" stroke-dasharray="1"/>`});
+  (P.cols||[]).forEach(([x,y])=>o+=`<rect class="col" x="${x*s-2.2*k}" y="${y*s-2.2*k}" width="${4.4*k}" height="${4.4*k}"/>`);
+  P.rooms.forEach(([x,y,w,h,l,a])=>{if(w*h<5.5)return;const cx=(x+w/2)*s,cy=(y+h/2)*s,fs=Math.min(8.6*k,w*s/(l.length*.72));
+    o+=`<text class="rl" x="${cx}" y="${cy}" font-size="${fs.toFixed(1)}">${l}</text><text class="ra" x="${cx}" y="${cy+fs*1.35}" font-size="${(fs*.85).toFixed(1)}">${a||(w*h).toFixed(1)+' m²'}</text>`});
+  const dy=-12*k;
+  o+=`<path class="dl ln" pathLength="1" d="M0 ${dy}H${W}M0 ${dy-4*k}V${dy+4*k}M${W} ${dy-4*k}V${dy+4*k}" stroke-width="${.7*k}"/><text class="dt" x="${W/2}" y="${dy-4*k}" font-size="${7.6*k}">${P.w.toFixed(1)} m</text>`;
+  return o+'</svg>';
+}
+
+/* ============================================================
+   Build the floor cards + schedule
+   ============================================================ */
+const arrow='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+const fmt=n=>n.toLocaleString('en-US');
+document.getElementById('steps').innerHTML=FLOORS.map((F,i)=>`
+<section class="step" data-floor="${i}" aria-label="${F.lvl} ${F.title}">
+  <div class="card">
+    <div class="card__head"><span class="lvl">${F.lvl}</span><span class="mono">${F.kind}</span></div>
+    <div class="card__body">
+      <h3>${F.title}</h3>
+      <div class="where">${F.area} <span lang="ar">${F.ar}</span></div>
+      <p>${F.text}</p>
+      ${planSVG(F.plan)}
+    </div>
+    <dl class="spec"><div><dt>Internal area</dt><dd>${F.size} m²</dd></div><div><dt>Rent</dt><dd>QAR ${fmt(F.rent)} / mo</dd></div><div><dt>Available</dt><dd>${F.avail}</dd></div><div><dt>Finish</dt><dd>${F.fit}</dd></div></dl>
+    <a class="act-btn" href="#office" data-unit="${F.lvl} — ${F.title}">Book a viewing ${arrow}</a>
+  </div>
+</section>`).join('');
+
+const rowsEl=document.getElementById('rows');
+function renderRows(list){
+  rowsEl.innerHTML=list.map(u=>`
+  <tr class="u" tabindex="0" data-id="${u.id}" data-use="${u.use}" aria-expanded="false">
+    <td class="id">${u.id}</td>
+    <td class="area"><b>${u.loc}</b><small>${u.sub}</small></td>
+    <td class="type">${u.type}</td>
+    <td class="num beds">${u.beds||'—'}</td>
+    <td class="num size">${fmt(u.size)}</td>
+    <td class="num rent">${fmt(u.rent)}</td>
+    <td class="av">${u.avail==='Now'?'<span class="now">Now</span>':u.avail}</td>
+    <td class="arrow">${arrow}</td>
+  </tr>
+  <tr class="more" hidden><td colspan="8"><div class="wrap">${planSVG(u.plan,'plan')}<div><span class="mono">${u.id} · ${u.type}</span><h4>${u.loc}, ${u.sub}</h4><p>${u.note}</p><dl class="spec" style="margin-bottom:22px"><div><dt>Size</dt><dd>${fmt(u.size)} m²</dd></div><div><dt>Rent</dt><dd>QAR ${fmt(u.rent)} / mo</dd></div><div><dt>Bedrooms</dt><dd>${u.beds||'—'}</dd></div><div><dt>Available</dt><dd>${u.avail}</dd></div></dl><a class="btn" href="#office" data-unit="${u.id} — ${u.loc}, ${u.sub}">Book a viewing ${arrow}</a></div></div></td></tr>`).join('');
+  rowsEl.querySelectorAll('tr.u').forEach(tr=>{
+    const toggle=()=>{const m=tr.nextElementSibling,o=m.hidden;rowsEl.querySelectorAll('tr.more').forEach(x=>{x.hidden=true;x.previousElementSibling.classList.remove('open');x.previousElementSibling.setAttribute('aria-expanded','false');x.querySelector('.plan').classList.remove('drawn')});
+      if(o){m.hidden=false;tr.classList.add('open');tr.setAttribute('aria-expanded','true');requestAnimationFrame(()=>requestAnimationFrame(()=>m.querySelector('.plan').classList.add('drawn')))}};
+    tr.addEventListener('click',toggle);tr.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+  });
+  document.querySelectorAll('[data-unit]').forEach(a=>a.addEventListener('click',()=>{const s=document.getElementById('unitSel');let o=[...s.options].find(x=>x.text===a.dataset.unit);if(!o){o=new Option(a.dataset.unit);s.add(o)}s.value=o.value}));
+}
+const sel=document.getElementById('unitSel');UNITS.forEach(u=>sel.add(new Option(`${u.id} — ${u.loc}, ${u.sub}`)));
+
+let filter={use:'all',area:'',beds:0,max:1e9},sortDir=0;
+function applyFilter(){
+  let L=UNITS.filter(u=>(filter.use==='all'||u.use===filter.use)&&(!filter.area||u.loc===filter.area)&&(u.beds>=filter.beds||(filter.beds===0))&&u.rent<=filter.max);
+  if(sortDir)L=[...L].sort((a,b)=>(a.rent-b.rent)*sortDir);
+  renderRows(L);
+  document.getElementById('count').textContent=`${L.length} of ${UNITS.length} units`;
+  document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===filter.use));
+}
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{filter.use=b.dataset.f;filter.area='';filter.beds=0;filter.max=1e9;applyFilter()}));
+document.getElementById('sortRent').addEventListener('click',()=>{sortDir=sortDir===1?-1:1;applyFilter()});
+applyFilter();
+
+// hero brief drives the schedule
+const brief=document.getElementById('brief'),budget=document.getElementById('budget');
+function briefState(){return{use:brief.use.value,area:document.getElementById('area').value,beds:+brief.beds.value,max:+budget.value}}
+function briefCount(){const b=briefState();const n=UNITS.filter(u=>(b.use==='all'||u.use===b.use)&&(!b.area||u.loc===b.area)&&(b.beds===0||u.beds>=b.beds)&&u.rent<=b.max).length;
+  document.getElementById('budgetOut').textContent='QAR '+fmt(b.max);document.getElementById('briefCount').textContent=n?`Show ${n} matching unit${n>1?'s':''}`:'No exact match — show all units'}
+brief.addEventListener('input',briefCount);briefCount();
+document.getElementById('briefGo').addEventListener('click',()=>{const b=briefState();const n=UNITS.filter(u=>(b.use==='all'||u.use===b.use)&&(!b.area||u.loc===b.area)&&(b.beds===0||u.beds>=b.beds)&&u.rent<=b.max).length;filter=n?b:{use:'all',area:'',beds:0,max:1e9};applyFilter()});
+
+/* ============================================================
+   Page behaviour
+   ============================================================ */
+const QS=new URLSearchParams(location.search),STILL=QS.has('still');
+if(STILL){document.documentElement.classList.add('still');addEventListener('load',()=>setTimeout(()=>scrollTo(0,+QS.get('y')||0),50))}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px'});
+document.querySelectorAll('.rv,#prog').forEach(el=>io.observe(el));
+document.querySelectorAll('.sec-head h2').forEach(h=>{const lt=h.querySelector('.lt');if(lt){lt.classList.add('mk');new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){setTimeout(()=>lt.classList.add('on'),500);o.disconnect()}}),{threshold:.6}).observe(h)}});
+
+// drafting crosshair (fine pointers only)
+if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const xh=document.querySelector('.xh'),xv=xh.querySelector('.xv'),xz=xh.querySelector('.xhz'),tag=xh.querySelector('span');
+  addEventListener('pointermove',e=>{
+    const over=e.target.closest('input,select,textarea,button,a,tr.u,.card,.brief');
+    xh.classList.toggle('on',!over);
+    xv.style.transform=`translateX(${e.clientX}px)`;xz.style.transform=`translateY(${e.clientY}px)`;
+    tag.style.transform=`translate(${e.clientX+12}px,${e.clientY+12}px)`;
+    tag.textContent=`X ${String(Math.round(e.clientX*10)).padStart(5,'0')}  Y ${String(Math.round((e.clientY+scrollY)*10)).padStart(5,'0')}`;
+  });
+  document.addEventListener('pointerleave',()=>xh.classList.remove('on'));
+}
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const STILL=new URLSearchParams(location.search).has('still');
+const canvas=document.getElementById('model');
+let renderer;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'})}catch(e){canvas.style.display='none';throw e}
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+
+const scene=new THREE.Scene();
+const cam=new THREE.OrthographicCamera(-1,1,1,-1,-300,500);
+
+scene.add(new THREE.HemisphereLight(0xffffff,0x9d998f,1.55));
+const sun=new THREE.DirectionalLight(0xfff4e6,2.5);
+sun.position.set(-26,58,34);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+Object.assign(sun.shadow.camera,{left:-46,right:46,top:70,bottom:-30,near:1,far:220});sun.shadow.bias=-.0004;sun.shadow.normalBias=.03;
+scene.add(sun);
+const fill=new THREE.DirectionalLight(0xdfe7ff,.7);fill.position.set(40,20,-30);scene.add(fill);
+
+const M={
+  white:new THREE.MeshStandardMaterial({color:0xf2f1ed,roughness:.92}),
+  slab:new THREE.MeshStandardMaterial({color:0xecebe6,roughness:.9}),
+  glass:new THREE.MeshStandardMaterial({color:0xa8b9bf,roughness:.2,metalness:.05,transparent:true,opacity:.62}),
+  dark:new THREE.MeshStandardMaterial({color:0x34383a,roughness:.7}),
+  wood:new THREE.MeshStandardMaterial({color:0xa8865f,roughness:.8}),
+  cork:new THREE.MeshStandardMaterial({color:0xb9b6ae,roughness:1}),
+  line:new THREE.LineBasicMaterial({color:0x111213,transparent:true,opacity:.42}),
+  marker:new THREE.MeshStandardMaterial({color:0xf2e61b,roughness:.8,emissive:0x2a2600}),
+};
+const box=(w,h,d)=>new THREE.BoxGeometry(w,h,d);
+function add(g,geo,mat,x=0,y=0,z=0,edges=true,shadow=true){
+  const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.castShadow=shadow;m.receiveShadow=true;g.add(m);
+  if(edges){const l=new THREE.LineSegments(new THREE.EdgesGeometry(geo,25),M.line);l.position.copy(m.position);g.add(l)}
+  return m;
+}
+const W=16,D=11;
+function mullions(g,H,y0,spacing,inset=.3,front=true,sides=true){
+  const geo=box(.12,H,.12),pts=[];
+  if(front)for(let x=-W/2+inset;x<=W/2-inset+.01;x+=spacing){pts.push([x,D/2-inset]);pts.push([x,-D/2+inset])}
+  if(sides)for(let z=-D/2+inset+spacing;z<D/2-inset;z+=spacing){pts.push([W/2-inset,z]);pts.push([-W/2+inset,z])}
+  const im=new THREE.InstancedMesh(geo,M.dark,pts.length);const m4=new THREE.Matrix4();
+  pts.forEach((p,i)=>{m4.makeTranslation(p[0],y0+H/2,p[1]);im.setMatrixAt(i,m4)});im.castShadow=true;g.add(im);
+}
+function floor(type){
+  const g=new THREE.Group();let H=3.4;
+  if(type==='retail')H=4.6;if(type==='office')H=3.8;if(type==='pent')H=3.8;
+  const slab=add(g,box(W,.42,D),M.slab,0,.21);
+  const gy=.42,gh=H-.42;
+  if(type==='retail'){
+    add(g,box(W-.5,gh,D-.5),M.glass,0,gy+gh/2,0,true,false);
+    mullions(g,gh,gy,2.6,.25);
+    add(g,box(W+.4,.22,2.4),M.white,0,H-.8,D/2+1.1);           // canopy
+    for(const x of[-W/2+.4,W/2-.4])for(const z of[-D/2+.4,D/2-.4])add(g,box(.5,gh,.5),M.white,x,gy+gh/2,z);
+  }else if(type==='office'){
+    add(g,box(W-.6,gh,D-.6),M.glass,0,gy+gh/2,0,true,false);
+    mullions(g,gh,gy,1.6,.3);
+    for(const y of[1.3,2.3,3.1])add(g,box(W+.2,.08,.5),M.white,0,gy+y,D/2+.15,false);   // fins
+  }else if(type==='apt'){
+    add(g,box(W-.6,gh,D-2.4),M.glass,0,gy+gh/2,-.9,true,false);
+    mullions(g,gh,gy,2,.3,false,true);
+    add(g,box(W,.3,1.8),M.slab,0,.15,D/2-.9,false);            // balcony depth already in slab
+    add(g,box(W-.2,1.05,.06),M.glass,0,gy+.55,D/2-.05,true,false); // balustrade
+    for(const x of[-W/2+.2,-W/6,W/6,W/2-.2])add(g,box(.24,gh,.24),M.white,x,gy+gh/2,D/2-1.9);
+  }else if(type==='pent'){
+    add(g,box(W-4,gh,D-3.4),M.glass,-1,gy+gh/2,-1.4,true,false);
+    add(g,box(W-4.6,.3,D-4),M.white,-1,H-.12,-1.4);              // roof lip
+    for(let x=-W/2+.6;x<=W/2-.6;x+=1.1)add(g,box(.14,.22,3.2),M.wood,x,H-.4,D/2-1.6,false); // pergola slats
+    add(g,box(W-.8,.24,.24),M.wood,0,H-.62,D/2-.3,false);
+    for(const x of[-W/2+.4,W/2-.4])add(g,box(.24,H-.6,.24),M.wood,x,gy+(H-.6)/2-.2,D/2-.3,false);
+    add(g,box(W-.2,1.05,.06),M.glass,0,gy+.55,D/2-.05,true,false);
+  }
+  g.userData.H=H;g.userData.slab=slab;return g;
+}
+const building=new THREE.Group();scene.add(building);
+const types=['retail','office','apt','apt','apt','pent'];
+const floors=types.map((t,i)=>{const f=floor(t);f.userData.i=i;building.add(f);return f});
+const roof=new THREE.Group();
+add(roof,box(W-4,.4,D-3.4),M.slab,-1,.2,-1.4);
+add(roof,box(4,1.4,3),M.white,-3,1.1,-2.4);
+add(roof,box(2.4,.9,2.4),M.white,2.2,.85,-2.6);
+building.add(roof);
+let base=0;floors.forEach(f=>{f.userData.base=base;base+=f.userData.H});roof.userData.base=base;
+const TOTAL=base+.4;
+// plinth: basswood base on a cork board
+add(scene,box(40,1.4,30),M.wood,0,-.7,0,true,false).receiveShadow=true;
+add(scene,box(34,.12,24),M.cork,0,.06,0,false,false).receiveShadow=true;
+for(let i=0;i<6;i++)add(scene,box(.5,.5+Math.random()*.6,.5),M.white,-14+i*.9,.5,9.6,false);   // site trees as blocks
+add(scene,box(10,.06,3.4),M.slab,-8,.16,8.6,false,false);  // paving
+
+/* ---------- labels ---------- */
+const labelsEl=document.getElementById('labels'),leaders=document.getElementById('leaders');
+const NS='http://www.w3.org/2000/svg';
+const labs=floors.map((f,i)=>{const d=document.createElement('div');d.className='flab';const F=FLOORS[i];d.innerHTML=`<b>${F.lvl}</b>${F.short} · ${F.area.split(' · ')[0]}`;labelsEl.appendChild(d);
+  const ln=document.createElementNS(NS,'line'),c=document.createElementNS(NS,'circle');c.setAttribute('r',2.5);leaders.append(ln,c);return{d,ln,c}});
+
+/* ---------- state ---------- */
+let vw=0,vh=0,mobile=false;
+function size(){vw=innerWidth;vh=innerHeight;mobile=vw<760;renderer.setSize(vw,vh,false)}
+size();addEventListener('resize',size);
+const build=document.getElementById('units');
+const steps=[...document.querySelectorAll('.step')];
+let az=-0.62,azT=-0.62,userAz=0,drag=null,explode=0,active=-1,hover=-1,intro=STILL||reduce?1:0,t0=performance.now(),camY=TOTAL/2,zoom=1;
+const slide=floors.map(()=>0);
+
+canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,u:userAz};canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing'});
+canvas.addEventListener('pointerup',e=>{if(drag&&Math.abs(e.clientX-drag.x)<4&&hover>=0)steps[hover].scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});drag=null;canvas.style.cursor=''});
+const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
+canvas.addEventListener('pointermove',e=>{
+  if(drag){userAz=Math.max(-1.4,Math.min(1.4,drag.u+(e.clientX-drag.x)*.006));return}
+  ndc.set(e.clientX/vw*2-1,-(e.clientY/vh)*2+1);ray.setFromCamera(ndc,cam);
+  const hit=ray.intersectObjects(floors.map(f=>f.userData.slab),false)[0]||ray.intersectObjects(building.children,true)[0];
+  let h=-1;if(hit){let o=hit.object;while(o&&o.userData.i===undefined)o=o.parent;if(o)h=o.userData.i}
+  hover=h;canvas.classList.toggle('hov',h>=0);
+});
+canvas.addEventListener('pointerleave',()=>{hover=-1;canvas.classList.remove('hov')});
+
+const apart=document.getElementById('apart'),dimH=document.getElementById('dimH');
+const ease=t=>1-Math.pow(1-t,3);
+const v3=new THREE.Vector3();
+
+function frame(now){
+  const t=(now-t0)/1000;
+  // scroll → explode + active floor
+  const r=build.getBoundingClientRect();
+  const sc=-r.top;
+  const ex=Math.min(1,Math.max(0,sc/(vh*.85)));
+  explode+=(ex-explode)*(STILL?1:.12);
+  let a=Math.round((sc-vh)/vh);if(sc<vh*.5)a=-1;a=Math.min(floors.length-1,a);
+  if(a!==active){active=a;steps.forEach((s,i)=>{s.classList.toggle('act',i===a);const p=s.querySelector('.plan');if(i===a)p.classList.add('drawn')})}
+  azT=-0.62+userAz+(reduce||STILL?0:Math.sin(t*.16)*.3);
+  az+=(azT-az)*.08;
+
+  // intro: floors drop in one after another
+  if(intro<1)intro=Math.min(1,(now-t0)/2200);
+  const gap=mobile?2.6:3.4;
+  floors.forEach((f,i)=>{
+    const k=Math.min(1,Math.max(0,intro*1.9-i*.15));
+    const drop=(1-ease(k))*30;
+    const tgt=(i===active?1:0)+(i===hover&&i!==active?.45:0);
+    slide[i]+=(tgt-slide[i])*(STILL?1:.1);
+    f.position.set(slide[i]*5.2,f.userData.base+explode*i*gap+drop,slide[i]*1.2);
+    f.userData.slab.material=i===active?M.marker:M.slab;
+  });
+  const kR=Math.min(1,Math.max(0,intro*1.9-floors.length*.15));
+  roof.position.y=roof.userData.base+explode*floors.length*gap+(1-ease(kR))*30;
+  const H=TOTAL+explode*floors.length*gap;
+
+  // camera: orthographic axonometric, follows the active floor
+  const focusY=active>=0?floors[active].position.y+floors[active].userData.H/2:H*.48;
+  const LP=STILL?1:.08;
+  camY+=(focusY-camY)*LP;
+  const zT=active>=0?(mobile?.5:.7):1;zoom+=(zT-zoom)*(STILL?1:.06);
+  const el=.52-explode*.08;
+  const R=120;cam.position.set(Math.sin(az)*Math.cos(el)*R,camY+Math.sin(el)*R,Math.cos(az)*Math.cos(el)*R);
+  cam.lookAt(0,camY,0);
+  const mid=!mobile&&vw<1180;
+  const viewH=(mobile?Math.max(H*1.3,62):Math.max(H*1.08,40)*(mid?1.25:1))*zoom,aspect=vw/vh;
+  let shift=mobile?0:viewH*aspect*(mid?.22:.13);
+  if(mobile){cam.left=-viewH*aspect/2;cam.right=viewH*aspect/2;cam.top=viewH*.7;cam.bottom=-viewH*.3}
+  else{cam.left=-viewH*aspect/2-shift;cam.right=viewH*aspect/2-shift;cam.top=viewH/2;cam.bottom=-viewH/2}
+  if(mobile&&active>=0){cam.top=viewH*.2;cam.bottom=-viewH*.8}
+  cam.updateProjectionMatrix();
+  renderer.render(scene,cam);
+
+  // headline letters drift apart with the model
+  apart.style.setProperty('--apart',(-.02+explode*.42).toFixed(3)+'em');
+  dimH.textContent=(H*1.0).toFixed(1)+' m';
+
+  // floor labels with leader lines
+  const showL=explode>.35;
+  floors.forEach((f,i)=>{
+    const L=labs[i];
+    v3.set(f.position.x+W/2,f.position.y+f.userData.H*.55,f.position.z+D/2).project(cam);
+    const x=(v3.x*.5+.5)*vw,y=(-v3.y*.5+.5)*vh;
+    const vis=showL&&(!mobile||i===active)&&y>70&&y<vh-20;
+    const lw=L.w||(L.w=L.d.offsetWidth||180);
+    const lx=Math.min(x+(mobile?24:46),vw-lw-14);
+    L.d.style.opacity=vis?1:0;L.d.style.transform=`translate(${lx}px,${y}px) translateY(-50%)`;L.d.classList.toggle('act',i===active);
+    L.ln.setAttribute('x1',x);L.ln.setAttribute('y1',y);L.ln.setAttribute('x2',lx);L.ln.setAttribute('y2',y);L.ln.style.opacity=vis?1:0;
+    L.c.setAttribute('cx',x);L.c.setAttribute('cy',y);L.c.style.opacity=vis?1:0;
+  });
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

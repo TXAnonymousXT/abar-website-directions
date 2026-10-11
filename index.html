@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR — Website Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Azeret+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#151515;--panel:#1D1D1D;--fg:#EDEDEA;--dim:#9A9A95;--line:rgba(237,237,234,.12);--forest:#1A2817}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 15.5px/1.6 "Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:1.5px solid var(--fg);outline-offset:3px}
+.mono{font:400 10.5px/1.5 "Azeret Mono",ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--dim)}
+header{padding:56px clamp(20px,4vw,64px) 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-bottom:1px solid var(--line)}
+header h1{font:300 clamp(2.2rem,4.4vw,4rem)/1 "Hanken Grotesk";letter-spacing:-.035em;margin:14px 0 0}
+header p{margin:16px 0 0;color:var(--dim);max-width:62ch}
+.round{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:30px clamp(20px,4vw,64px) 0;flex-wrap:wrap}
+.round h2{margin:0;font:400 20px/1.2 "Hanken Grotesk"}
+.round .pal{display:flex;gap:6px;align-items:center}
+.round .pal i{width:18px;height:18px;border-radius:50%;border:1px solid var(--line)}
+.row{display:grid;gap:0}
+.row.two{grid-template-columns:1fr 1fr}
+.row.three{grid-template-columns:repeat(3,1fr)}
+.d{padding:28px clamp(20px,2.4vw,40px) 44px;border-right:1px solid var(--line);display:flex;flex-direction:column}
+.d:last-child{border-right:0}
+.shot{display:block;position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:4px;background:var(--panel)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.shot:hover img{transform:scale(1.04)}
+.shot .badge{position:absolute;left:12px;top:12px;background:var(--fg);color:#151515;font:500 11px/1 "Azeret Mono",monospace;letter-spacing:.06em;text-transform:uppercase;padding:7px 9px;border-radius:2px}
+.shot .badge.new{background:var(--forest);color:#fff}
+.d h3{font:500 26px/1.1 "Hanken Grotesk";letter-spacing:-.02em;margin:22px 0 4px}
+.d .idea{font-size:17px;margin:0 0 12px}
+.d p{color:var(--dim);margin:0 0 20px}
+.sw{display:flex;gap:6px;margin-bottom:16px}
+.sw i{width:26px;height:26px;border-radius:50%;border:1px solid var(--line)}
+dl{margin:0 0 24px;display:grid;grid-template-columns:96px 1fr;gap:8px 14px;font-size:14px}
+dd{margin:0}
+.open{margin-top:auto;display:inline-flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:40px;padding:14px 20px;text-decoration:none;font-weight:500;transition:background .3s,color .3s}
+.open:hover{background:var(--fg);color:var(--bg)}
+.open svg{width:18px}
+.first .d h3{font-size:22px}
+.first .d p{font-size:14.5px}
+hr{border:0;border-top:1px solid var(--line);margin:0}
+footer{border-top:1px solid var(--line);padding:28px clamp(20px,4vw,64px) 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px;color:var(--dim);font-size:14px}
+footer b{display:block;color:var(--fg);font-weight:500;margin-bottom:6px}
+@media (max-width:1000px){.row.two,.row.three{grid-template-columns:1fr}.d{border-right:0;border-bottom:1px solid var(--line)}footer{grid-template-columns:1fr}header{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <span class="mono">ABAR Real Estate · Website proposal · October 2026</span>
+    <h1>Five directions for the new website</h1>
+    <p>Each direction is a working homepage built around something specific to Qatar. Round two takes the favourite from round one — The Stack — as its bar, and is drawn strictly in ABAR’s own colours. Open each one on a laptop first, then on a phone.</p>
+  </div>
+  <span class="mono">aba-r.com</span>
+</header>
+
+<div class="round">
+  <h2>Round two — in ABAR’s colours</h2>
+  <div class="pal" aria-label="ABAR palette"><span class="mono">White · forest #1A2817 · charcoal #282C30 · ink #222 · greys</span><i style="background:#fff"></i><i style="background:#1A2817"></i><i style="background:#282C30"></i><i style="background:#222"></i><i style="background:#EDEDED"></i><i style="background:#BABABA"></i><i style="background:#727272"></i></div>
+</div>
+<section class="row two">
+  <article class="d">
+    <a class="shot" href="4-model-coast.html"><img src="previews/4-model-coast.jpg" alt="Direction 4: white scale model of Doha and Lusail with ABAR buildings in green"><span class="badge new">New</span></a>
+    <span class="mono" style="margin-top:20px">Direction 4</span>
+    <h3>Model Coast</h3>
+    <p class="idea">“We look after the green ones.”</p>
+    <p>The sales-gallery model, put on the website. Doha and Lusail are cast in white on a glossy charcoal sea, and every building ABAR manages is solid forest green. Visitors turn the model, fly to a district, drag the sun to sweep the shadows, and click a green building to see what’s available inside it. The same idea carries the owner pitch: “Make yours one of the green ones.”</p>
+    <dl><dt class="mono">Type</dt><dd>Red Hat Display, Text &amp; Mono · Noto Kufi Arabic</dd><dt class="mono">Signature</dt><dd>Interactive 3D city model with tilt-shift and live sun</dd><dt class="mono">Mood</dt><dd>Prestige, clarity, proof of scale</dd></dl>
+    <a class="open" href="4-model-coast.html">Open direction 4 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+  <article class="d">
+    <a class="shot" href="5-pop-up.html"><img src="previews/5-pop-up.jpg" alt="Direction 5: an open pop-up book with paper cut-outs of Lusail"><span class="badge new">New</span></a>
+    <span class="mono" style="margin-top:20px">Direction 5</span>
+    <h3>Pop-up</h3>
+    <p class="idea">Homes of Qatar, unfolded.</p>
+    <p>A forest-green clothbound pop-up book on a charcoal desk. Scrolling turns the pages — they curl like real paper — and each chapter raises a district in paper cut-outs that cast real shadows: Katara Towers, Porto Arabia, Doha Tower, the Museum of Islamic Art, the villas of Al Wakrah. The ABAR building in every scene is printed green; the logo itself pops up on the title page.</p>
+    <dl><dt class="mono">Type</dt><dd>Young Serif, Figtree, DM Mono · Markazi Text Arabic</dd><dt class="mono">Signature</dt><dd>Scroll-driven 3D book with page curl and pop-ups</dd><dt class="mono">Mood</dt><dd>Crafted, warm, unforgettable</dd></dl>
+    <a class="open" href="5-pop-up.html">Open direction 5 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+</section>
+
+<hr>
+<div class="round"><h2>Round one</h2><span class="mono">Each in its own palette</span></div>
+<section class="row three first">
+  <article class="d">
+    <a class="shot" href="1-mashrabiya.html"><img src="previews/1-mashrabiya.jpg" alt="Direction 1: maroon wall lit through a lattice screen"></a>
+    <span class="mono" style="margin-top:20px">Direction 1</span>
+    <h3>Mashrabiya</h3>
+    <p>A Qatar-maroon wall lit through a carved screen; the cursor moves the sun. Listings sit behind shutters that open.</p>
+    <a class="open" href="1-mashrabiya.html">Open direction 1 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+  <article class="d">
+    <a class="shot" href="2-the-stack.html"><img src="previews/2-the-stack.jpg" alt="Direction 2: exploded 3D architectural model with a floor plan card"><span class="badge">Favourite</span></a>
+    <span class="mono" style="margin-top:20px">Direction 2</span>
+    <h3>The Stack</h3>
+    <p>An architectural model that comes apart floor by floor as you scroll; each floor is a listing with its own measured plan.</p>
+    <a class="open" href="2-the-stack.html">Open direction 2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+  <article class="d">
+    <a class="shot" href="3-peninsula.html"><img src="previews/3-peninsula.jpg" alt="Direction 3: the Qatar peninsula drawn as ridgelines"></a>
+    <span class="mono" style="margin-top:20px">Direction 3</span>
+    <h3>Peninsula</h3>
+    <p>Qatar’s coastline as living ridgelines; peaks rise where ABAR has homes. Scroll flies down the coast district by district.</p>
+    <a class="open" href="3-peninsula.html">Open direction 3 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+</section>
+
+<footer>
+  <div><b>Content</b>Company details, districts and vision come from aba-r.com. Listings, prices, building counts and the phone number are placeholders until ABAR supplies real data.</div>
+  <div><b>Imagery</b>The 3D models and paper illustrations are drawn in code. Photographs are free-licence images from Unsplash, standing in for ABAR’s own.</div>
+  <div><b>Next step</b>Choose one direction, or combine parts. We then design the listing, search and Arabic (right-to-left) pages in that language.</div>
+</footer>
+</body>
+</html>

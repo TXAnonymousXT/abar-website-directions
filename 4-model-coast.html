@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR Real Estate — We look after the green ones</title>
+<meta name="description" content="A model of Doha and Lusail. Every green building is one ABAR leases and manages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;700&family=Red+Hat+Text:wght@400;500&family=Red+Hat+Mono:wght@400;500&family=Noto+Kufi+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;
+  --forest:#1A2817;
+  --forest-2:#2B3B27;
+  --charcoal:#282C30;
+  --ink:#222222;
+  --rule:#EDEDED;
+  --mute:#BABABA;
+  --grey:#727272;
+  --display:"Red Hat Display", system-ui, sans-serif;
+  --text:"Red Hat Text", system-ui, sans-serif;
+  --mono:"Red Hat Mono", ui-monospace, monospace;
+  --arabic:"Noto Kufi Arabic", sans-serif;
+  --gut:clamp(18px,2.8vw,44px);
+  --ease:cubic-bezier(.65,0,.2,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font:400 16px/1.6 var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--forest);color:var(--white)}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+.mono{font:400 11px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+[lang=ar]{font-family:var(--arabic)}
+h1,h2,h3{text-wrap:balance}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;gap:34px;padding:18px var(--gut);transition:background .4s,box-shadow .4s,padding .4s}
+.nav.solid{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--rule);padding-block:12px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:44px;color:var(--forest)}
+.brand b{font:700 15px/1 var(--display);letter-spacing:.34em}
+.brand small{display:block;font:400 8.5px/1 var(--mono);letter-spacing:.28em;color:var(--grey);margin-top:5px}
+.nav nav{display:flex;gap:28px;margin-left:auto}
+.nav nav a{text-decoration:none;font:500 14px/1 var(--display);color:var(--ink);position:relative}
+.nav nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:1.5px;background:var(--forest);transition:right .4s var(--ease)}
+.nav nav a:hover::after{right:0}
+.nav .ar{font:500 14px/1 var(--arabic);text-decoration:none}
+.nav .cta{text-decoration:none;background:var(--forest);color:var(--white);font:500 14px/1 var(--display);padding:12px 18px;border-radius:2px;display:inline-flex;gap:10px;align-items:center;transition:background .3s}
+.nav .cta:hover{background:var(--ink)}
+.nav .cta svg{width:16px}
+
+/* ---------- the model ---------- */
+.gallery{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:linear-gradient(#fff,#EDEDED)}
+#gl{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+#gl.drag{cursor:grabbing}
+#gl.hov{cursor:pointer}
+.intro{position:absolute;left:var(--gut);top:clamp(96px,15vh,150px);width:min(470px,36vw);z-index:5;pointer-events:none}
+.intro>*{pointer-events:auto}
+.intro,.dcard{transition:opacity .6s,transform .8s var(--ease-out)}
+.touring .hint.reveal{opacity:0}
+.hint{transition:opacity .5s}
+.touring .intro{opacity:0;transform:translateY(-14px);pointer-events:none}
+.dcard{position:absolute;left:var(--gut);top:clamp(96px,15vh,150px);width:min(400px,34vw);z-index:5;opacity:0;transform:translateY(14px);pointer-events:none;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:22px 24px;border-top:3px solid var(--forest)}
+.touring .dcard{opacity:1;transform:none;pointer-events:auto}
+.dcard .mono{color:var(--grey);display:flex;gap:10px;align-items:center}.dcard .mono i{width:9px;height:9px;background:var(--forest)}
+.dcard h2{margin:12px 0 0;font:300 clamp(2.2rem,3.4vw,3.4rem)/1 var(--display);letter-spacing:-.035em}
+.dcard h2 span{font:400 .42em/1 var(--arabic);color:var(--grey);margin-left:8px;letter-spacing:0}
+.dcard p{margin:14px 0 14px;color:var(--grey);font-size:15px}
+.dcard .from{font:400 15px/1 var(--display);padding-top:12px;border-top:1px solid var(--rule)}
+.dcard .from b{color:var(--forest);font-weight:700}
+.dcard .hint2{margin-top:12px;color:var(--grey)}
+.intro .mono{color:var(--grey);display:flex;gap:10px;align-items:center}
+.intro .mono i{width:9px;height:9px;background:var(--forest);display:inline-block}
+.intro h1{font:300 clamp(2.8rem,5vw,5.2rem)/.96 var(--display);letter-spacing:-.04em;margin:20px 0 0}
+.intro h1 b{font-weight:700;color:var(--forest)}
+.intro p{color:var(--grey);margin:22px 0 0;font-size:16.5px;max-width:38ch}
+.intro p strong{color:var(--ink);font-weight:500}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 1s,transform 1.2s var(--ease-out)}
+.ready .reveal{opacity:1;transform:none}
+.ready .r2{transition-delay:.25s}.ready .r3{transition-delay:.5s}.ready .r4{transition-delay:.9s}
+
+.labels{position:absolute;inset:0;pointer-events:none;z-index:3}
+.flag{position:absolute;left:0;top:0;opacity:0;transition:opacity .5s}
+.flag .stick{position:absolute;left:0;top:0;width:1px;background:var(--ink);transform-origin:top}
+.flag .tag{position:absolute;left:0;bottom:0;transform:translate(-1px,0);white-space:nowrap;background:var(--white);border:1px solid var(--ink);padding:5px 8px 5px 7px;display:flex;gap:8px;align-items:center;font:500 12.5px/1 var(--display);pointer-events:auto;cursor:pointer;transition:background .25s,color .25s}
+.flag .tag span[lang=ar]{font-size:11px;color:var(--grey)}
+.flag .tag em{font:500 10px/1 var(--mono);font-style:normal;background:var(--forest);color:var(--white);padding:3px 5px}
+.flag.on .tag,.flag .tag:hover{background:var(--forest);color:var(--white)}
+.flag.on .tag span[lang=ar],.flag .tag:hover span[lang=ar]{color:var(--mute)}
+.flag.on .tag em,.flag .tag:hover em{background:var(--white);color:var(--forest)}
+
+.dock{position:absolute;left:var(--gut);right:var(--gut);bottom:22px;z-index:6;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:end;pointer-events:none}
+.dock>*{pointer-events:auto}
+.legend{display:flex;flex-direction:column;gap:7px;font-size:13px;color:var(--ink);background:rgba(255,255,255,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:12px 14px;border:1px solid var(--rule)}
+.legend div{display:flex;gap:10px;align-items:center}
+.legend i{width:12px;height:12px;display:inline-block;border:1px solid var(--forest)}
+.legend .g{background:var(--forest)}
+.legend .w{background:var(--white);border-color:var(--mute)}
+.legend b{font-weight:500}
+.chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;align-self:end}
+.chips button{background:rgba(255,255,255,.9);border:1px solid var(--rule);padding:9px 13px;border-radius:30px;font:500 13px/1 var(--display);cursor:pointer;transition:background .25s,color .25s,border-color .25s;backdrop-filter:blur(6px)}
+.chips button:hover{border-color:var(--forest)}
+.chips button[aria-pressed=true]{background:var(--forest);color:var(--white);border-color:var(--forest)}
+.sun{background:rgba(255,255,255,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--rule);padding:12px 14px;width:230px}
+.sun .row{display:flex;justify-content:space-between;align-items:baseline;color:var(--grey)}
+.sun output{font:500 13px/1 var(--mono);color:var(--ink)}
+.sun input{width:100%;margin:10px 0 2px;accent-color:var(--forest)}
+.sun .ends{display:flex;justify-content:space-between;font:400 10px/1 var(--mono);color:var(--mute)}
+.hint{position:absolute;right:var(--gut);top:clamp(96px,15vh,150px);z-index:5;color:var(--grey);text-align:right;line-height:1.9}
+
+.tip{position:absolute;left:0;top:0;z-index:8;width:250px;background:var(--white);box-shadow:0 18px 40px -14px rgba(34,34,34,.35);border-top:3px solid var(--forest);pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .35s var(--ease-out)}
+.tip.on{opacity:1;transform:none}
+.tip img{width:100%;height:110px;object-fit:cover}
+.tip .b{padding:12px 14px 14px}
+.tip .mono{color:var(--grey)}
+.tip h4{margin:4px 0 6px;font:500 17px/1.2 var(--display)}
+.tip p{margin:0;font-size:13.5px;color:var(--grey)}
+.tip p b{color:var(--forest);font-weight:500}
+
+.panel{position:absolute;right:var(--gut);top:84px;bottom:122px;width:min(380px,90vw);z-index:9;background:var(--white);box-shadow:0 30px 60px -20px rgba(34,34,34,.4);display:flex;flex-direction:column;transform:translateX(calc(100% + 60px));transition:transform .7s var(--ease);overflow:auto}
+.panel.on{transform:none}
+.panel .top{position:relative}
+.panel .top img{width:100%;height:190px;object-fit:cover}
+.panel .x{position:absolute;right:10px;top:10px;width:36px;height:36px;border-radius:50%;border:0;background:var(--white);cursor:pointer;display:grid;place-items:center}
+.panel .x svg{width:16px}
+.panel .b{padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px;flex:1}
+.panel .mono{color:var(--grey)}
+.panel h3{margin:0;font:500 26px/1.1 var(--display);letter-spacing:-.02em}
+.panel h3 span{display:block;font:400 15px/1.6 var(--arabic);color:var(--grey);margin-top:4px}
+.panel p{margin:0;color:var(--grey);font-size:15px}
+.facts{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.facts div{padding:10px 0}
+.facts div+div{padding-left:12px;border-left:1px solid var(--rule)}
+.facts dt{font:400 10px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--grey)}
+.facts dd{margin:2px 0 0;font:500 18px/1.2 var(--display)}
+.units{list-style:none;margin:0;padding:0}
+.units li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.units b{font:500 15px/1.3 var(--display)}
+.units small{color:var(--grey);font-size:13px}
+.units .p{grid-row:span 2;align-self:center;font:500 16px/1 var(--display);color:var(--forest);text-align:right}
+.units .p small{display:block;font:400 10px/1.4 var(--mono)}
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;background:var(--forest);color:var(--white);border:0;padding:15px 18px;text-decoration:none;font:500 15px/1 var(--display);cursor:pointer;border-radius:2px;transition:background .3s}
+.btn:hover{background:var(--ink)}
+.btn svg{width:18px}
+.panel .btn{margin-top:auto}
+
+/* ---------- sections ---------- */
+.sec{padding:clamp(90px,10vw,150px) var(--gut)}
+.head{display:grid;grid-template-columns:repeat(12,1fr);column-gap:22px;align-items:end;margin-bottom:46px}
+.head .mono{grid-column:1/-1;color:var(--grey);margin-bottom:16px;display:flex;gap:10px;align-items:center}
+.head .mono i{width:9px;height:9px;background:var(--forest)}
+.head h2{grid-column:1/span 7;margin:0;font:300 clamp(2.4rem,4.4vw,4.4rem)/1 var(--display);letter-spacing:-.04em}
+.head h2 b{font-weight:700;color:var(--forest)}
+.head p{grid-column:9/-1;margin:0;color:var(--grey)}
+.rv{opacity:0;transform:translateY(28px);transition:opacity 1s,transform 1.1s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+
+.filters{display:flex;gap:6px;margin-bottom:28px;flex-wrap:wrap}
+.filters button{background:var(--white);border:1px solid var(--rule);padding:10px 16px;border-radius:30px;font:500 14px/1 var(--display);cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--forest);color:var(--white);border-color:var(--forest)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:36px 22px}
+.card{text-decoration:none;display:block}
+.card .im{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--rule)}
+.card .im img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease-out)}
+.card:hover .im img{transform:scale(1.05)}
+.card .tag{position:absolute;left:0;top:14px;background:var(--forest);color:var(--white);font:500 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 10px}
+.card .ct{padding-top:14px;display:grid;grid-template-columns:1fr auto;gap:3px 12px;align-items:baseline}
+.card h3{margin:0;font:500 18px/1.25 var(--display)}
+.card .p{font:500 17px/1 var(--display);color:var(--forest);white-space:nowrap}
+.card .p small{font:400 10px var(--mono);color:var(--grey)}
+.card .w{color:var(--grey);font-size:14px}
+.card .w [lang=ar]{font-size:12.5px;margin-left:6px}
+.card .f{grid-column:1/-1;margin-top:8px;padding-top:10px;border-top:1px solid var(--rule);color:var(--grey)}
+.card:hover h3{color:var(--forest)}
+.card[hidden]{display:none}
+
+.owners{background:var(--forest);color:var(--white)}
+.owners .head .mono,.owners .head p{color:var(--mute)}
+.owners .head .mono i{background:var(--white)}
+.owners .head h2 b{color:var(--white);font-weight:700;box-shadow:inset 0 -.12em 0 rgba(255,255,255,.25)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.18)}
+.steps div{padding:28px 24px 10px 0}
+.steps div+div{padding-left:24px;border-left:1px solid rgba(255,255,255,.18)}
+.steps svg{width:46px;height:46px;margin-bottom:20px}
+.steps svg rect{fill:none;stroke:var(--white);stroke-width:1.4}
+.steps svg rect.f{fill:var(--white)}
+.steps h3{margin:0 0 8px;font:500 21px/1.2 var(--display)}
+.steps p{margin:0;color:var(--mute);font-size:15px}
+.owners .row{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;margin-top:56px;padding-top:30px;border-top:1px solid rgba(255,255,255,.18)}
+.owners .row p{margin:0;font:300 clamp(1.3rem,2vw,1.8rem)/1.3 var(--display);max-width:36ch}
+.owners .btn{background:var(--white);color:var(--forest)}
+.owners .btn:hover{background:var(--rule)}
+
+.contact{background:var(--charcoal);color:var(--white);display:grid;grid-template-columns:repeat(12,1fr);column-gap:22px;row-gap:50px}
+.contact .info{grid-column:1/span 5}
+.contact .mono{color:var(--mute)}
+.contact h2{margin:16px 0 34px;font:300 clamp(2.4rem,4.4vw,4.4rem)/1 var(--display);letter-spacing:-.04em}
+.contact h2 b{font-weight:700}
+.contact dl{display:grid;grid-template-columns:100px 1fr;gap:14px 18px;margin:0}
+.contact dt{color:var(--mute)}
+.contact dd{margin:0}
+.contact dd a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+.contact form{grid-column:7/-1;background:var(--white);color:var(--ink);padding:clamp(24px,3vw,40px)}
+.contact form h3{margin:0 0 6px;font:500 26px/1.1 var(--display)}
+.contact form>p{margin:0 0 24px;color:var(--grey);font-size:15px}
+.fl{display:block;margin-bottom:16px}
+.fl .mono{color:var(--grey)}
+.fl input,.fl select,.fl textarea{width:100%;border:0;border-bottom:1px solid var(--rule);background:transparent;padding:8px 0 10px;font-size:16px;border-radius:0}
+.fl input:focus,.fl select:focus,.fl textarea:focus{outline:none;border-color:var(--forest)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ok{display:none;color:var(--forest);margin:14px 0 0}
+form.done .ok{display:block}
+
+footer{background:var(--ink);color:var(--mute);padding:24px var(--gut);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .nav nav{display:none}
+  .nav .ar{margin-left:auto}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:1fr 1fr}
+  .steps div:nth-child(3){padding-left:0;border-left:0}
+  .steps div:nth-child(n+3){border-top:1px solid rgba(255,255,255,.18)}
+  .head h2,.head p{grid-column:1/-1}
+  .head p{margin-top:16px}
+  .contact .info,.contact form{grid-column:1/-1}
+  .dock{grid-template-columns:1fr;justify-items:start}
+  .chips{justify-content:flex-start}
+  .legend{display:none}
+}
+@media (max-width:760px){
+  .nav .cta{padding:10px 12px;font-size:13px}
+  .nav .ar{display:none}
+  .gallery{min-height:0}
+  .intro{width:auto;left:0;right:0;top:64px;padding:16px var(--gut) 26px;background:linear-gradient(#fff 72%,rgba(255,255,255,0))}
+  .dcard{width:auto;right:var(--gut);top:76px;padding:14px 16px}
+  .dcard p,.dcard .hint2{display:none}
+  .dcard h2{font-size:2rem}
+  .intro h1{font-size:2.5rem}
+  .intro p{font-size:14.5px;margin-top:12px}
+  .hint{display:none}
+  .sun{display:none}
+  .chips{flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:4px;scrollbar-width:none}
+  .chips button{flex:none}
+  .panel{top:auto;bottom:0;right:0;left:0;width:100%;max-height:72%;transform:translateY(105%)}
+  .tip{display:none}
+  .grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .steps div,.steps div+div{padding-left:0;border-left:0;border-top:1px solid rgba(255,255,255,.18)}
+  .two{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation:none!important}html{scroll-behavior:auto}}
+.still *,.still *::before,.still *::after{transition:none!important}
+.still .rv{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#model" aria-label="ABAR Real Estate, home">
+    <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+    <span><b>ABAR</b><small>REAL ESTATE</small></span>
+  </a>
+  <nav aria-label="Main"><a href="#model">The model</a><a href="#homes">Homes</a><a href="#owners">Owners</a><a href="#contact">Contact</a></nav>
+  <a class="ar" href="#" lang="ar">عربي</a>
+  <a class="cta" href="#contact">Book a viewing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+</header>
+
+<main>
+<section class="gallery" id="model" aria-label="Interactive model of Doha and Lusail">
+  <canvas id="gl" role="img" aria-label="A white scale model of Doha and Lusail. Buildings managed by ABAR are shown in dark green."></canvas>
+  <div class="labels" id="labels" aria-hidden="true"></div>
+
+  <div class="intro">
+    <span class="mono reveal"><i></i>Doha &amp; Lusail · model at 1:20,000</span>
+    <h1 class="reveal r2">We look after the <b>green&nbsp;ones.</b></h1>
+    <p class="reveal r3"><strong id="greenCount">43 buildings</strong> on this model are leased and managed by ABAR — towers in West Bay and Lusail, villas in Al Wakrah and Al Wukair. Turn the model, pick a district, open a building.</p>
+  </div>
+  <div class="dcard" id="dcard" aria-live="polite"><span class="mono"></span><h2></h2><p></p><div class="from"></div><div class="hint2 mono">Click a green building to see what’s available</div></div>
+  <div class="hint mono reveal r4" aria-hidden="true">Drag to turn<br>Click a green building</div>
+
+  <div class="dock">
+    <div class="legend reveal r4"><div><i class="g"></i><b>Managed by ABAR</b></div><div><i class="w"></i>Everything else</div></div>
+    <div class="chips reveal r4" id="chips" role="group" aria-label="Fly to a district"></div>
+    <div class="sun reveal r4">
+      <div class="row"><label class="mono" for="sun">Sun</label><output id="sunOut">15:30</output></div>
+      <input id="sun" type="range" min="6" max="18.5" step=".05" value="15.5" aria-label="Time of day">
+      <div class="ends"><span>06:00</span><span>12:00</span><span>18:30</span></div>
+    </div>
+  </div>
+
+  <div class="tip" id="tip" aria-hidden="true"><img alt=""><div class="b"><span class="mono"></span><h4></h4><p></p></div></div>
+
+  <aside class="panel" id="panel" aria-label="Building details" aria-hidden="true">
+    <div class="top"><img alt=""><button class="x" id="closePanel" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="b">
+      <span class="mono" id="pDist"></span>
+      <h3 id="pTitle"></h3>
+      <p id="pText"></p>
+      <dl class="facts"><div><dt>Units</dt><dd id="pUnits"></dd></div><div><dt>Available</dt><dd id="pAvail"></dd></div><div><dt>Managed since</dt><dd id="pSince"></dd></div></dl>
+      <ul class="units" id="pList"></ul>
+      <a class="btn" href="#contact" id="pBook">Book a viewing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </aside>
+</section>
+
+<section class="sec" id="homes" aria-labelledby="homes-t">
+  <div class="head">
+    <span class="mono rv"><i></i>Available in the green buildings</span>
+    <h2 id="homes-t" class="rv">Homes you can <b>move into</b> this month</h2>
+    <p class="rv">Every home here sits in a building we manage ourselves — one team for the lease, the keys and the repairs.</p>
+  </div>
+  <div class="filters rv" role="group" aria-label="Filter homes">
+    <button type="button" data-f="all" aria-pressed="true">All</button>
+    <button type="button" data-f="apt" aria-pressed="false">Apartments</button>
+    <button type="button" data-f="villa" aria-pressed="false">Villas</button>
+    <button type="button" data-f="work" aria-pressed="false">Offices &amp; retail</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="sec owners" id="owners" aria-labelledby="own-t">
+  <div class="head">
+    <span class="mono rv"><i></i>For property owners</span>
+    <h2 id="own-t" class="rv">Make yours one of <b>the green ones</b></h2>
+    <p class="rv">We manage single apartments, villa compounds and whole towers. You keep the asset; we keep it full, paid and in good repair.</p>
+  </div>
+  <div class="steps">
+    <div class="rv"><svg viewBox="0 0 46 46" aria-hidden="true"><rect x="8" y="14" width="12" height="28"/><rect x="24" y="6" width="14" height="36"/></svg><h3>Tenants, checked</h3><p>References, employment and previous landlords verified before anyone signs.</p></div>
+    <div class="rv"><svg viewBox="0 0 46 46" aria-hidden="true"><rect x="8" y="14" width="12" height="28"/><rect class="f" x="24" y="6" width="14" height="36"/></svg><h3>Rent, collected</h3><p>Collected on schedule, with a clear statement in your inbox every month.</p></div>
+    <div class="rv"><svg viewBox="0 0 46 46" aria-hidden="true"><rect class="f" x="8" y="14" width="12" height="28"/><rect class="f" x="24" y="6" width="14" height="36"/></svg><h3>Repairs, handled</h3><p>Vetted contractors, agreed prices, and photographs when the job is done.</p></div>
+    <div class="rv"><svg viewBox="0 0 46 46" aria-hidden="true"><rect class="f" x="8" y="14" width="12" height="28"/><rect class="f" x="24" y="6" width="14" height="36"/><rect x="4" y="42" width="38" height="0.5"/></svg><h3>Renewals, planned</h3><p>We talk to tenants three months ahead, so your property rarely sits empty.</p></div>
+  </div>
+  <div class="row rv"><p>Own a building in Doha, Lusail or The Pearl? We’ll visit, value it and tell you honestly what it will rent for.</p><a class="btn" href="#contact">Request a valuation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+</section>
+
+<section class="sec contact" id="contact" aria-labelledby="con-t">
+  <div class="info rv">
+    <span class="mono">Head office · visitors welcome Sunday to Thursday</span>
+    <h2 id="con-t">The green one in <b>Muaither</b></h2>
+    <dl>
+      <dt class="mono">Office</dt><dd>Street 267, Building 23, 2nd floor, Office 1, Muaither, Doha</dd>
+      <dt class="mono">Post</dt><dd>P.O. Box 23345, Doha, State of Qatar</dd>
+      <dt class="mono">Phone</dt><dd><a href="tel:+97400000000">+974 0000 0000</a></dd>
+      <dt class="mono">Email</dt><dd><a href="mailto:info@aba-r.com">info@aba-r.com</a></dd>
+      <dt class="mono">Hours</dt><dd>Sunday – Thursday, 8:00 – 18:00</dd>
+    </dl>
+  </div>
+  <form class="rv" id="form" onsubmit="event.preventDefault();this.classList.add('done')">
+    <h3>Book a viewing</h3>
+    <p>Tell us which building caught your eye. We’ll call to arrange a time.</p>
+    <div class="two">
+      <label class="fl"><span class="mono">Name</span><input autocomplete="name" required></label>
+      <label class="fl"><span class="mono">Mobile</span><input type="tel" autocomplete="tel" required></label>
+    </div>
+    <label class="fl"><span class="mono">Building or home</span><input id="interest" placeholder="e.g. West Bay tower, 2 bed"></label>
+    <label class="fl"><span class="mono">I am</span><select><option>Looking to rent</option><option>A property owner</option><option>A business looking for space</option></select></label>
+    <button class="btn" type="submit">Send request <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+    <p class="ok mono" role="status">Request sent — we’ll call you within one working day.</p>
+  </form>
+</section>
+</main>
+
+<footer><span>© 2026 ABAR Real Estate · Doha, State of Qatar</span><span class="mono">Model, listings and figures are illustrative for this design proposal</span><span lang="ar">الدوحة — قطر</span></footer>
+
+<script>
+const QS=new URLSearchParams(location.search),STILL=QS.has('still');
+if(STILL){document.documentElement.classList.add('still');addEventListener('load',()=>setTimeout(()=>scrollTo(0,+QS.get('y')||0),60))}
+setTimeout(()=>document.body.classList.add('ready'),STILL?0:900);
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>innerHeight*.75||document.getElementById('model').classList.contains('touring')),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* homes grid */
+const IMG=(id,w=800)=>`https://images.unsplash.com/${id}?w=${w}&q=70&auto=format&fit=crop`;
+const HOMES=[
+  ['apt','West Bay sea-view','West Bay','الخليج الغربي','3 bed · 190 m² · high floor','14,000','photo-1758448755778-90ebf4d0f1e7','New'],
+  ['apt','Porto Arabia two-bed','The Pearl','اللؤلؤة','2 bed · 145 m² · furnished','12,500','photo-1728488448472-16a259c6ba7c',''],
+  ['villa','Garden villa','Al Wakrah','الوكرة','5 bed · 520 m² · private pool','18,000','photo-1613977257363-707ba9348227','Pool'],
+  ['apt','Marina District one-bed','Lusail','لوسيل','1 bed · 88 m² · tram stop','8,200','photo-1741764014072-68953e93cd48',''],
+  ['villa','Compound villa','Al Wukair','الوكير','4 bed · 380 m² · shared pool','11,500','photo-1768200498972-fd56353d73fc',''],
+  ['work','Boulevard office floor','Lusail','لوسيل','310 m² · fitted · 6 parking','36,000','photo-1700901546317-7e1829579632','Commercial'],
+  ['apt','Msheireb one-bed','Msheireb','مشيرب','1 bed · 76 m² · car-free district','9,000','photo-1757924461488-ef9ad0670978',''],
+  ['villa','Katara townhouse','Katara','كتارا','3 bed · 240 m² · roof terrace','19,500','photo-1600596542815-ffad4c1539a9',''],
+];
+document.getElementById('grid').innerHTML=HOMES.map(h=>`<a class="card rv" href="#contact" data-k="${h[0]}" data-n="${h[1]}, ${h[2]}"><div class="im"><img loading="lazy" src="${IMG(h[6])}" alt="${h[1]}">${h[7]?`<span class="tag">${h[7]}</span>`:''}</div><div class="ct"><h3>${h[1]}</h3><span class="p">${h[5]} <small>QAR/mo</small></span><span class="w">${h[2]}<span lang="ar">${h[3]}</span></span><span></span><span class="f mono">${h[4]}</span></div></a>`).join('');
+document.querySelectorAll('#grid .rv').forEach(el=>io.observe(el));
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('#grid .card').forEach(c=>c.hidden=!(b.dataset.f==='all'||c.dataset.k===b.dataset.f))}));
+document.querySelectorAll('#grid .card').forEach(c=>c.addEventListener('click',()=>document.getElementById('interest').value=c.dataset.n));
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {ShaderPass} from 'three/addons/postprocessing/ShaderPass.js';
+import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+import {HorizontalTiltShiftShader} from 'three/addons/shaders/HorizontalTiltShiftShader.js';
+import {VerticalTiltShiftShader} from 'three/addons/shaders/VerticalTiltShiftShader.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+
+const QS=new URLSearchParams(location.search),STILL=QS.has('still');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const IMG=(id,w=600)=>`https://images.unsplash.com/${id}?w=${w}&q=70&auto=format&fit=crop`;
+
+/* ---------------- geography: 1 unit = 1 km ---------------- */
+const LON0=51.52,LAT0=25.30,KX=Math.cos(25.3*Math.PI/180)*111.32,KZ=111.32;
+const X=lon=>(lon-LON0)*KX,Z=lat=>-(lat-LAT0)*KZ;
+const LAND=[[51.40,25.47],[51.50,25.47],[51.505,25.445],[51.515,25.42],[51.53,25.405],[51.536,25.395],[51.526,25.385],[51.518,25.376],[51.529,25.362],[51.535,25.345],[51.54,25.33],[51.547,25.32],[51.539,25.311],[51.525,25.305],[51.516,25.299],[51.521,25.292],[51.535,25.2895],[51.548,25.2905],[51.558,25.2905],[51.572,25.284],[51.6,25.289],[51.637,25.278],[51.646,25.25],[51.641,25.228],[51.619,25.214],[51.613,25.19],[51.608,25.165],[51.604,25.13],[51.40,25.13]].map(([a,b])=>[X(a),Z(b)]);
+const PEARL=Array.from({length:28},(_,i)=>{const a=i/28*Math.PI*2,r=1+.1*Math.sin(a*3)+.05*Math.cos(a*5);return[X(51.553+Math.cos(a)*.0165*r),Z(25.372+Math.sin(a)*.019*r)]});
+const inPoly=(P,x,z)=>{let c=false;for(let i=0,j=P.length-1;i<P.length;j=i++){const[xi,zi]=P[i],[xj,zj]=P[j];if((zi>z)!==(zj>z)&&x<(xj-xi)*(z-zi)/(zj-zi)+xi)c=!c}return c};
+const segD=(P,x,z)=>{let m=1e9;for(let i=0,j=P.length-1;i<P.length;j=i++){const[ax,az]=P[j],[bx,bz]=P[i],vx=bx-ax,vz=bz-az;let t=((x-ax)*vx+(z-az)*vz)/(vx*vx+vz*vz);t=Math.max(0,Math.min(1,t));m=Math.min(m,Math.hypot(x-ax-t*vx,z-az-t*vz))}return m};
+const onLand=(x,z,margin=.12)=>(inPoly(LAND,x,z)&&segD(LAND,x,z)>margin)||(inPoly(PEARL,x,z)&&segD(PEARL,x,z)>margin*.7);
+const XMIN=X(51.40),XMAX=X(51.664),ZMIN=Z(25.47),ZMAX=Z(25.13);
+
+/* ---------------- districts on the model ---------------- */
+const DIST=[
+  {id:'lusail',en:'Lusail',ar:'لوسيل',lon:51.515,lat:25.415,dist:15,green:7,photo:'photo-1700901742651-6b353164caf3',text:'Marina towers, Boulevard offices and the stadium up the road. Qatar’s newest city.',from:'7,000'},
+  {id:'pearl',en:'The Pearl',ar:'اللؤلؤة',lon:51.553,lat:25.372,dist:10,green:6,photo:'photo-1788022911714-32e88290df6f',text:'An island of marinas — Porto Arabia’s towers and the canals of Qanat Quartier.',from:'8,500'},
+  {id:'katara',en:'Katara',ar:'كتارا',lon:51.524,lat:25.36,dist:8,green:2,photo:'photo-1757923926529-d64cfc2d73e1',text:'Beachfront homes next to the Cultural Village and its amphitheatre.',from:'9,000'},
+  {id:'westbay',en:'West Bay',ar:'الخليج الغربي',lon:51.529,lat:25.323,dist:10,green:6,photo:'photo-1716473524861-5f418144b9f2',text:'The tower district: sea views, offices and the Corniche on the doorstep.',from:'7,500'},
+  {id:'msheireb',en:'Msheireb',ar:'مشيرب',lon:51.526,lat:25.287,dist:9,green:5,photo:'photo-1646205028102-76c46b2a10c1',text:'A walkable, car-free downtown of mid-rise blocks beside Souq Waqif.',from:'8,500'},
+  {id:'sadd',en:'Al Sadd',ar:'السد',lon:51.5,lat:25.284,dist:10,green:4,photo:'photo-1724582586458-a51791349977',text:'Family apartments close to schools, clinics and the metro.',from:'6,500'},
+  {id:'wakrah',en:'Al Wakrah',ar:'الوكرة',lon:51.595,lat:25.172,dist:12,green:6,photo:'photo-1645311677128-c38aa70d4f63',text:'Villas with gardens near the restored souq and the long public beach.',from:'9,500'},
+  {id:'wukair',en:'Al Wukair',ar:'الوكير',lon:51.53,lat:25.149,dist:12,green:6,photo:'photo-1580587771525-78b9dba3b914',text:'Compounds with pools, gyms and play areas — more space for the money.',from:'8,500'},
+  {id:'muaither',en:'Muaither',ar:'معيذر',lon:51.418,lat:25.272,dist:9,green:1,photo:'photo-1646205028102-76c46b2a10c1',text:'Our head office: Street 267, Building 23. Visitors welcome Sunday to Thursday.',from:'—'},
+];
+DIST.forEach(d=>{d.x=X(d.lon);d.z=Z(d.lat)});
+
+/* ---------------- procedural city ---------------- */
+let seed=11;const R=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const rr=(a,b)=>a+(b-a)*R();
+const B=[];                         // buildings
+const HASH=new Map(),CELL=.25;
+const key=(i,j)=>i*10007+j;
+function free(x,z,r){const i=Math.floor(x/CELL),j=Math.floor(z/CELL);for(let a=-2;a<=2;a++)for(let b=-2;b<=2;b++){const L=HASH.get(key(i+a,j+b));if(L)for(const o of L)if(Math.hypot(o.x-x,o.z-z)<o.r+r)return false}return true}
+function claim(o){const k=key(Math.floor(o.x/CELL),Math.floor(o.z/CELL));if(!HASH.has(k))HASH.set(k,[]);HASH.get(k).push(o)}
+// landmarks reserve their footprint first
+const LM=[['dohaTower',51.531,25.3205,.16],['tornado',51.5262,25.3232,.14],['katara',51.5262,25.4012,.3],['stadium',51.4903,25.4207,.45],['aspire',51.4425,25.2615,.16],['mia',51.5405,25.2955,.22],['hq',51.418,25.272,.16]];
+LM.forEach(([id,lon,lat,r])=>claim({x:X(lon),z:Z(lat),r}));
+const ZONES=[
+  {d:'westbay',lon:51.529,lat:25.322,r:1.0,n:80,h:[.7,1.9],w:[.15,.26],t:'tower'},
+  {d:'westbay',lon:51.522,lat:25.338,r:1.4,n:80,h:[.14,.45],w:[.16,.28],t:'mid'},
+  {d:'lusail',lon:51.525,lat:25.401,r:.8,n:46,h:[.6,1.6],w:[.14,.22],t:'tower'},
+  {d:'lusail',lon:51.505,lat:25.432,r:2.0,n:230,h:[.12,.46],w:[.16,.3],t:'mid'},
+  {d:'pearl',ring:true,n:44,h:[.45,1.2],w:[.13,.2],t:'tower'},
+  {d:'pearl',lon:51.553,lat:25.372,r:1.15,n:110,h:[.07,.18],w:[.12,.2],t:'low'},
+  {d:'katara',lon:51.523,lat:25.361,r:.65,n:40,h:[.07,.16],w:[.12,.22],t:'low'},
+  {d:'msheireb',lon:51.526,lat:25.285,r:1.1,n:240,h:[.1,.36],w:[.15,.26],t:'mid'},
+  {d:'sadd',lon:51.5,lat:25.283,r:1.7,n:260,h:[.1,.4],w:[.16,.28],t:'mid'},
+  {d:'matar',lon:51.56,lat:25.267,r:1.7,n:220,h:[.05,.15],w:[.13,.22],t:'low'},
+  {d:'waab',lon:51.45,lat:25.262,r:2.1,n:260,h:[.04,.08],w:[.11,.16],t:'villa'},
+  {d:'muaither',lon:51.42,lat:25.272,r:1.8,n:230,h:[.04,.07],w:[.11,.15],t:'villa',grid:.3},
+  {d:'wakrah',lon:51.592,lat:25.174,r:1.9,n:340,h:[.04,.09],w:[.1,.15],t:'villa'},
+  {d:'wukair',lon:51.53,lat:25.15,r:2.0,n:340,h:[.04,.08],w:[.1,.14],t:'villa',grid:.25},
+  {d:'fill',fill:true,n:1300,h:[.03,.09],w:[.1,.17],t:'low'},
+];
+for(const zn of ZONES){
+  let made=0,guard=0;const cx=zn.lon?X(zn.lon):0,cz=zn.lat?Z(zn.lat):0;
+  while(made<zn.n&&guard++<zn.n*40){
+    let x,z;
+    if(zn.ring){const a=R()*Math.PI*2;const p=PEARL[Math.floor(a/(Math.PI*2)*PEARL.length)];const c=[X(51.553),Z(25.372)];x=c[0]+(p[0]-c[0])*.82;z=c[1]+(p[1]-c[1])*.82}
+    else if(zn.fill){x=rr(XMIN,XMAX);z=rr(ZMIN,ZMAX)}
+    else{const a=R()*Math.PI*2,r=Math.sqrt(R())*zn.r;x=cx+Math.cos(a)*r;z=cz+Math.sin(a)*r;if(zn.grid){x=cx+Math.round((x-cx)/zn.grid)*zn.grid+rr(-.02,.02);z=cz+Math.round((z-cz)/zn.grid)*zn.grid+rr(-.02,.02)}}
+    const w=rr(...zn.w),d=zn.t==='villa'?w*rr(.8,1.1):w*rr(.7,1.3),r=Math.max(w,d)*.56+.012;
+    if(!onLand(x,z)||!free(x,z,r))continue;
+    let h=rr(...zn.h);if(zn.t==='tower')h*=.7+.3*Math.pow(R(),.6);
+    const o={x,z,r,w,d,h,rot:zn.grid?0:(zn.t==='tower'?rr(-.3,.3):rr(-.5,.5)),dist:zn.d,t:zn.t};claim(o);B.push(o);made++;
+  }
+}
+// choose the green (ABAR-managed) buildings in each district
+const NAMES={lusail:['Marina tower','Boulevard residence','Marina tower','Fox Hills apartments'],pearl:['Waterfront tower','Porto Arabia residence','Marina tower'],katara:['Beach residences','Garden apartments'],westbay:['Sea-view tower','Corniche tower','Serviced apartments'],msheireb:['Courtyard apartments','Downtown block'],sadd:['Family apartments','Apartment building'],wakrah:['Garden villas','Villa compound'],wukair:['Family compound','Villa compound'],muaither:['ABAR head office']};
+const GREEN=[];
+DIST.forEach(dd=>{
+  const cand=B.filter(b=>b.dist===dd.id);
+  cand.sort((a,b)=>b.h-a.h);
+  const pool=dd.id==='wakrah'||dd.id==='wukair'?cand.sort(()=>R()-.5):cand.slice(0,Math.max(dd.green*3,dd.green));
+  for(let i=0;i<dd.green&&pool.length;i++){const b=pool.splice(Math.floor(R()*Math.min(pool.length,6)),1)[0];b.green=true;b.D=dd;GREEN.push(b)}
+});
+GREEN.forEach((b,i)=>{
+  const villa=b.t==='villa';
+  const nm=NAMES[b.D.id];b.title=b.D.id==='muaither'?'ABAR head office':nm[i%nm.length]+(villa?'':' '+String.fromCharCode(65+(i%7)));
+  b.units=villa?Math.round(rr(14,40)):Math.round(b.h*60+rr(8,20));
+  b.avail=Math.max(1,Math.round(b.units*rr(.04,.12)));
+  b.since=2016+Math.floor(R()*9);
+  b.from=villa?Math.round(rr(85,140))*100:Math.round(rr(65,120))*100;
+});
+document.getElementById('greenCount').textContent=GREEN.length-1+' buildings';
+
+/* ---------------- renderer + scene ---------------- */
+const canvas=document.getElementById('gl');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setClearColor(0x000000,0);
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene();
+const pm=new THREE.PMREMGenerator(renderer);scene.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
+
+const cam=new THREE.PerspectiveCamera(22,1,.5,600);
+const hemi=new THREE.HemisphereLight(0xffffff,0x9a9a96,.62);scene.add(hemi);
+const sun=new THREE.DirectionalLight(0xffffff,2.6);sun.castShadow=true;sun.shadow.mapSize.set(4096,4096);
+Object.assign(sun.shadow.camera,{left:-26,right:26,top:26,bottom:-26,near:1,far:160});sun.shadow.bias=-.0003;sun.shadow.normalBias=.015;
+scene.add(sun,sun.target);
+
+const M={
+  land:new THREE.MeshStandardMaterial({color:0xffffff,roughness:.95,envMapIntensity:.15}),
+  side:new THREE.MeshStandardMaterial({color:0xf2f2f0,roughness:.9,envMapIntensity:.2}),
+  bld:new THREE.MeshStandardMaterial({color:0xffffff,roughness:.85,envMapIntensity:.2}),
+  green:new THREE.MeshStandardMaterial({color:0x1a2817,roughness:.55,envMapIntensity:.5}),
+  sea:new THREE.MeshStandardMaterial({color:0x1c1f22,roughness:.34,metalness:0,envMapIntensity:.22}),
+  plinth:new THREE.MeshStandardMaterial({color:0x1d1f21,roughness:.75}),
+  road:new THREE.MeshStandardMaterial({color:0xededed,roughness:.9}),
+};
+
+// land top texture: roads and a fine survey grid
+function landTexture(){
+  const W=2048,Hh=Math.round(2048*(ZMAX-ZMIN)/(XMAX-XMIN)),c=document.createElement('canvas');c.width=W;c.height=Hh;const g=c.getContext('2d');
+  g.fillStyle='#ffffff';g.fillRect(0,0,W,Hh);
+  const P=(lon,lat)=>[(X(lon)-XMIN)/(XMAX-XMIN)*W,(Z(lat)-ZMIN)/(ZMAX-ZMIN)*Hh];
+  g.strokeStyle='rgba(34,34,34,.05)';g.lineWidth=1;for(let i=0;i<W;i+=W/52){g.beginPath();g.moveTo(i,0);g.lineTo(i,Hh);g.stroke()}for(let j=0;j<Hh;j+=W/52){g.beginPath();g.moveTo(0,j);g.lineTo(W,j);g.stroke()}
+  const road=(pts,w)=>{g.beginPath();pts.forEach((p,i)=>{const[a,b]=P(...p);i?g.lineTo(a,b):g.moveTo(a,b)});g.strokeStyle='#e1e1df';g.lineWidth=w;g.lineCap='round';g.lineJoin='round';g.stroke()};
+  road([[51.547,25.318],[51.537,25.308],[51.522,25.302],[51.519,25.295],[51.53,25.2915],[51.552,25.2915],[51.574,25.2865],[51.6,25.2885]],7);
+  road([[51.53,25.33],[51.517,25.37],[51.512,25.40],[51.505,25.47]],8);
+  road([[51.49,25.30],[51.475,25.36],[51.462,25.47]],7);
+  road([[51.52,25.287],[51.47,25.262],[51.40,25.225]],7);
+  road([[51.56,25.272],[51.585,25.22],[51.598,25.13]],7);
+  road([[51.53,25.28],[51.535,25.22],[51.53,25.13]],5);
+  [[.028,4],[.048,5],[.07,4]].forEach(([r,w])=>{g.beginPath();const c0=P(51.53,25.287);const rad=r*KX/(XMAX-XMIN)*W;g.arc(c0[0],c0[1],rad,Math.PI*.55,Math.PI*1.45,false);g.strokeStyle='#e5e5e3';g.lineWidth=w;g.stroke()});
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;return t;
+}
+const tex=landTexture();
+function shapeOf(P){const s=new THREE.Shape();s.moveTo(P[0][0],-P[0][1]);s.splineThru(P.slice(1).map(p=>new THREE.Vector2(p[0],-p[1])));s.closePath();return s}
+function landMesh(P,depth){
+  const geo=new THREE.ExtrudeGeometry(shapeOf(P),{depth,bevelEnabled:false,curveSegments:2});
+  geo.rotateX(-Math.PI/2);
+  const uv=geo.attributes.uv,pos=geo.attributes.position;
+  for(let i=0;i<uv.count;i++)uv.setXY(i,(pos.getX(i)-XMIN)/(XMAX-XMIN),1-(pos.getZ(i)-ZMIN)/(ZMAX-ZMIN));
+  const top=M.land.clone();top.map=tex;
+  const m=new THREE.Mesh(geo,[top,M.side]);m.receiveShadow=true;m.castShadow=true;return m;
+}
+const LAND_H=.14;
+scene.add(landMesh(LAND,LAND_H),landMesh(PEARL,LAND_H));
+// the sea is a glossy acrylic sheet; the model sits on a dark plinth
+const PW=XMAX-XMIN+2.4,PD=ZMAX-ZMIN+2.4,PCX=(XMIN+XMAX)/2,PCZ=(ZMIN+ZMAX)/2;
+const sea=new THREE.Mesh(new THREE.BoxGeometry(PW,.04,PD),M.sea);sea.position.set(PCX,-.02,PCZ);sea.receiveShadow=true;scene.add(sea);
+const plinth=new THREE.Mesh(new THREE.BoxGeometry(PW+.6,1.6,PD+.6),M.plinth);plinth.position.set(PCX,-.84,PCZ);scene.add(plinth);
+{ // engraved plinth label
+  const c=document.createElement('canvas');c.width=2048;c.height=96;const g=c.getContext('2d');g.fillStyle='#222222';g.fillRect(0,0,2048,96);
+  g.fillStyle='#BABABA';g.font='500 34px "Red Hat Mono", monospace';g.textBaseline='middle';
+  g.fillText('ABAR REAL ESTATE  ·  DOHA & LUSAIL  ·  SCALE 1:20 000',60,50);g.textAlign='right';g.fillText('N 25°18′  E 51°31′',1988,50);
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;
+  const lab=new THREE.Mesh(new THREE.PlaneGeometry(PW*.92,PW*.92*96/2048),new THREE.MeshBasicMaterial({map:t}));lab.position.set(PCX,-.84,PCZ+PD/2+.301);scene.add(lab);
+}
+// airport runways
+[[51.618,25.282,51.632,25.236],[51.626,25.284,51.64,25.24]].forEach(([a,b,c,d])=>{const x1=X(a),z1=Z(b),x2=X(c),z2=Z(d),L=Math.hypot(x2-x1,z2-z1);const m=new THREE.Mesh(new THREE.BoxGeometry(.09,.012,L),M.road);m.position.set((x1+x2)/2,LAND_H+.006,(z1+z2)/2);m.rotation.y=Math.atan2(x2-x1,z2-z1);m.receiveShadow=true;scene.add(m)});
+
+/* landmarks */
+const LMG=new THREE.Group();scene.add(LMG);
+const put=(mesh,lon,lat,y=0)=>{mesh.position.set(X(lon),LAND_H+y,Z(lat));mesh.castShadow=true;mesh.receiveShadow=true;LMG.add(mesh);return mesh};
+const lathe=(pts,seg=40)=>new THREE.LatheGeometry(pts.map(([r,y])=>new THREE.Vector2(r,y)),seg);
+const EX=1; // vertical exaggeration already baked into heights
+put(new THREE.Mesh(lathe([[0,0],[.075,0],[.075,1.55],[.07,1.62],[.045,1.7],[0,1.74]]),M.bld),51.531,25.3205);       // Doha Tower
+put(new THREE.Mesh(lathe([[0,0],[.08,0],[.055,.45],[.05,.7],[.06,1.05],[.07,1.25],[0,1.27]]),M.bld),51.5262,25.3232); // Tornado Tower
+put(new THREE.Mesh(lathe([[0,0],[.06,0],[.04,.3],[.03,1.1],[.06,1.25],[.065,1.38],[.02,1.5],[0,1.62]]),M.bld),51.4425,25.2615); // Aspire
+{const s=new THREE.Group();[[.36,.07],[.28,.06],[.2,.06],[.12,.08]].reduce((y,[w,h])=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,w),M.bld);m.position.y=y+h/2;m.rotation.y=Math.PI/4*(w<.25?1:0);m.castShadow=m.receiveShadow=true;s.add(m);return y+h},0);put(s,51.5405,25.2955)} // MIA
+{const g=lathe([[.36,0],[.4,.06],[.42,.14],[.4,.2],[.3,.2],[.28,.06],[0,.06]],48);put(new THREE.Mesh(g,M.bld),51.4903,25.4207)} // Lusail stadium bowl
+{ // Katara Towers: two crescents facing each other
+  const cres=new THREE.Shape();cres.absarc(0,0,.62,-Math.PI*.1,Math.PI*.55,false);cres.absarc(.12,-.02,.48,Math.PI*.5,-Math.PI*.05,true);cres.closePath();
+  const geo=new THREE.ExtrudeGeometry(cres,{depth:.08,bevelEnabled:false,curveSegments:24});geo.translate(0,0,-.04);
+  const g=new THREE.Group();const a=new THREE.Mesh(geo,M.bld),b=new THREE.Mesh(geo,M.bld);a.position.x=-.16;a.rotation.y=Math.PI/2;b.position.x=.16;b.rotation.y=-Math.PI/2;b.scale.x=-1;a.position.y=b.position.y=-.02;[a,b].forEach(m=>{m.castShadow=m.receiveShadow=true;g.add(m)});
+  g.scale.set(1,1.55,1);g.rotation.y=.4;put(g,51.5262,25.4012);
+}
+// ABAR head office: a green mid-rise with a flag pole
+{const g=new THREE.Group();const m=new THREE.Mesh(new THREE.BoxGeometry(.16,.18,.12).translate(0,.09,0),M.green);m.castShadow=m.receiveShadow=true;g.add(m);const p=new THREE.Mesh(new THREE.CylinderGeometry(.004,.004,.22).translate(0,.29,0),M.bld);g.add(p);put(g,51.418,25.272);
+  const hq=GREEN.find(b=>b.D.id==='muaither');if(hq){hq.x=X(51.418);hq.z=Z(25.272);hq.w=.16;hq.d=.12;hq.h=.18;hq.landmark=true}}
+
+/* instanced buildings */
+const box=new THREE.BoxGeometry(1,1,1).translate(0,.5,0);
+const whites=B.filter(b=>!b.green),greens=GREEN.filter(b=>!b.landmark);
+const IW=new THREE.InstancedMesh(box,M.bld,whites.length),IG=new THREE.InstancedMesh(box,M.green,greens.length);
+[IW,IG].forEach(m=>{m.castShadow=m.receiveShadow=true;scene.add(m)});
+const tmp=new THREE.Object3D();
+const centre=new THREE.Vector2(X(51.529),Z(25.322));
+[...whites,...greens].forEach(b=>b.delay=Math.hypot(b.x-centre.x,b.z-centre.y)*.055+R()*.25);
+function setMatrices(t,hover=-1){
+  const f=b=>{if(STILL||reduce)return 1;const k=Math.min(1,Math.max(0,(t-b.delay)/.9));return 1-Math.pow(1-k,3)};
+  whites.forEach((b,i)=>{tmp.position.set(b.x,LAND_H,b.z);tmp.rotation.set(0,b.rot,0);tmp.scale.set(b.w,Math.max(.0001,b.h*f(b)),b.d);tmp.updateMatrix();IW.setMatrixAt(i,tmp.matrix)});
+  greens.forEach((b,i)=>{tmp.position.set(b.x,LAND_H,b.z);tmp.rotation.set(0,b.rot,0);tmp.scale.set(b.w*(i===hover?1.12:1),Math.max(.0001,b.h*f(b)*(i===hover?1.08:1)),b.d*(i===hover?1.12:1));tmp.updateMatrix();IG.setMatrixAt(i,tmp.matrix)});
+  IW.instanceMatrix.needsUpdate=true;IG.instanceMatrix.needsUpdate=true;
+}
+setMatrices(0);
+// hover pin: a thin white mast with a ring
+const pin=new THREE.Group();{const s=new THREE.Mesh(new THREE.CylinderGeometry(.006,.006,1).translate(0,.5,0),new THREE.MeshBasicMaterial({color:0x222222}));const ring=new THREE.Mesh(new THREE.RingGeometry(.11,.14,40),new THREE.MeshBasicMaterial({color:0x1a2817,side:THREE.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.y=.005;pin.add(s,ring);pin.userData.stick=s;pin.userData.ring=ring}
+pin.visible=false;scene.add(pin);
+
+/* ---------------- post: tilt-shift miniature ---------------- */
+const composer=new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,cam));
+const hts=new ShaderPass(HorizontalTiltShiftShader),vts=new ShaderPass(VerticalTiltShiftShader);
+composer.addPass(hts);composer.addPass(vts);composer.addPass(new OutputPass());
+
+/* ---------------- camera rig ---------------- */
+let W=0,H=0,mobile=false;
+const view={x:X(51.52),z:Z(25.31),dist:74,az:-.32,el:.86};
+const goal={...view};
+const OVER=()=>({x:X(51.522),z:Z(25.298),dist:mobile?150:108,az:-.14,el:mobile?1.15:1.0});
+function resize(){W=canvas.clientWidth;H=canvas.clientHeight;mobile=W<760;renderer.setSize(W,H,false);composer.setSize(W,H);composer.setPixelRatio(Math.min(devicePixelRatio,1.6));cam.aspect=W/H;
+  const shift=mobile?0:W*.14;cam.setViewOffset(W,H,-shift,mobile?-H*.2:0,W,H);cam.updateProjectionMatrix();
+  hts.uniforms.h.value=1.7/W;vts.uniforms.v.value=1.7/H;}
+resize();addEventListener('resize',resize);
+Object.assign(goal,OVER());Object.assign(view,STILL||reduce?OVER():{x:X(51.529),z:Z(25.322),dist:24,az:-.6,el:.6});
+let current=null,idle=0;
+function flyTo(d){current=d;showCard(d);if(!d){Object.assign(goal,OVER())}else{goal.x=d.x;goal.z=d.z;goal.dist=d.dist*(mobile?1.5:1);goal.el=mobile?.95:.78}idle=0;
+  document.querySelectorAll('#chips button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===(d?d.id:'all')));
+  flags.forEach(f=>f.el.classList.toggle('on',d&&f.d===d));}
+
+/* chips + flags */
+const chipsEl=document.getElementById('chips');
+chipsEl.innerHTML=`<button type="button" data-id="all" aria-pressed="true">Whole model</button>`+DIST.map(d=>`<button type="button" data-id="${d.id}" aria-pressed="false">${d.en}</button>`).join('');
+chipsEl.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>flyTo(DIST.find(d=>d.id===b.dataset.id)||null)));
+const labelsEl=document.getElementById('labels');
+const flags=DIST.map(d=>{const el=document.createElement('div');el.className='flag';el.innerHTML=`<div class="stick"></div><div class="tag">${d.en}<span lang="ar">${d.ar}</span><em>${d.id==='muaither'?'HQ':d.green}</em></div>`;labelsEl.appendChild(el);el.querySelector('.tag').addEventListener('click',()=>flyTo(d));return{d,el,stick:el.querySelector('.stick')}});
+
+/* pointer: drag to orbit, hover/click green buildings */
+const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
+let drag=null,hover=-1,downAt=null;
+canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,az:goal.az,el:goal.el};downAt={x:e.clientX,y:e.clientY};canvas.classList.add('drag');idle=0});
+addEventListener('pointerup',e=>{if(drag){canvas.classList.remove('drag');const moved=downAt&&Math.hypot(e.clientX-downAt.x,e.clientY-downAt.y)>5;drag=null;if(!moved&&e.target===canvas){pick(e);if(hover>=0)openPanel(greens[hover]);else if(hqHover)openPanel(GREEN.find(b=>b.landmark))}}});
+addEventListener('pointermove',e=>{if(drag){goal.az=drag.az-(e.clientX-drag.x)*.005;goal.el=Math.max(.42,Math.min(1.25,drag.el+(e.clientY-drag.y)*.003));return}if(e.target===canvas)pick(e);else if(hover>=0||hqHover){hover=-1;hqHover=false;tipOff()}});
+let hqHover=false;const hqMesh=LMG.children[LMG.children.length-1];
+function pick(e){
+  const r=canvas.getBoundingClientRect();ndc.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(ndc,cam);
+  const hit=ray.intersectObject(IG,false)[0];const hq=ray.intersectObject(hqMesh,true)[0];
+  const h=hit&&(!hq||hit.distance<hq.distance)?hit.instanceId:-1;hqHover=!!hq&&h<0;
+  if(h!==hover||hqHover){hover=h;}
+  canvas.classList.toggle('hov',hover>=0||hqHover);
+  const b=hover>=0?greens[hover]:hqHover?GREEN.find(x=>x.landmark):null;
+  if(b)tipOn(b,e.clientX-r.left,e.clientY-r.top);else tipOff();
+}
+const tip=document.getElementById('tip');
+function tipOn(b,x,y){tip.querySelector('img').src=IMG(b.D.photo,500);tip.querySelector('.mono').textContent=b.D.en;tip.querySelector('h4').textContent=b.title;tip.querySelector('p').innerHTML=b.landmark?'Head office · <b>visit us</b>':`${b.units} units managed · <b>${b.avail} available</b> from QAR ${b.from.toLocaleString('en-US')}`;
+  const tx=Math.min(x+22,W-270),ty=Math.max(80,Math.min(y-40,H-260));tip.style.transform=`translate(${tx}px,${ty}px)`;tip.classList.add('on');pin.visible=true;pin.position.set(b.x,LAND_H+b.h,b.z);}
+function tipOff(){tip.classList.remove('on');pin.visible=false}
+const panel=document.getElementById('panel');
+function openPanel(b){
+  panel.querySelector('img').src=IMG(b.D.photo,800);panel.querySelector('img').alt=b.D.en;
+  document.getElementById('pDist').textContent=b.D.en+' · managed by ABAR';
+  document.getElementById('pTitle').innerHTML=`${b.title}<span lang="ar">${b.D.ar}</span>`;
+  document.getElementById('pText').textContent=b.D.text;
+  document.getElementById('pUnits').textContent=b.landmark?'—':b.units;document.getElementById('pAvail').textContent=b.landmark?'—':b.avail;document.getElementById('pSince').textContent=b.since;
+  const villa=b.t==='villa';const list=b.landmark?[]:Array.from({length:Math.min(3,b.avail)},(_,i)=>{const beds=villa?3+i:1+i;return`<li><b>${villa?beds+'-bed villa':beds+'-bed apartment'}</b><span class="p">${(b.from+i*(villa?2500:2200)).toLocaleString('en-US')}<small>QAR / MO</small></span><small>${villa?260+beds*55:62+beds*38} m² · ${['Available now','From 1 Nov','From 15 Nov'][i]}</small></li>`});
+  document.getElementById('pList').innerHTML=list.join('')||'<li><b>Street 267, Building 23</b><span class="p"></span><small>2nd floor, Office 1 · Sun – Thu, 8:00 – 18:00</small></li>';
+  document.getElementById('pBook').onclick=()=>{document.getElementById('interest').value=`${b.title}, ${b.D.en}`;closePanel()};
+  panel.classList.add('on');panel.setAttribute('aria-hidden','false');
+  const d=b.D;goal.x=b.x;goal.z=b.z;goal.dist=Math.min(goal.dist,mobile?11:8);goal.el=Math.min(goal.el,.85);current=d;idle=0;showCard(d);
+}
+function closePanel(){panel.classList.remove('on');panel.setAttribute('aria-hidden','true')}
+const gal=document.getElementById('model'),dcard=document.getElementById('dcard');
+function showCard(d){gal.classList.toggle('touring',!!d);document.getElementById('nav').classList.toggle('solid',!!d||scrollY>innerHeight*.75);if(!d)return;dcard.querySelector('.mono').innerHTML=`<i></i>${d.id==='muaither'?'Head office':d.green+' managed '+(d.green>1?'buildings':'building')}`;dcard.querySelector('h2').innerHTML=`${d.en} <span lang="ar">${d.ar}</span>`;dcard.querySelector('p').textContent=d.text;dcard.querySelector('.from').innerHTML=d.from==='—'?'Street 267, Building 23':`Homes from <b>QAR ${d.from}</b> / month`}
+document.getElementById('closePanel').addEventListener('click',closePanel);
+addEventListener('keydown',e=>{if(e.key==='Escape')closePanel()});
+
+/* sun */
+const sunIn=document.getElementById('sun'),sunOut=document.getElementById('sunOut');
+function setSun(hr){
+  const u=(hr-6)/12.5,az=Math.PI*(.95-u*.9)+.3,el=Math.max(.06,Math.sin(Math.PI*Math.min(1,Math.max(0,u)))*1.05);
+  const d=60;sun.position.set(view.x+Math.cos(az)*Math.cos(el)*d,Math.sin(el)*d,view.z-Math.sin(az)*Math.cos(el)*d*.6);sun.target.position.set(view.x,0,view.z);
+  const warm=1-Math.min(1,el/.6);sun.color.setRGB(1,1-.12*warm,1-.25*warm);sun.intensity=.75+.75*Math.min(1,el/.5);
+  const h=Math.floor(hr),m=Math.round((hr-h)*60);sunOut.textContent=`${String(h).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+}
+let sunHr=+sunIn.value;sunIn.addEventListener('input',()=>{sunHr=+sunIn.value;idle=0});
+
+/* ---------------- loop ---------------- */
+const v=new THREE.Vector3(),v2=new THREE.Vector3();
+let t0=performance.now(),last=t0,visible=true,introDone=STILL||reduce,lastHover=-2;
+new IntersectionObserver(es=>visible=es[0].isIntersecting).observe(canvas);
+function frame(now){
+  requestAnimationFrame(frame);
+  if(!visible)return;
+  const t=(now-t0)/1000,dt=Math.min(.05,(now-last)/1000);last=now;
+  if(!introDone){setMatrices(t,hover);if(t>3.6){introDone=true;lastHover=-2}}else if(hover!==lastHover){setMatrices(99,hover);lastHover=hover}
+  idle+=dt;
+  if(!drag&&!current&&!reduce&&!STILL&&idle>4)goal.az+=.026*dt;
+  const k=STILL?1:1-Math.exp(-dt*(t<3.2?1.1:3.6));
+  view.x+=(goal.x-view.x)*k;view.z+=(goal.z-view.z)*k;view.dist+=(goal.dist-view.dist)*k;view.az+=(goal.az-view.az)*k;view.el+=(goal.el-view.el)*k;
+  const ce=Math.cos(view.el);
+  cam.position.set(view.x+Math.sin(view.az)*ce*view.dist,Math.sin(view.el)*view.dist,view.z+Math.cos(view.az)*ce*view.dist);
+  cam.lookAt(view.x,.2,view.z);
+  setSun(sunHr);
+  if(pin.visible){pin.userData.stick.scale.y=.6+.08*Math.sin(t*3);}
+  // tilt-shift focus band follows the target
+  v.set(view.x,.3,view.z).project(cam);const fy=v.y*.5+.5;hts.uniforms.r.value=vts.uniforms.r.value=fy;
+  composer.render();
+  // district flags
+  const placed=[];
+  flags.map(f=>{
+    v.set(f.d.x,LAND_H+.05,f.d.z).project(cam);v2.set(f.d.x,LAND_H+(f.d.id==='westbay'||f.d.id==='lusail'?2.2:1.1),f.d.z).project(cam);
+    return{f,gx:(v.x*.5+.5)*W,gy:(-v.y*.5+.5)*H,ty:(-v2.y*.5+.5)*H,vz:v.z,w:f.w||(f.w=f.el.querySelector('.tag').offsetWidth||120)};
+  }).sort((a,b)=>b.ty-a.ty).forEach(o=>{
+    // nudge a flag upward until its tag clears the ones already placed
+    for(let n=0;n<12;n++){const hit=placed.find(p=>o.gx<p.gx+p.w+6&&o.gx+o.w+6>p.gx&&Math.abs(o.ty-p.ty)<30);if(!hit)break;o.ty=hit.ty-30}
+    placed.push(o);
+    const show=o.vz<1&&o.gx>0&&o.gx<W&&o.gy>70&&o.gy<H&&o.ty>64&&introDone&&view.dist>42;
+    o.f.el.style.opacity=show?1:0;o.f.el.style.transform=`translate(${o.gx}px,${o.ty}px)`;o.f.stick.style.height=Math.max(0,o.gy-o.ty)+'px';
+  });
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

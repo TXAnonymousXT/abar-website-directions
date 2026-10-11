@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR Real Estate — Homes of Qatar, unfolded</title>
+<meta name="description" content="A pop-up guide to the districts where ABAR leases and manages homes in Qatar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@300;400;500;600&family=Markazi+Text:wght@400;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;
+  --forest:#1A2817;
+  --charcoal:#282C30;
+  --ink:#222222;
+  --rule:#EDEDED;
+  --mute:#BABABA;
+  --grey:#727272;
+  --serif:"Young Serif", Georgia, serif;
+  --sans:"Figtree", system-ui, sans-serif;
+  --mono:"DM Mono", ui-monospace, monospace;
+  --arabic:"Markazi Text", serif;
+  --gut:clamp(18px,2.8vw,44px);
+  --ease:cubic-bezier(.65,0,.2,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--charcoal);color:var(--white);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--white);color:var(--forest)}
+:focus-visible{outline:2px solid var(--white);outline-offset:3px}
+.mono{font:400 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+[lang=ar]{font-family:var(--arabic)}
+h1,h2,h3{text-wrap:balance}
+
+.nav{position:fixed;inset:0 0 auto;z-index:40;display:flex;align-items:center;gap:30px;padding:18px var(--gut);transition:background .4s,padding .4s}
+.nav.solid{background:rgba(34,34,34,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding-block:12px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:44px}
+.brand b{font:600 15px/1 var(--sans);letter-spacing:.34em}
+.brand small{display:block;font:400 8.5px/1 var(--mono);letter-spacing:.28em;color:var(--mute);margin-top:5px}
+.nav nav{display:flex;gap:26px;margin-left:auto}
+.nav nav a{text-decoration:none;font-size:14px;color:var(--mute);transition:color .3s}
+.nav nav a:hover{color:var(--white)}
+.nav .ar{font:400 19px/1 var(--arabic);text-decoration:none;color:var(--mute)}
+.nav .cta{text-decoration:none;background:var(--white);color:var(--forest);font:600 14px/1 var(--sans);padding:12px 18px;border-radius:40px;display:inline-flex;gap:10px;align-items:center;transition:background .3s}
+.nav .cta:hover{background:var(--rule)}
+.nav .cta svg{width:16px}
+
+/* ---------- the book ---------- */
+.book{position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(120% 90% at 50% 40%,#2e3337 0%,#282C30 55%,#222 100%)}
+#gl{position:absolute;inset:0;width:100%;height:100%}
+#gl.hov{cursor:pointer}
+.loading{position:absolute;inset:0;display:grid;place-items:center;color:var(--mute);transition:opacity .8s}
+.loaded .loading{opacity:0;pointer-events:none}
+
+.cover-copy{position:absolute;left:var(--gut);top:50%;transform:translateY(-50%);width:min(440px,34vw);z-index:4;transition:opacity .6s,transform .8s var(--ease-out)}
+.past-cover .cover-copy{opacity:0;transform:translate(-30px,-50%);pointer-events:none}
+.cover-copy .mono{color:var(--mute)}
+.cover-copy h1{font:400 clamp(2.8rem,4.6vw,4.8rem)/1 var(--serif);letter-spacing:-.02em;margin:18px 0 0}
+.cover-copy h1 em{font-style:normal;color:var(--white);background:linear-gradient(var(--forest),var(--forest)) 0 88%/100% 22% no-repeat}
+.cover-copy p{color:var(--mute);margin:22px 0 0;max-width:36ch;font-size:16.5px}
+.cover-copy .go{display:inline-flex;align-items:center;gap:12px;margin-top:30px;color:var(--white);text-decoration:none;font-weight:500}
+.cover-copy .go i{width:38px;height:38px;border:1px solid rgba(255,255,255,.35);border-radius:50%;display:grid;place-items:center}
+.cover-copy .go svg{width:16px;animation:nudge 1.8s var(--ease) infinite}
+@keyframes nudge{50%{transform:translateY(4px)}}
+.contents{position:absolute;right:var(--gut);top:50%;transform:translateY(-50%);z-index:4;list-style:none;margin:0;padding:0;text-align:right;transition:opacity .6s}
+.past-cover .contents{opacity:0;pointer-events:none}
+.contents li{border-top:1px solid rgba(255,255,255,.12)}
+.contents li:last-child{border-bottom:1px solid rgba(255,255,255,.12)}
+.contents a{display:flex;gap:22px;justify-content:space-between;align-items:baseline;padding:11px 0;text-decoration:none;min-width:250px}
+.contents a span:first-child{font:400 10.5px/1 var(--mono);color:var(--grey);letter-spacing:.1em}
+.contents a b{font:400 19px/1 var(--serif)}
+.contents a:hover b{color:var(--mute)}
+.contents .mono{display:block;color:var(--grey);margin-bottom:10px}
+
+.caption{position:absolute;left:50%;bottom:22px;transform:translate(-50%,20px);z-index:5;width:min(980px,calc(100% - 2*var(--gut)));display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;background:rgba(34,34,34,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);padding:14px 16px 14px 22px;border-radius:60px;opacity:0;transition:opacity .5s,transform .7s var(--ease-out)}
+.past-cover .caption{opacity:1;transform:translate(-50%,0)}
+.caption .ch{display:flex;flex-direction:column;gap:2px;min-width:170px}
+.caption .ch .mono{color:var(--grey)}
+.caption .ch b{font:400 21px/1.1 var(--serif);display:flex;gap:10px;align-items:baseline}
+.caption .ch b span{font:400 18px/1 var(--arabic);color:var(--mute)}
+.caption .info{color:var(--mute);font-size:14.5px;line-height:1.4}
+.caption .info strong{color:var(--white);font-weight:500}
+.caption .right{display:flex;align-items:center;gap:16px}
+.dots{display:flex;gap:7px}
+.dots button{width:9px;height:9px;border-radius:50%;border:1px solid var(--mute);background:transparent;padding:0;cursor:pointer;transition:background .3s,transform .3s}
+.dots button[aria-current=true]{background:var(--white);border-color:var(--white);transform:scale(1.25)}
+.caption .btn{white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--white);color:var(--forest);border:0;border-radius:40px;padding:13px 20px;text-decoration:none;font:600 14px/1 var(--sans);cursor:pointer;transition:background .3s}
+.btn:hover{background:var(--rule)}
+.btn svg{width:16px}
+
+.tip{position:absolute;left:0;top:0;z-index:8;background:var(--white);color:var(--ink);padding:12px 14px;width:230px;border-radius:4px;box-shadow:0 20px 40px -14px rgba(0,0,0,.6);pointer-events:none;opacity:0;transition:opacity .2s}
+.tip.on{opacity:1}
+.tip .mono{color:var(--forest);display:flex;gap:8px;align-items:center}
+.tip .mono i{width:8px;height:8px;background:var(--forest)}
+.tip b{display:block;font:400 18px/1.2 var(--serif);margin:6px 0 4px}
+.tip span{font-size:13.5px;color:var(--grey)}
+
+/* ---------- after the book ---------- */
+.sec{padding:clamp(90px,10vw,150px) var(--gut)}
+.homes{background:var(--white);color:var(--ink)}
+.head{display:grid;grid-template-columns:repeat(12,1fr);column-gap:22px;align-items:end;margin-bottom:46px}
+.head .mono{grid-column:1/-1;color:var(--grey);margin-bottom:16px}
+.head h2{grid-column:1/span 7;margin:0;font:400 clamp(2.4rem,4.2vw,4.2rem)/1.02 var(--serif);letter-spacing:-.02em}
+.head h2 em{font-style:normal;color:var(--forest)}
+.head p{grid-column:9/-1;margin:0;color:var(--grey)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 24px}
+.card{text-decoration:none;display:block}
+.card .im{aspect-ratio:3/2;overflow:hidden;border-radius:3px;background:var(--rule)}
+.card .im img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease-out)}
+.card:hover .im img{transform:scale(1.05)}
+.card .ct{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding-top:14px;align-items:baseline}
+.card .chap{grid-column:1/-1;color:var(--forest)}
+.card h3{margin:0;font:400 21px/1.2 var(--serif)}
+.card .p{font:600 16px/1 var(--sans);color:var(--forest);white-space:nowrap}
+.card .p small{font:400 10px var(--mono);color:var(--grey)}
+.card .f{grid-column:1/-1;color:var(--grey);font-size:14px;padding-top:8px;border-top:1px solid var(--rule);margin-top:6px}
+.rv{opacity:0;transform:translateY(28px);transition:opacity 1s,transform 1.1s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+
+.contact{background:var(--forest);display:grid;grid-template-columns:repeat(12,1fr);column-gap:22px;row-gap:50px}
+.contact .info{grid-column:1/span 5}
+.contact .mono{color:var(--mute)}
+.contact h2{margin:16px 0 30px;font:400 clamp(2.4rem,4.2vw,4.2rem)/1.02 var(--serif);letter-spacing:-.02em}
+.contact dl{display:grid;grid-template-columns:100px 1fr;gap:14px 18px;margin:0}
+.contact dt{color:var(--mute)}
+.contact dd{margin:0}
+.contact dd a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+.contact form{grid-column:7/-1;background:var(--white);color:var(--ink);padding:clamp(24px,3vw,40px);border-radius:4px}
+.contact form h3{margin:0 0 6px;font:400 28px/1.1 var(--serif)}
+.contact form>p{margin:0 0 22px;color:var(--grey);font-size:15px}
+.fl{display:block;margin-bottom:16px}
+.fl .mono{color:var(--grey)}
+.fl input,.fl select{width:100%;border:0;border-bottom:1px solid var(--rule);background:transparent;padding:8px 0 10px;font-size:16px;border-radius:0}
+.fl input:focus,.fl select:focus{outline:none;border-color:var(--forest)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.contact .btn{background:var(--forest);color:var(--white)}
+.contact .btn:hover{background:var(--ink)}
+.ok{display:none;color:var(--forest);margin:14px 0 0}
+form.done .ok{display:block}
+footer{background:var(--ink);color:var(--mute);padding:24px var(--gut);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px}
+footer [lang=ar]{font-size:18px}
+
+@media (max-width:1100px){
+  .nav nav{display:none}
+  .nav .ar{margin-left:auto}
+  .contents{display:none}
+  .grid{grid-template-columns:1fr 1fr}
+  .head h2,.head p{grid-column:1/-1}.head p{margin-top:16px}
+  .contact .info,.contact form{grid-column:1/-1}
+}
+@media (max-width:760px){
+  .nav .ar{display:none}
+  .nav .cta{padding:10px 14px;font-size:13px}
+  .cover-copy{top:auto;bottom:34px;transform:none;width:auto;right:var(--gut)}
+  .past-cover .cover-copy{transform:translateY(20px)}
+  .cover-copy h1{font-size:2.5rem}
+  .cover-copy p{font-size:15px;margin-top:12px}
+  .caption{grid-template-columns:1fr auto;border-radius:16px;bottom:12px;padding:12px 14px;gap:10px}
+  .caption .info{grid-column:1/-1;grid-row:2;font-size:13.5px}
+  .caption .btn{display:none}
+  .tip{display:none}
+  .grid{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation:none!important}html{scroll-behavior:auto}}
+.still *,.still *::before,.still *::after{transition:none!important}
+.still .rv{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#book" aria-label="ABAR Real Estate, home">
+    <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.6"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+    <span><b>ABAR</b><small>REAL ESTATE</small></span>
+  </a>
+  <nav aria-label="Chapters" id="topnav"></nav>
+  <a class="ar" href="#" lang="ar">عربي</a>
+  <a class="cta" href="#contact">Book a viewing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+</header>
+
+<main>
+<section class="book" id="book" aria-label="A pop-up guide to Qatar">
+  <div class="stage" id="stage">
+    <canvas id="gl" role="img" aria-label="A green clothbound pop-up book on a desk. Each chapter shows a district of Qatar in paper cut-outs."></canvas>
+    <div class="loading mono">Binding the book…</div>
+
+    <div class="cover-copy">
+      <span class="mono">ABAR Real Estate · Doha</span>
+      <h1>Homes of Qatar, <em>unfolded.</em></h1>
+      <p>A pop-up guide to the districts where we lease and manage homes. Every chapter is a place; every green building is one we look after.</p>
+      <a class="go" href="#" id="openBook"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i>Scroll to open the book</a>
+    </div>
+    <ol class="contents" id="contents"><span class="mono">Contents</span></ol>
+
+    <div class="caption" id="caption" aria-live="polite">
+      <div class="ch"><span class="mono" id="capNo"></span><b id="capName"></b></div>
+      <div class="info" id="capInfo"></div>
+      <div class="right"><div class="dots" id="dots" role="group" aria-label="Chapters"></div><a class="btn" href="#homes" id="capBtn">See homes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="tip" id="tip"><span class="mono"><i></i>Managed by ABAR</span><b></b><span></span></div>
+  </div>
+</section>
+
+<section class="sec homes" id="homes" aria-labelledby="homes-t">
+  <div class="head">
+    <span class="mono rv">From the book</span>
+    <h2 id="homes-t" class="rv">Homes you can rent <em>this month</em></h2>
+    <p class="rv">A selection from every chapter. Each one sits in a building we manage ourselves.</p>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="sec contact" id="contact" aria-labelledby="con-t">
+  <div class="info rv">
+    <span class="mono">The last page</span>
+    <h2 id="con-t">Visit us in Muaither</h2>
+    <dl>
+      <dt class="mono">Office</dt><dd>Street 267, Building 23, 2nd floor, Office 1, Muaither, Doha</dd>
+      <dt class="mono">Post</dt><dd>P.O. Box 23345, Doha, State of Qatar</dd>
+      <dt class="mono">Phone</dt><dd><a href="tel:+97400000000">+974 0000 0000</a></dd>
+      <dt class="mono">Email</dt><dd><a href="mailto:info@aba-r.com">info@aba-r.com</a></dd>
+      <dt class="mono">Hours</dt><dd>Sunday – Thursday, 8:00 – 18:00</dd>
+    </dl>
+  </div>
+  <form class="rv" onsubmit="event.preventDefault();this.classList.add('done')">
+    <h3>Book a viewing</h3>
+    <p>Tell us which chapter you’d like to live in. We’ll call to arrange a time.</p>
+    <div class="two">
+      <label class="fl"><span class="mono">Name</span><input autocomplete="name" required></label>
+      <label class="fl"><span class="mono">Mobile</span><input type="tel" autocomplete="tel" required></label>
+    </div>
+    <label class="fl"><span class="mono">District</span><select id="distSel"><option>Anywhere in Qatar</option></select></label>
+    <button class="btn" type="submit">Send request <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+    <p class="ok mono" role="status">Request sent — we’ll call you within one working day.</p>
+  </form>
+</section>
+</main>
+<footer><span>© 2026 ABAR Real Estate · Doha, State of Qatar</span><span class="mono">Illustrations, listings and prices are examples for this design proposal</span><span lang="ar">بيوت قطر</span></footer>
+
+<script>
+/* chapter data shared by the page and the book */
+const CHAPTERS=[
+  {no:'',en:'Title page',ar:'',info:'A pop-up guide by <strong>ABAR Real Estate</strong> — turn the page to begin.',homes:''},
+  {no:'Chapter 1',en:'Lusail',ar:'لوسيل',info:'Marina towers and the Boulevard · <strong>14 homes</strong> from <strong>QAR 7,000</strong> a month',
+   text:'Qatar’s newest city rises from the sea north of Doha: marina towers, offices on the Boulevard, the tram at your door, and the stadium that hosted the 2022 final.',
+   list:[['Marina District one-bed','1 bed · 88 m²','8,200','photo-1741764014072-68953e93cd48'],['Fox Hills apartment','3 bed · 165 m²','11,000','photo-1682184805271-11671b7ecf4c']],abar:['Marina tower','23 apartments · 3 available']},
+  {no:'Chapter 2',en:'The Pearl',ar:'اللؤلؤة',info:'Island living around the marinas · <strong>11 homes</strong> from <strong>QAR 8,500</strong> a month',
+   text:'An island built over old pearling grounds and ringed by marinas — Porto Arabia’s towers to the south, the canals of Qanat Quartier to the east.',
+   list:[['Porto Arabia two-bed','2 bed · 145 m²','12,500','photo-1728488448472-16a259c6ba7c'],['Qanat Quartier townhouse','3 bed · 240 m²','21,000','photo-1713832139688-79676097edde']],abar:['Waterfront tower','40 apartments · 4 available']},
+  {no:'Chapter 3',en:'West Bay',ar:'الخليج الغربي',info:'Towers along the Corniche · <strong>18 homes</strong> from <strong>QAR 7,500</strong> a month',
+   text:'Doha’s skyline: offices and sea-view apartments along a seven-kilometre Corniche, with the Museum of Islamic Art at its southern end.',
+   list:[['West Bay sea-view','3 bed · 190 m²','14,000','photo-1758448755778-90ebf4d0f1e7'],['Corniche one-bed','1 bed · 82 m²','8,500','photo-1757924461488-ef9ad0670978']],abar:['Sea-view tower','56 apartments · 5 available']},
+  {no:'Chapter 4',en:'Al Wakrah',ar:'الوكرة',info:'Villas by the souq and the beach · <strong>15 homes</strong> from <strong>QAR 8,500</strong> a month',
+   text:'South of the airport, an old pearling town with a restored souq and a long public beach. Inland at Al Wukair, newer compounds with pools and gardens.',
+   list:[['Garden villa','5 bed · 520 m²','18,000','photo-1613977257363-707ba9348227'],['Compound villa, Al Wukair','4 bed · 380 m²','11,500','photo-1768200498972-fd56353d73fc']],abar:['Garden villas','12 villas · 2 available']},
+  {no:'The last page',en:'Visit us',ar:'تواصل معنا',info:'Street 267, Building 23, Muaither · <strong>Sunday – Thursday, 8:00 – 18:00</strong>',abar:['ABAR head office','Muaither · visitors welcome']},
+];
+const QS=new URLSearchParams(location.search),STILL=QS.has('still');
+if(STILL)document.documentElement.classList.add('still');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const IMG=(id,w=800)=>`https://images.unsplash.com/${id}?w=${w}&q=70&auto=format&fit=crop`;
+document.getElementById('grid').innerHTML=CHAPTERS.slice(1,5).flatMap(c=>c.list.map(l=>`<a class="card rv" href="#contact" data-d="${c.en}"><div class="im"><img loading="lazy" src="${IMG(l[3])}" alt="${l[0]}"></div><div class="ct"><span class="chap mono">${c.no} · ${c.en}</span><h3>${l[0]}</h3><span class="p">${l[2]} <small>QAR/MO</small></span><span class="f">${l[1]}</span></div></a>`)).slice(0,6).join('');
+document.querySelectorAll('#grid .rv').forEach(el=>io.observe(el));
+const distSel=document.getElementById('distSel');CHAPTERS.slice(1,5).forEach(c=>distSel.add(new Option(c.en)));
+document.querySelectorAll('#grid .card').forEach(a=>a.addEventListener('click',()=>distSel.value=a.dataset.d));
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+
+const QS=new URLSearchParams(location.search),STILL=QS.has('still');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const INK='#282C30',FOREST='#1A2817',GREY='#727272',MUTE='#BABABA',RULE='#EDEDED';
+const IMG=(id,w=400)=>`https://images.unsplash.com/${id}?w=${w}&q=70&auto=format&fit=crop`;
+
+/* ======================= paper art ======================= */
+const PX=110;                                   // canvas pixels per book unit
+function canvas(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return c}
+function tex(c){const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;return t}
+let rs=3;const rnd=()=>(rs=(rs*16807)%2147483647)/2147483647;
+function grain(g,w,h,a=.035){const id=g.getImageData(0,0,w,h),d=id.data;for(let i=0;i<d.length;i+=4){if(d[i+3]<8)continue;const n=(rnd()-.5)*255*a;d[i]+=n;d[i+1]+=n;d[i+2]+=n}g.putImageData(id,0,0)}
+// one die-cut card: shapes are white card stock with printed linework; the ABAR building is printed green
+function card(wu,hu,draw){
+  const c=canvas(Math.round(wu*PX),Math.round(hu*PX)),g=c.getContext('2d');g.lineJoin='round';g.lineCap='round';
+  const W=c.width,H=c.height,K={g,W,H,base:H-2};
+  draw(K);grain(g,W,H);return{t:tex(c),w:wu,h:hu};
+}
+function solid(K,path,green=false,lw=2.6){const g=K.g;g.fillStyle=green?FOREST:'#fff';g.fill(path);g.strokeStyle=green?FOREST:INK;g.lineWidth=lw;g.stroke(path)}
+function inside(K,path,fn){const g=K.g;g.save();g.clip(path);fn(g);g.restore()}
+function hlines(g,x0,x1,y0,y1,step,col,lw=1.2){g.strokeStyle=col;g.lineWidth=lw;g.beginPath();for(let y=y0;y<y1;y+=step){g.moveTo(x0,y);g.lineTo(x1,y)}g.stroke()}
+function vlines(g,x0,x1,y0,y1,step,col,lw=1.1){g.strokeStyle=col;g.lineWidth=lw;g.beginPath();for(let x=x0;x<x1;x+=step){g.moveTo(x,y0);g.lineTo(x,y1)}g.stroke()}
+function ground(K,h=16,waves=false){const p=new Path2D();p.rect(1,K.base-h,K.W-2,h);solid(K,p);if(waves)inside(K,p,g=>{g.strokeStyle='rgba(40,44,48,.45)';g.lineWidth=1.2;for(let y=K.base-h+5;y<K.base;y+=5){g.beginPath();for(let x=0;x<K.W;x+=4)g.lineTo(x,y+Math.sin(x*.08+y)*1.2);g.stroke()}})}
+function tower(K,x,w,h,o={}){
+  const b=K.base-(o.lift||0),top=b-h,p=new Path2D();
+  if(o.crown==='slant'){p.moveTo(x,b);p.lineTo(x,top+18);p.lineTo(x+w,top);p.lineTo(x+w,b)}
+  else if(o.crown==='round'){p.moveTo(x,b);p.lineTo(x,top+w/2);p.arc(x+w/2,top+w/2,w/2,Math.PI,0);p.lineTo(x+w,b)}
+  else if(o.crown==='step'){p.moveTo(x,b);p.lineTo(x,top+28);p.lineTo(x+w*.18,top+28);p.lineTo(x+w*.18,top+12);p.lineTo(x+w*.38,top+12);p.lineTo(x+w*.38,top);p.lineTo(x+w*.62,top);p.lineTo(x+w*.62,top+12);p.lineTo(x+w*.82,top+12);p.lineTo(x+w*.82,top+28);p.lineTo(x+w,top+28);p.lineTo(x+w,b)}
+  else if(o.crown==='point'){p.moveTo(x,b);p.lineTo(x,top+w*.7);p.lineTo(x+w/2,top);p.lineTo(x+w,top+w*.7);p.lineTo(x+w,b)}
+  else{p.moveTo(x,b);p.lineTo(x,top);p.lineTo(x+w,top);p.lineTo(x+w,b)}
+  p.closePath();solid(K,p,o.green);
+  if(o.spire){const s=new Path2D();s.rect(x+w/2-2,top-o.spire,4,o.spire+2);solid(K,s,o.green,1.6)}
+  const col=o.green?'rgba(255,255,255,.42)':'rgba(40,44,48,.3)';
+  inside(K,p,g=>{hlines(g,x,x+w,top+(o.crown==='point'?w*.7:14),b-6,o.step||11,col);if(w>46)vlines(g,x+w/3,x+w,top,b,w/3,col)});
+  return p;
+}
+function palm(K,x,h,s=1){const g=K.g,b=K.base;const tr=new Path2D();tr.moveTo(x-4*s,b);tr.quadraticCurveTo(x+6*s,b-h*.5,x+2*s,b-h);tr.lineTo(x+9*s,b-h);tr.quadraticCurveTo(x+13*s,b-h*.5,x+5*s,b);tr.closePath();solid(K,tr,false,2);
+  const cx=x+5*s,cy=b-h;for(const a of[-2.7,-2.2,-1.6,-1,-.45,0]){const f=new Path2D();const L=34*s;const ex=cx+Math.cos(a)*L,ey=cy+Math.sin(a)*L*.7+12*s;f.moveTo(cx,cy);f.quadraticCurveTo(cx+Math.cos(a)*L*.5,cy+Math.sin(a)*L*.5-14*s,ex,ey);f.quadraticCurveTo(cx+Math.cos(a)*L*.5,cy+Math.sin(a)*L*.5-2*s,cx,cy);solid(K,f,false,1.8)}}
+function yacht(K,x,w,o={}){const b=K.base-10,p=new Path2D();p.moveTo(x,b-w*.16);p.lineTo(x+w,b-w*.2);p.lineTo(x+w*.86,b);p.lineTo(x+w*.08,b);p.closePath();solid(K,p,false,2);const c=new Path2D();c.rect(x+w*.25,b-w*.32,w*.42,w*.13);solid(K,c,false,1.8);if(o.mast){const m=new Path2D();m.rect(x+w*.46,b-w*.32-o.mast,3,o.mast);solid(K,m,false,1.4)}}
+function dhow(K,x,w){const b=K.base-10,p=new Path2D();p.moveTo(x,b-w*.2);p.quadraticCurveTo(x+w*.15,b,x+w*.4,b);p.lineTo(x+w*.85,b);p.lineTo(x+w,b-w*.26);p.lineTo(x,b-w*.2);solid(K,p,false,2);
+  const m=new Path2D();m.rect(x+w*.48,b-w*1.05,3.5,w*.86);solid(K,m,false,1.4);const s=new Path2D();s.moveTo(x+w*.12,b-w*.36);s.quadraticCurveTo(x+w*.55,b-w*.5,x+w*.9,b-w*1.15);s.quadraticCurveTo(x+w*.62,b-w*.75,x+w*.5,b-w*.28);s.closePath();solid(K,s,false,1.8)}
+function villa(K,x,w,h,o={}){const b=K.base-(o.lift||0),top=b-h,p=new Path2D();p.moveTo(x,b);p.lineTo(x,top);const n=Math.max(3,Math.round(w/16));for(let i=0;i<n;i++){const a=x+i*w/n;p.lineTo(a+w/n*.3,top);p.lineTo(a+w/n*.5,top-8);p.lineTo(a+w/n*.7,top)}p.lineTo(x+w,top);p.lineTo(x+w,b);p.closePath();solid(K,p,o.green);
+  const col=o.green?'rgba(255,255,255,.55)':INK;const g=K.g;g.strokeStyle=col;g.lineWidth=1.6;
+  const d=new Path2D();d.moveTo(x+w/2-9,b);d.lineTo(x+w/2-9,b-22);d.arc(x+w/2,b-22,9,Math.PI,0);d.lineTo(x+w/2+9,b);g.stroke(d);
+  for(let i=0;i<2;i++){g.strokeRect(x+10+i*(w-34),top+14,14,16)}if(h>70)for(let i=0;i<2;i++)g.strokeRect(x+10+i*(w-34),top+44,14,16)}
+
+const ART={};
+function buildArt(){
+  // title page: the ABAR mark stands up off the page
+  ART.logo=[
+    card(3.4,4.6,K=>{const s=K.W/44;const b=K.base;const g=K.g;
+      const T=(x,y,w,h)=>{const p=new Path2D();p.rect((x-36)*s,b-h*s,w*s,h*s);return p};
+      const a=T(41,0,18,48*1.25),a2=T(46,0,8,44*1.25),c=T(61,0,18,40*1.25),c2=T(66,0,8,36*1.25);
+      const outline=new Path2D();outline.rect(36*s,b-50*s,48*s,50*s);
+      [a,c].forEach(p=>solid(K,p,false,3));[a2,c2].forEach(p=>{g.strokeStyle=FOREST;g.lineWidth=3;g.stroke(p)});
+      g.strokeStyle=FOREST;g.lineWidth=4;[a,c].forEach(p=>g.stroke(p));}),
+    card(7.4,.62,K=>{const p=new Path2D();p.rect(1,K.base-14,K.W-2,14);solid(K,p,true,2);const g=K.g;g.fillStyle=FOREST;for(const x of[18,K.W-18]){g.beginPath();g.moveTo(x,K.base-46);g.lineTo(x+14,K.base-30);g.lineTo(x,K.base-14);g.lineTo(x-14,K.base-30);g.closePath();g.fill()}const q=new Path2D();q.rect(26,K.base-36,K.W-52,12);solid(K,q,true,1)}),
+  ];
+  // chapter 1 · Lusail
+  ART.lusail=[
+    card(9.4,4.4,K=>{ground(K,14);const H=K.H;let x=30;const spec=[[60,.55,'slant'],[44,.4],[70,.72,'step'],[52,.5,'point'],[80,.86,'',1],[46,.46,'round'],[64,.66,'slant'],[50,.38],[72,.8,'step'],[44,.52,'point'],[58,.6],[66,.5,'round'],[48,.42],[60,.7,'slant']];
+      for(const [w,h,c,green] of spec){if(x+w>K.W-20)break;tower(K,x,w,h*H*.95,{crown:c,green:!!green,spire:c==='point'?26:0});x+=w+rnd()*10-2}}),
+    card(4.2,5.2,K=>{ground(K,12);const g=K.g,b=K.base-10,cx=K.W/2;
+      const L=new Path2D();L.moveTo(cx-10,b);L.bezierCurveTo(cx-150,b-140,cx-190,b-360,cx-110,b-540);L.lineTo(cx-84,b-552);L.bezierCurveTo(cx-140,b-380,cx-86,b-160,cx+16,b);L.closePath();
+      const R=new Path2D();R.moveTo(cx+10,b);R.bezierCurveTo(cx+150,b-140,cx+190,b-360,cx+110,b-540);R.lineTo(cx+84,b-552);R.bezierCurveTo(cx+140,b-380,cx+86,b-160,cx-16,b);R.closePath();
+      [L,R].forEach(p=>{solid(K,p,false,2.8);inside(K,p,gg=>hlines(gg,0,K.W,b-560,b,12,'rgba(40,44,48,.32)'))});
+      const pod=new Path2D();pod.rect(cx-70,b-40,140,40);solid(K,pod,false,2.4);inside(K,pod,gg=>vlines(gg,cx-70,cx+70,b-40,b,14,'rgba(40,44,48,.35)'))}),
+    card(9.2,1.6,K=>{ground(K,22,true);palm(K,40,110,.95);palm(K,120,90,.8);yacht(K,210,120,{mast:70});yacht(K,370,90);yacht(K,500,140,{mast:90});palm(K,700,105,.9);palm(K,780,120,1);yacht(K,860,110,{mast:60})}),
+  ];
+  // chapter 2 · The Pearl
+  ART.pearl=[
+    card(9.4,4.1,K=>{ground(K,14);const n=12;let x=24;for(let i=0;i<n;i++){const u=i/(n-1),w=58+rnd()*10,h=(.5+.42*Math.pow(Math.abs(u-.5)*2,1.2))*K.H*.92;tower(K,x,w,h,{crown:i%3===0?'round':'',green:i===8,step:9});x+=w+12}}),
+    card(8.4,2.5,K=>{ground(K,12);let x=20;const g=K.g;while(x<K.W-80){const w=70+rnd()*40,h=150+rnd()*90,b=K.base-12,top=b-h,p=new Path2D();p.moveTo(x,b);p.lineTo(x,top);if(rnd()<.5){p.lineTo(x+w*.5,top-16);}p.lineTo(x+w,top);p.lineTo(x+w,b);p.closePath();solid(K,p,false,2.2);
+      g.strokeStyle=INK;g.lineWidth=1.4;for(let fy=top+22;fy<b-30;fy+=38)for(let fx=x+10;fx<x+w-16;fx+=20){g.beginPath();g.moveTo(fx,fy+18);g.lineTo(fx,fy+6);g.arc(fx+6,fy+6,6,Math.PI,0);g.lineTo(fx+12,fy+18);g.stroke()}
+      g.beginPath();g.moveTo(x,top+40);g.lineTo(x+w,top+40);g.stroke();x+=w+2}
+      const br=new Path2D();br.moveTo(K.W*.42,K.base-12);br.quadraticCurveTo(K.W*.5,K.base-80,K.W*.58,K.base-12);br.lineTo(K.W*.6,K.base-12);br.lineTo(K.W*.6,K.base-48);br.quadraticCurveTo(K.W*.5,K.base-110,K.W*.4,K.base-48);br.lineTo(K.W*.4,K.base-12);br.closePath();solid(K,br,false,2.2)}),
+    card(9.2,1.5,K=>{ground(K,22,true);for(let i=0;i<7;i++){const x=30+i*128;yacht(K,x,100+rnd()*30,{mast:i%2?0:80+rnd()*30})}}),
+  ];
+  // chapter 3 · West Bay
+  ART.westbay=[
+    card(9.6,5.2,K=>{ground(K,14);const H=K.H;let x=24;
+      const items=[['t',56,.46,'slant'],['t',48,.58,'point'],['tornado',90,.7],['t',62,.5,'step'],['doha',84,.86],['t',52,.62,'',1],['t',70,.44],['t',50,.68,'point'],['t',64,.5,'round'],['t',46,.36]];
+      for(const it of items){const [k,w,h,c,green]=it;if(x+w>K.W-16)break;
+        if(k==='doha'){const b=K.base,top=b-h*H,p=new Path2D();p.moveTo(x,b);p.lineTo(x,top+w*.55);p.quadraticCurveTo(x,top,x+w/2,top);p.quadraticCurveTo(x+w,top,x+w,top+w*.55);p.lineTo(x+w,b);p.closePath();solid(K,p,false,2.6);
+          inside(K,p,g=>{g.strokeStyle='rgba(40,44,48,.38)';g.lineWidth=1.2;for(let d=-H;d<H;d+=16){g.beginPath();g.moveTo(x+d,b);g.lineTo(x+d+H*.6,b-H*.6);g.moveTo(x+w-d,b);g.lineTo(x+w-d-H*.6,b-H*.6);g.stroke()}});const s=new Path2D();s.rect(x+w/2-2,top-40,4,42);solid(K,s,false,1.5)}
+        else if(k==='tornado'){const b=K.base,top=b-h*H,p=new Path2D();p.moveTo(x,b);p.bezierCurveTo(x+w*.35,b-h*H*.4,x+w*.35,b-h*H*.6,x,top);p.lineTo(x+w,top);p.bezierCurveTo(x+w*.65,b-h*H*.6,x+w*.65,b-h*H*.4,x+w,b);p.closePath();solid(K,p,false,2.6);
+          inside(K,p,g=>{g.strokeStyle='rgba(40,44,48,.38)';g.lineWidth=1.2;for(let d=-200;d<200;d+=14){g.beginPath();g.moveTo(x+d,b);g.lineTo(x+d+120,top);g.moveTo(x+w-d,b);g.lineTo(x+w-d-120,top);g.stroke()}})}
+        else tower(K,x,w,h*H,{crown:c,green:!!green,spire:c==='point'?30:0});
+        x+=w+8+rnd()*8}}),
+    card(4.8,2.6,K=>{ground(K,12);palm(K,30,140,1.1);palm(K,K.W-60,120,1);const cx=K.W/2+10,b=K.base-12;let y=b;[[230,64],[170,60],[110,54],[54,40]].forEach(([w,h],i)=>{const p=new Path2D();p.rect(cx-w/2,y-h,w,h);solid(K,p,false,2.4);if(i===2){const a=new Path2D();a.moveTo(cx-12,y);a.lineTo(cx-12,y-30);a.arc(cx,y-30,12,Math.PI,0);a.lineTo(cx+12,y);K.g.strokeStyle=INK;K.g.lineWidth=1.6;K.g.stroke(a)}y-=h})}),
+    card(9.2,1.9,K=>{ground(K,22,true);dhow(K,40,150);dhow(K,280,120);dhow(K,470,170);dhow(K,720,130)}),
+  ];
+  // chapter 4 · Al Wakrah
+  ART.wakrah=[
+    card(9.2,3.6,K=>{ground(K,14);for(let i=0;i<9;i++)palm(K,30+i*105+rnd()*30,180+rnd()*120,1.1+rnd()*.4);
+      const m=new Path2D(),x=K.W*.62,b=K.base-14;m.moveTo(x,b);m.lineTo(x,b-250);m.lineTo(x-8,b-250);m.lineTo(x-8,b-262);m.lineTo(x+40,b-262);m.lineTo(x+32,b-250);m.lineTo(x+32,b-250);m.lineTo(x+32,b);m.closePath();solid(K,m,false,2.4);const c=new Path2D();c.moveTo(x-2,b-262);c.lineTo(x+16,b-320);c.lineTo(x+34,b-262);c.closePath();solid(K,c,false,2.2);
+      const w=new Path2D(),wx=K.W*.2;w.rect(wx,b-200,60,200);solid(K,w,false,2.4);inside(K,w,g=>vlines(g,wx+12,wx+56,b-190,b-120,12,INK,2))}),
+    card(9.2,2.3,K=>{ground(K,12);const wall=new Path2D();wall.rect(1,K.base-48,K.W-2,36);solid(K,wall,false,2);let x=20;[[150,150],[130,120,1],[170,160],[140,135],[150,145]].forEach(([w,h,green])=>{if(x+w>K.W-10)return;villa(K,x,w,h,{green:!!green,lift:12});x+=w+28})}),
+    card(9.2,1.4,K=>{ground(K,20,false);const g=K.g;for(let i=0;i<5;i++){const x=60+i*190,b=K.base-20,p=new Path2D();p.rect(x-2,b-80,4,80);solid(K,p,false,1.4);const u=new Path2D();u.moveTo(x-46,b-70);u.lineTo(x,b-104);u.lineTo(x+46,b-70);u.closePath();solid(K,u,false,2);inside(K,u,gg=>{gg.strokeStyle='rgba(40,44,48,.5)';gg.lineWidth=1;for(let d=-50;d<50;d+=6){gg.beginPath();gg.moveTo(x+d,b-70);gg.lineTo(x+d*.2,b-104);gg.stroke()}})}dhow(K,K.W*.68,140)}),
+  ];
+  // last page · head office
+  ART.office=[
+    card(5.4,3.2,K=>{ground(K,12);palm(K,30,170,1.1);palm(K,K.W-70,150,1);const x=K.W*.22,w=K.W*.56,b=K.base-12,h=250,p=new Path2D();p.rect(x,b-h,w,h);solid(K,p,true,2.4);
+      inside(K,p,g=>{g.strokeStyle='rgba(255,255,255,.5)';g.lineWidth=1.4;for(let fy=b-h+50;fy<b-40;fy+=56)for(let fx=x+18;fx<x+w-30;fx+=34)g.strokeRect(fx,fy,20,30)});
+      const s=new Path2D();s.rect(x+w*.3,b-h-30,w*.4,30);solid(K,s,false,2);K.g.fillStyle=FOREST;K.g.font='600 20px Figtree';K.g.textAlign='center';K.g.fillText('A B A R',x+w/2,b-h-9);
+      const d=new Path2D();d.rect(x+w/2-24,b-56,48,56);solid(K,d,false,2)}),
+    card(6.6,1.1,K=>{const p=new Path2D();p.rect(1,K.base-56,K.W-2,56);solid(K,p,false,2);const g=K.g;g.fillStyle=INK;g.font='500 22px "DM Mono"';g.textAlign='center';g.fillText('STREET 267 · BUILDING 23',K.W/2,K.base-22)}),
+  ];
+}
+
+/* ======================= printed pages ======================= */
+const PW=10,PH=13,PC=[1000,1300];
+function pageCanvas(){const c=canvas(...PC),g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,...PC);return{c,g}}
+function finish(c,g){grain(g,...PC,.02);return tex(c)}
+function folio(g,n,side){g.fillStyle=GREY;g.font='400 22px "DM Mono"';g.textAlign=side==='l'?'left':'right';g.fillText(String(n).padStart(2,'0'),side==='l'?90:PC[0]-90,PC[1]-70);g.textAlign=side==='l'?'right':'left';g.fillText('ABAR · HOMES OF QATAR',side==='l'?PC[0]-90:90,PC[1]-70)}
+function wrap(g,text,x,y,maxW,lh){const words=text.split(' ');let line='';for(const w of words){const t=line?line+' '+w:w;if(g.measureText(t).width>maxW){g.fillText(line,x,y);y+=lh;line=w}else line=t}g.fillText(line,x,y);return y}
+const pending=[];
+function textPage(ch,n){
+  const {c,g}=pageCanvas();
+  g.fillStyle=GREY;g.font='400 24px "DM Mono"';g.textAlign='left';g.fillText(ch.no.toUpperCase(),90,150);
+  g.fillStyle='#222';g.font='400 104px "Young Serif"';g.fillText(ch.en,84,280);
+  g.fillStyle=FOREST;g.font='600 74px "Markazi Text"';g.textAlign='right';g.fillText(ch.ar,PC[0]-90,280);g.textAlign='left';
+  g.fillStyle=FOREST;g.fillRect(90,322,120,5);
+  g.fillStyle='#3a3d40';g.font='400 32px Figtree';let y=wrap(g,ch.text,90,404,PC[0]-180,48);
+  y+=86;g.fillStyle=GREY;g.font='400 22px "DM Mono"';g.fillText('HOMES TO LET',90,y);y+=22;
+  ch.list.forEach((l,i)=>{const ty=y+20+i*190;g.strokeStyle=RULE;g.lineWidth=2;g.beginPath();g.moveTo(90,ty);g.lineTo(PC[0]-90,ty);g.stroke();
+    g.fillStyle=RULE;g.fillRect(90,ty+24,200,140);
+    g.fillStyle='#222';g.font='400 36px "Young Serif"';g.fillText(l[0],320,ty+74);g.fillStyle=GREY;g.font='400 28px Figtree';g.fillText(l[1],320,ty+122);
+    g.fillStyle=FOREST;g.font='600 32px Figtree';g.textAlign='right';g.fillText('QAR '+l[2]+' / mo',PC[0]-90,ty+122);g.textAlign='left';
+    pending.push(new Promise(res=>{const im=new Image();im.crossOrigin='anonymous';im.onload=()=>{g.drawImage(im,90,ty+24,200,140);res()};im.onerror=res;im.src=IMG(l[3],400)}));});
+  folio(g,n,'l');
+  const t=finish(c,g);Promise.all(pending).then(()=>{grain(g,...PC,.015);t.needsUpdate=true});return t;
+}
+function plate(caption,n,water=true){
+  const {c,g}=pageCanvas();
+  if(water){g.strokeStyle='rgba(40,44,48,.13)';g.lineWidth=2;for(let y=880;y<1080;y+=16){g.beginPath();for(let x=60;x<PC[0]-60;x+=10)g.lineTo(x,y+Math.sin(x*.03+y*.2)*3);g.stroke()}}
+  g.fillStyle=GREY;g.font='400 22px "DM Mono"';g.textAlign='left';g.fillText(caption.toUpperCase(),90,1150);folio(g,n,'r');return finish(c,g);
+}
+function titlePage(){
+  const {c,g}=pageCanvas();g.textAlign='center';
+  g.fillStyle='#222';g.font='400 36px "DM Mono"';g.fillText('A  B  A  R',PC[0]/2,880);
+  g.fillStyle=GREY;g.font='400 20px "DM Mono"';g.fillText('R E A L   E S T A T E',PC[0]/2,920);
+  g.fillStyle='#222';g.font='400 68px "Young Serif"';g.fillText('Homes of Qatar',PC[0]/2,1030);
+  g.fillStyle=FOREST;g.font='600 54px "Markazi Text"';g.fillText('بيوت قطر',PC[0]/2,1100);
+  g.fillStyle=GREY;g.font='400 22px "DM Mono"';g.fillText('A POP-UP GUIDE · DOHA 2026',PC[0]/2,1190);return finish(c,g);
+}
+function contactPage(n){
+  const {c,g}=pageCanvas();g.textAlign='left';
+  g.fillStyle=GREY;g.font='400 24px "DM Mono"';g.fillText('THE LAST PAGE',90,150);
+  g.fillStyle='#222';g.font='400 104px "Young Serif"';g.fillText('Visit us',84,280);
+  g.fillStyle=FOREST;g.font='600 74px "Markazi Text"';g.textAlign='right';g.fillText('تواصل معنا',PC[0]-90,280);g.textAlign='left';g.fillRect(90,322,120,5);
+  const rows=[['OFFICE','Street 267, Building 23'],['','2nd floor, Office 1, Muaither'],['POST','P.O. Box 23345, Doha'],['PHONE','+974 0000 0000'],['EMAIL','info@aba-r.com'],['HOURS','Sunday – Thursday, 8:00 – 18:00']];
+  rows.forEach(([k,v],i)=>{const y=430+i*74;g.fillStyle=GREY;g.font='400 22px "DM Mono"';g.fillText(k,90,y);g.fillStyle='#222';g.font='400 34px Figtree';g.fillText(v,300,y)});
+  g.fillStyle='#3a3d40';g.font='400 30px Figtree';wrap(g,'Turn the page back to any chapter, or call us — we will shortlist homes that fit how you live.',90,960,PC[0]-180,46);
+  folio(g,10,'l');return finish(c,g);
+}
+function endpaper(){
+  const {c,g}=pageCanvas();g.fillStyle=FOREST;g.fillRect(0,0,...PC);g.strokeStyle='rgba(255,255,255,.08)';g.lineWidth=2;
+  for(let y=-50;y<PC[1]+50;y+=60)for(let x=-50;x<PC[0]+50;x+=60){g.beginPath();g.rect(x+12,y+12,18,36);g.rect(x+34,y+20,18,28);g.stroke()}
+  return finish(c,g);
+}
+function coverTex(){
+  const c=canvas(1030,1340),g=c.getContext('2d');g.fillStyle='#121d10';g.fillRect(0,0,c.width,c.height);
+  g.strokeStyle='rgba(255,255,255,.035)';g.lineWidth=1;for(let i=0;i<c.width;i+=3){g.beginPath();g.moveTo(i,0);g.lineTo(i,c.height);g.stroke()}for(let j=0;j<c.height;j+=3){g.beginPath();g.moveTo(0,j);g.lineTo(c.width,j);g.stroke()}
+  g.strokeStyle='rgba(255,255,255,.85)';g.lineWidth=5;const s=3.2,ox=c.width/2-60*s,oy=330;g.save();g.translate(ox,oy);g.scale(s,s);
+  g.beginPath();g.moveTo(45,52);g.lineTo(45,8);g.lineTo(57,8);g.lineTo(57,52);g.moveTo(49,52);g.lineTo(49,12);g.lineTo(53,12);g.lineTo(53,52);g.moveTo(61,52);g.lineTo(61,16);g.lineTo(73,16);g.lineTo(73,52);g.moveTo(65,52);g.lineTo(65,20);g.lineTo(69,20);g.lineTo(69,52);g.moveTo(14,52);g.lineTo(106,52);g.lineWidth=1.6;g.stroke();g.restore();
+  g.fillStyle='rgba(255,255,255,.92)';g.textAlign='center';g.font='400 46px "DM Mono"';g.fillText('A  B  A  R',c.width/2,620);
+  g.font='400 92px "Young Serif"';g.fillText('Homes of Qatar',c.width/2,820);
+  g.font='600 76px "Markazi Text"';g.fillText('بيوت قطر',c.width/2,920);
+  g.font='400 24px "DM Mono"';g.fillStyle='rgba(255,255,255,.6)';g.fillText('A POP-UP GUIDE  ·  REAL ESTATE  ·  DOHA',c.width/2,1180);
+  grain(g,c.width,c.height,.05);return tex(c);
+}
+
+/* ======================= scene ======================= */
+const cv=document.getElementById('gl');
+const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.setClearColor(0,0);
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+const scene=new THREE.Scene();
+scene.environment=new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(),.04).texture;
+const cam=new THREE.PerspectiveCamera(30,1,.5,200);
+scene.add(new THREE.HemisphereLight(0xffffff,0x3a3d40,.7));
+const key=new THREE.DirectionalLight(0xfff8ef,2.1);key.position.set(-14,26,9);key.castShadow=true;key.shadow.mapSize.set(2048,2048);
+Object.assign(key.shadow.camera,{left:-16,right:16,top:14,bottom:-14,near:4,far:70});key.shadow.bias=-.0004;key.shadow.normalBias=.02;key.shadow.radius=4;scene.add(key);
+const rim=new THREE.DirectionalLight(0xdfe6ee,.5);rim.position.set(14,10,-12);scene.add(rim);
+
+// desk: charcoal felt that catches the book's shadow
+{const c=canvas(512,512),g=c.getContext('2d');g.fillStyle='#1b1e21';g.fillRect(0,0,512,512);for(let i=0;i<14000;i++){g.fillStyle=`rgba(${rnd()<.5?255:0},${rnd()<.5?255:0},${rnd()<.5?255:0},${.02+rnd()*.03})`;g.fillRect(rnd()*512,rnd()*512,1,1)}
+  const t=tex(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(8,8);
+  const desk=new THREE.Mesh(new THREE.PlaneGeometry(160,120),new THREE.MeshStandardMaterial({map:t,roughness:1,color:0xffffff}));desk.rotation.x=-Math.PI/2;desk.position.y=-.16;desk.receiveShadow=true;scene.add(desk)}
+
+const book=new THREE.Group();scene.add(book);
+const GAP=.03,NLEAF=5;                     // paper leaves L1..L5 (L0 is the board cover)
+const SEG=36;
+const paperMat=(t,side)=>new THREE.MeshStandardMaterial({map:t,roughness:.92,side,envMapIntensity:.3});
+const cloth=new THREE.MeshStandardMaterial({color:0x121d10,roughness:.85,envMapIntensity:.3});
+
+/* leaves: a bendable strip of paper with a printed front and back */
+function makeLeaf(front,back){
+  const geo=new THREE.PlaneGeometry(PW,PH,SEG,1);
+  const fm=new THREE.Mesh(geo,paperMat(front,THREE.FrontSide));
+  back.wrapS=THREE.RepeatWrapping;back.repeat.x=-1;back.offset.x=1;
+  const bm=new THREE.Mesh(geo,paperMat(back,THREE.BackSide));
+  [fm,bm].forEach(m=>{m.castShadow=true;m.receiveShadow=true;m.frustumCulled=false;book.add(m)});
+  const leaf={geo,fm,bm,theta:-1,px:new Float32Array(SEG+1),py:new Float32Array(SEG+1),ph:new Float32Array(SEG+1),anchors:[]};
+  return leaf;
+}
+function shapeLeaf(L,theta,yb){
+  const b=reduce?0:.95*Math.sin(theta),ds=PW/SEG;let x=0,y=0;
+  for(let i=0;i<=SEG;i++){const s=i*ds,ph=theta+b*Math.pow(s/PW,1.7);L.px[i]=x;L.py[i]=y+yb;L.ph[i]=ph;x+=Math.cos(ph)*ds;y+=Math.sin(ph)*ds}
+  const p=L.geo.attributes.position;
+  for(let k=0;k<p.count;k++){const i=k%(SEG+1),j=Math.floor(k/(SEG+1));p.setXYZ(k,L.px[i],L.py[i],j===0?-PH/2:PH/2)}
+  p.needsUpdate=true;L.geo.computeVertexNormals();L.geo.computeBoundingSphere();
+}
+const frameAt=(L,s)=>{const f=Math.min(SEG-1e-4,Math.max(0,s/(PW/SEG))),i=Math.floor(f),u=f-i;return[L.px[i]+(L.px[i+1]-L.px[i])*u,L.py[i]+(L.py[i+1]-L.py[i])*u,L.ph[i]+(L.ph[i+1]-L.ph[i])*u]};
+
+/* pop-up cards stand on a page and fold flat as the spread closes */
+const cards=[];
+function popScene(art,layout,owner){
+  return layout.map(([idx,s,z,green,stagger])=>{
+    const a=art[idx],geo=new THREE.PlaneGeometry(a.w,a.h).translate(0,a.h/2,0);
+    const mat=new THREE.MeshStandardMaterial({map:a.t,alphaTest:.5,side:THREE.DoubleSide,roughness:.9,envMapIntensity:.3});
+    const m=new THREE.Mesh(geo,mat);m.castShadow=true;m.receiveShadow=true;
+    m.customDepthMaterial=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,map:a.t,alphaTest:.5});
+    const anchor=new THREE.Object3D();anchor.matrixAutoUpdate=false;anchor.add(m);book.add(anchor);
+    m.position.set(0,.012,z);m.scale.set(Math.min(1.12,9.6/a.w,(Math.min(s,PW-s)*2-.3)/a.w),1.12,1);
+    const c={m,anchor,s,z,stagger:stagger||0,owner,abar:green};m.userData.card=c;cards.push(c);return c;
+  });
+}
+
+let leaves=[],cover,backScene=[],ready=false;
+async function build(){
+  await Promise.all(['400 40px "Young Serif"','400 30px Figtree','600 30px Figtree','600 40px "Markazi Text"','400 20px "DM Mono"','500 20px "DM Mono"'].map(f=>document.fonts.load(f)));
+  buildArt();
+  // cover board
+  const cmats=[cloth,cloth,new THREE.MeshStandardMaterial({map:coverTex(),roughness:.8}),new THREE.MeshStandardMaterial({map:endpaper(),roughness:.9}),cloth,cloth];
+  cover=new THREE.Mesh(new THREE.BoxGeometry(PW+.3,.12,PH+.4),cmats);cover.castShadow=cover.receiveShadow=true;
+  const cp=new THREE.Group();cp.add(cover);cover.position.set((PW+.3)/2,.15,0);cp.position.y=.07;book.add(cp);cover.userData.pivot=cp;
+  // back board, spine and page blocks
+  const back=new THREE.Mesh(new THREE.BoxGeometry(PW+.3,.12,PH+.4),[cloth,cloth,paperMat(plate('Muaither · Street 267',11,false),THREE.FrontSide),cloth,cloth,cloth]);back.position.set((PW+.3)/2,-.08,0);back.castShadow=back.receiveShadow=true;book.add(back);
+  const spine=new THREE.Mesh(new THREE.BoxGeometry(.7,.12,PH+.4),cloth);spine.position.set(0,-.08,0);spine.receiveShadow=true;book.add(spine);
+  const spineV=new THREE.Mesh(new THREE.BoxGeometry(.12,.36,PH+.4),cloth);spineV.position.set(-.04,.04,0);book.add(spineV);cover.userData.spineV=spineV;
+  // paper leaves
+  const fronts=[titlePage(),plate('Lusail Marina · 25.40° N',3),plate('Porto Arabia · 25.37° N',5),plate('The Corniche · 25.32° N',7),plate('Al Wakrah beach · 25.17° N',9,false)];
+  const backs=[textPage(CHAPTERS[1],2),textPage(CHAPTERS[2],4),textPage(CHAPTERS[3],6),textPage(CHAPTERS[4],8),contactPage(10)];
+  for(let i=0;i<NLEAF;i++)leaves.push(makeLeaf(fronts[i],backs[i]));
+  // scenes: [art index, distance from spine, depth on page, is ABAR, rise stagger]
+  leaves[0].anchors=popScene(ART.logo,[[0,4.9,-1.4,true,0],[1,4.9,.9,false,.08]],0);
+  leaves[1].anchors=popScene(ART.lusail,[[0,5.05,-3.4,true,.1],[1,4.6,-1.3,false,0],[2,5,1.7,false,.14]],1);
+  leaves[2].anchors=popScene(ART.pearl,[[0,5.05,-3.2,true,.1],[1,5,-.9,false,0],[2,5,1.8,false,.14]],2);
+  leaves[3].anchors=popScene(ART.westbay,[[0,5.1,-3.4,true,.1],[1,7.1,-.9,false,0],[2,5,1.9,false,.14]],3);
+  leaves[4].anchors=popScene(ART.wakrah,[[0,5,-3.2,false,.12],[1,5,-1,true,0],[2,5,1.9,false,.14]],4);
+  backScene=popScene(ART.office,[[0,5.1,-1.8,true,0],[1,5.1,.9,false,.1]],5);
+  ready=true;document.getElementById('stage').classList.add('loaded');
+}
+
+/* ======================= scroll choreography ======================= */
+const bookSec=document.getElementById('book');
+const START=.6,TURN=1,HOLD=.75,STEP=TURN+HOLD,NT=NLEAF+1;          // turns: cover + five leaves
+const TOTAL=START+NT*STEP;
+bookSec.style.height=`calc(${(TOTAL+1)*100}vh)`;
+const sm=x=>x<=0?0:x>=1?1:x*x*(3-2*x);
+const ease=x=>x<=0?0:x>=1?1:1-Math.pow(1-x,3);
+const back=x=>{const c=1.6;x=Math.min(1,Math.max(0,x));return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+let pv=STILL?+(QS.get('p')||0):0;
+function progress(){if(STILL&&QS.has('p'))return pv;const r=bookSec.getBoundingClientRect();return Math.max(0,-r.top/innerHeight)}
+const thetaOf=(i,p)=>Math.PI*sm((p-(START+i*STEP))/TURN);
+const spreadAt=p=>Math.max(0,Math.min(NT,Math.floor((p-START-TURN*.5)/STEP)+1));
+document.getElementById('openBook').addEventListener('click',e=>{e.preventDefault();scrollTo({top:bookSec.offsetTop+innerHeight*(START+STEP)*1.0,behavior:reduce?'auto':'smooth'})});
+// chapter navigation
+const goSpread=k=>scrollTo({top:bookSec.offsetTop+innerHeight*(START+(k-1)*STEP+TURN+HOLD*.45),behavior:reduce?'auto':'smooth'});
+const dots=document.getElementById('dots');
+dots.innerHTML=CHAPTERS.map((c,i)=>`<button type="button" aria-label="${c.en}" data-k="${i+1}"></button>`).join('');
+dots.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>goSpread(+b.dataset.k)));
+document.getElementById('contents').insertAdjacentHTML('beforeend',CHAPTERS.slice(1).map((c,i)=>`<li><a href="#" data-k="${i+2}"><span>${c.no||'—'}</span><b>${c.en}</b></a></li>`).join(''));
+document.querySelectorAll('#contents a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goSpread(+a.dataset.k)}));
+document.getElementById('topnav').innerHTML=CHAPTERS.slice(1).map((c,i)=>`<a href="#" data-k="${i+2}">${c.en}</a>`).join('');
+document.querySelectorAll('#topnav a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goSpread(+a.dataset.k)}));
+const stage=document.getElementById('stage'),cap={no:document.getElementById('capNo'),name:document.getElementById('capName'),info:document.getElementById('capInfo'),btn:document.getElementById('capBtn')};
+let shownSpread=-1;
+function setCaption(k){if(k===shownSpread)return;shownSpread=k;const c=CHAPTERS[Math.max(0,k-1)];
+  cap.no.textContent=c.no||'ABAR Real Estate';cap.name.innerHTML=`${c.en}${c.ar?` <span lang="ar">${c.ar}</span>`:''}`;cap.info.innerHTML=c.info;
+  cap.btn.firstChild.textContent=k>=6?'Book a viewing ':k>=2?`Homes in ${c.en} `:'Start reading ';cap.btn.href=k>=6?'#contact':'#homes';
+  dots.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',+b.dataset.k===k));}
+const nav=document.getElementById('nav');
+
+/* ======================= hover ======================= */
+const ray=new THREE.Raycaster(),ndc=new THREE.Vector2(),tip=document.getElementById('tip');let hovered=null;
+cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();ndc.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(ndc,cam);
+  const hit=ray.intersectObjects(cards.filter(c=>c.rise>.6).map(c=>c.m),false)[0];const c=hit&&hit.object.userData.card;hovered=c||null;
+  if(c&&c.abar){const ch=CHAPTERS[c.owner]||CHAPTERS[0];tip.querySelector('b').textContent=c.owner===0?'ABAR Real Estate':ch.abar[0];tip.querySelector('span:last-child').textContent=c.owner===0?'Leasing and managing homes across Qatar':ch.abar[1];tip.style.transform=`translate(${Math.min(e.clientX+18,r.width-250)}px,${e.clientY-30}px)`;tip.classList.add('on');cv.classList.add('hov')}else{tip.classList.remove('on');cv.classList.toggle('hov',!!c)}});
+cv.addEventListener('pointerleave',()=>{hovered=null;tip.classList.remove('on')});
+
+/* ======================= loop ======================= */
+let W=0,H=0,mobile=false;
+function resize(){W=innerWidth;H=innerHeight;mobile=W<760;renderer.setSize(W,H,false);cam.aspect=W/H;cam.updateProjectionMatrix()}
+resize();addEventListener('resize',resize);
+const camS={x:4.6,y:0,z:.4,dist:26,el:1.02,az:0},M4=new THREE.Matrix4(),vx=new THREE.Vector3(),vy=new THREE.Vector3(),vz=new THREE.Vector3(0,0,1);
+let last=performance.now();
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(!ready)return;
+  const p=progress(),t=now/1000;
+  // cover
+  const th0=thetaOf(0,p);const piv=cover.userData.pivot;piv.rotation.z=th0;cover.userData.spineV.visible=th0<.25;
+  // leaves: right stack top-down L1..L5, left stack bottom-up
+  const thetas=leaves.map((L,i)=>thetaOf(i+1,p));
+  leaves.forEach((L,i)=>{const th=thetas[i],yr=GAP*(NLEAF-i),yl=GAP*(i+1),yb=yr+(yl-yr)*sm(th/Math.PI)+.004;if(Math.abs(th-L.theta)>1e-5||L.yb!==yb){shapeLeaf(L,th,yb);L.theta=th;L.yb=yb}});
+  // pop-up rise follows how far each spread is open
+  const alpha=i=>i===0?Math.min(th0,Math.PI-thetas[0]):i<NLEAF?Math.min(thetas[i-1],Math.PI-thetas[i]):thetas[NLEAF-1];
+  const place=(c,L,a)=>{
+    const r=reduce?(a>Math.PI*.5?1:0):back((a/Math.PI-.18-c.stagger)/.7);c.rise=r;
+    let x,y,ph;if(L){[x,y,ph]=frameAt(L,c.s)}else{x=c.s;y=-.02;ph=0}
+    vx.set(Math.cos(ph),Math.sin(ph),0);vy.set(-Math.sin(ph),Math.cos(ph),0);M4.makeBasis(vx,vy,vz).setPosition(x,y,0);c.anchor.matrix.copy(M4);c.anchor.matrixWorldNeedsUpdate=true;
+    const wob=c===hovered&&!reduce?Math.sin(t*9)*.025:0;
+    c.m.rotation.x=(Math.PI/2)*(1-Math.min(1.08,r))+wob;c.m.visible=r>-.02||a>.01;
+  };
+  leaves.forEach((L,i)=>{const a=alpha(i);L.anchors.forEach(c=>place(c,L,a))});
+  backScene.forEach(c=>place(c,null,alpha(NLEAF)));
+  // camera: hero (closed, off to the right) → open spreads, dipping during each hold to show depth
+  const open=sm((p-START)/(TURN*.9));
+  const k=spreadAt(p),holdStart=START+(k-1)*STEP+TURN,hold=k>0?sm((p-holdStart)/HOLD):0,dip=Math.sin(Math.PI*Math.min(1,Math.max(0,(p-holdStart)/HOLD)))*(k>0?1:0);
+  const tgt={x:3.9*(1-open),z:.6-.2*open,dist:34-2.5*open,el:1.0-.2*open-.12*dip,az:-.18*(1-open)};
+  if(mobile){tgt.x=k>0?4.8:5.4;tgt.dist=k>0?40:50;tgt.z=k>0?.2:6.2*(1-open)}
+  const f=STILL?1:1-Math.exp(-dt*5);for(const kk in tgt)camS[kk]+=(tgt[kk]-camS[kk])*f;
+  book.rotation.y=-.12*(1-open);book.position.x=(mobile?0:1.4)*(1-open);
+  cam.position.set(camS.x+Math.sin(camS.az)*Math.cos(camS.el)*camS.dist,Math.sin(camS.el)*camS.dist,camS.z+Math.cos(camS.az)*Math.cos(camS.el)*camS.dist);
+  cam.lookAt(camS.x,0,camS.z);
+  stage.classList.toggle('past-cover',p>START*.6);setCaption(Math.max(1,spreadAt(p)));
+  nav.classList.toggle('solid',p>TOTAL);
+  renderer.render(scene,cam);
+}
+build().then(()=>requestAnimationFrame(frame));
+</script>
+</body>
+</html>
