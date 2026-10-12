@@ -14,6 +14,9 @@ body{margin:0;background:var(--bg);color:var(--fg);font:400 15.5px/1.6 "Hanken G
 a{color:inherit}
 :focus-visible{outline:1.5px solid var(--fg);outline-offset:3px}
 .mono{font:400 10.5px/1.5 "Azeret Mono",ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--dim)}
+header .pal{display:flex;gap:6px;align-items:center}
+header .pal i{width:18px;height:18px;border-radius:50%;border:1px solid var(--line)}
+header .pal .mono{margin-right:6px}
 header{padding:56px clamp(20px,4vw,64px) 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-bottom:1px solid var(--line)}
 header h1{font:300 clamp(2.2rem,4.4vw,4rem)/1 "Hanken Grotesk";letter-spacing:-.035em;margin:14px 0 0}
 header p{margin:16px 0 0;color:var(--dim);max-width:62ch}
@@ -54,68 +57,68 @@ footer b{display:block;color:var(--fg);font-weight:500;margin-bottom:6px}
   <div>
     <span class="mono">ABAR Real Estate · Website proposal · October 2026</span>
     <h1>Six directions for the new website</h1>
-    <p>Each direction is a working homepage built around something specific to Qatar. Round two takes the favourite from round one — The Stack — as its bar, and is drawn strictly in ABAR’s own colours, including a simple, conventional version. Open each one on a laptop first, then on a phone.</p>
+    <p>Six working homepages for ABAR Real Estate. Directions 1–3 each have their own palette; directions 4–6 use ABAR’s own colours, and direction 6 is the simple, conventional version. Open each one on a laptop first, then on a phone.</p>
   </div>
-  <span class="mono">aba-r.com</span>
+  <div class="pal" aria-label="ABAR palette"><span class="mono">ABAR colours</span><i style="background:#fff"></i><i style="background:#1A2817"></i><i style="background:#282C30"></i><i style="background:#222"></i><i style="background:#EDEDED"></i><i style="background:#BABABA"></i><i style="background:#727272"></i></div>
 </header>
 
-<div class="round">
-  <h2>Round two — in ABAR’s colours</h2>
-  <div class="pal" aria-label="ABAR palette"><span class="mono">White · forest #1A2817 · charcoal #282C30 · ink #222 · greys</span><i style="background:#fff"></i><i style="background:#1A2817"></i><i style="background:#282C30"></i><i style="background:#222"></i><i style="background:#EDEDED"></i><i style="background:#BABABA"></i><i style="background:#727272"></i></div>
-</div>
 <section class="row three">
   <article class="d">
-    <a class="shot" href="4-model-coast.html"><img src="previews/4-model-coast.jpg" alt="Direction 4: white scale model of Doha and Lusail with ABAR buildings in green"><span class="badge new">New</span></a>
+    <a class="shot" href="1-mashrabiya.html"><img src="previews/1-mashrabiya.jpg" alt="Direction 1: Maroon wall lit through a lattice screen"></a>
+    <span class="mono" style="margin-top:20px">Direction 1</span>
+    <h3>Mashrabiya</h3>
+    <p class="idea">Sunlight through a carved screen.</p>
+    <p>The page is a Qatar-maroon wall lit through a mashrabiya. The visitor’s cursor moves the sun, so the pattern of light shifts and stretches; dust drifts in the beams. Listings sit behind carved shutters that open to reveal each home. Bilingual, quiet, ceremonial.</p>
+    <dl><dt class="mono">Type</dt><dd>Bodoni Moda, Jost, Reem Kufi</dd><dt class="mono">Signature</dt><dd>Real-time light shader</dd><dt class="mono">Mood</dt><dd>Private, warm, heritage</dd></dl>
+    <a class="open" href="1-mashrabiya.html">Open direction 1 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+  <article class="d">
+    <a class="shot" href="2-the-stack.html"><img src="previews/2-the-stack.jpg" alt="Direction 2: Exploded 3D architectural model with a floor plan card"><span class="badge">Favourite</span></a>
+    <span class="mono" style="margin-top:20px">Direction 2</span>
+    <h3>The Stack</h3>
+    <p class="idea">Every floor is a home you can rent.</p>
+    <p>A 3D architectural model on a wooden plinth. Scroll and the building comes apart floor by floor; each floor is a real listing with its own measured plan, drawn line by line. The rest of the site borrows from architects’ drawings: a unit schedule, a programme chart, a title block.</p>
+    <dl><dt class="mono">Type</dt><dd>Archivo (expanded), Martian Mono, IBM Plex Arabic</dd><dt class="mono">Signature</dt><dd>Exploding 3D model + live plans</dd><dt class="mono">Mood</dt><dd>Precise, modern, investor-ready</dd></dl>
+    <a class="open" href="2-the-stack.html">Open direction 2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+  <article class="d">
+    <a class="shot" href="3-peninsula.html"><img src="previews/3-peninsula.jpg" alt="Direction 3: The Qatar peninsula drawn as ridgelines"></a>
+    <span class="mono" style="margin-top:20px">Direction 3</span>
+    <h3>Peninsula</h3>
+    <p class="idea">Qatar, drawn one line of latitude at a time.</p>
+    <p>The real coastline of Qatar rendered as living ridgelines. Peaks rise wherever ABAR has homes to let, one spike per home. Scrolling flies down the coast from Al Khor to Al Wukair, stopping at each district with its rents, photos and listings.</p>
+    <dl><dt class="mono">Type</dt><dd>Hanken Grotesk, Newsreader, Amiri, Azeret Mono</dd><dt class="mono">Signature</dt><dd>Data-driven ridgeline map</dd><dt class="mono">Mood</dt><dd>Exploratory, local, cartographic</dd></dl>
+    <a class="open" href="3-peninsula.html">Open direction 3 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+</section>
+<hr>
+<section class="row three">
+  <article class="d">
+    <a class="shot" href="4-model-coast.html"><img src="previews/4-model-coast.jpg" alt="Direction 4: White scale model of Doha and Lusail with ABAR buildings in green"><span class="badge new">ABAR colours</span></a>
     <span class="mono" style="margin-top:20px">Direction 4</span>
     <h3>Model Coast</h3>
     <p class="idea">“We look after the green ones.”</p>
-    <p>The sales-gallery model, put on the website. Doha and Lusail are cast in white on a glossy charcoal sea, and every building ABAR manages is solid forest green. Visitors turn the model, fly to a district, drag the sun to sweep the shadows, and click a green building to see what’s available inside it. The same idea carries the owner pitch: “Make yours one of the green ones.”</p>
+    <p>The sales-gallery model, put on the website. Doha and Lusail are cast in white on a glossy charcoal sea, and every building ABAR manages is solid forest green. Visitors turn the model, fly to a district, drag the sun to sweep the shadows, and click a green building to see what’s available inside it.</p>
     <dl><dt class="mono">Type</dt><dd>Red Hat Display, Text &amp; Mono · Noto Kufi Arabic</dd><dt class="mono">Signature</dt><dd>Interactive 3D city model with tilt-shift and live sun</dd><dt class="mono">Mood</dt><dd>Prestige, clarity, proof of scale</dd></dl>
     <a class="open" href="4-model-coast.html">Open direction 4 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
   </article>
   <article class="d">
-    <a class="shot" href="5-pop-up.html"><img src="previews/5-pop-up.jpg" alt="Direction 5: an open pop-up book with paper cut-outs of Lusail"><span class="badge new">New</span></a>
+    <a class="shot" href="5-pop-up.html"><img src="previews/5-pop-up.jpg" alt="Direction 5: An open pop-up book with paper cut-outs of Lusail"><span class="badge new">ABAR colours</span></a>
     <span class="mono" style="margin-top:20px">Direction 5</span>
     <h3>Pop-up</h3>
     <p class="idea">Homes of Qatar, unfolded.</p>
-    <p>A forest-green clothbound pop-up book on a charcoal desk. Scrolling turns the pages — they curl like real paper — and each chapter raises a district in paper cut-outs that cast real shadows: Katara Towers, Porto Arabia, Doha Tower, the Museum of Islamic Art, the villas of Al Wakrah. The ABAR building in every scene is printed green; the logo itself pops up on the title page.</p>
+    <p>A forest-green clothbound pop-up book on a charcoal desk. Scrolling turns the pages — they curl like real paper — and each chapter raises a district in paper cut-outs that cast real shadows: Katara Towers, Porto Arabia, Doha Tower, the Museum of Islamic Art, the villas of Al Wakrah.</p>
     <dl><dt class="mono">Type</dt><dd>Young Serif, Figtree, DM Mono · Markazi Text Arabic</dd><dt class="mono">Signature</dt><dd>Scroll-driven 3D book with page curl and pop-ups</dd><dt class="mono">Mood</dt><dd>Crafted, warm, unforgettable</dd></dl>
     <a class="open" href="5-pop-up.html">Open direction 5 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
   </article>
   <article class="d">
-    <a class="shot" href="6-simple.html"><img src="previews/6-simple.jpg" alt="Direction 6: a bright, simple real estate homepage with a search bar"><span class="badge new">New</span></a>
+    <a class="shot" href="6-simple.html"><img src="previews/6-simple.jpg" alt="Direction 6: A bright, simple real estate homepage with a search bar"><span class="badge new">ABAR colours</span></a>
     <span class="mono" style="margin-top:20px">Direction 6</span>
     <h3>Simple</h3>
     <p class="idea">A clean, bright site that just works.</p>
     <p>A conventional, easy-to-scroll real estate site in ABAR’s colours and its own font, Poppins. Hero with search, featured properties with filters, the six popular areas, services, a landlord banner, the vision and contact — following the structure and wording of the current aba-r.com, with no 3D or artwork.</p>
     <dl><dt class="mono">Type</dt><dd>Poppins · Tajawal Arabic</dd><dt class="mono">Signature</dt><dd>Working search and filters, light and fast</dd><dt class="mono">Mood</dt><dd>Clear, familiar, professional</dd></dl>
     <a class="open" href="6-simple.html">Open direction 6 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-  </article>
-</section>
-
-<hr>
-<div class="round"><h2>Round one</h2><span class="mono">Each in its own palette</span></div>
-<section class="row three first">
-  <article class="d">
-    <a class="shot" href="1-mashrabiya.html"><img src="previews/1-mashrabiya.jpg" alt="Direction 1: maroon wall lit through a lattice screen"></a>
-    <span class="mono" style="margin-top:20px">Direction 1</span>
-    <h3>Mashrabiya</h3>
-    <p>A Qatar-maroon wall lit through a carved screen; the cursor moves the sun. Listings sit behind shutters that open.</p>
-    <a class="open" href="1-mashrabiya.html">Open direction 1 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-  </article>
-  <article class="d">
-    <a class="shot" href="2-the-stack.html"><img src="previews/2-the-stack.jpg" alt="Direction 2: exploded 3D architectural model with a floor plan card"><span class="badge">Favourite</span></a>
-    <span class="mono" style="margin-top:20px">Direction 2</span>
-    <h3>The Stack</h3>
-    <p>An architectural model that comes apart floor by floor as you scroll; each floor is a listing with its own measured plan.</p>
-    <a class="open" href="2-the-stack.html">Open direction 2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-  </article>
-  <article class="d">
-    <a class="shot" href="3-peninsula.html"><img src="previews/3-peninsula.jpg" alt="Direction 3: the Qatar peninsula drawn as ridgelines"></a>
-    <span class="mono" style="margin-top:20px">Direction 3</span>
-    <h3>Peninsula</h3>
-    <p>Qatar’s coastline as living ridgelines; peaks rise where ABAR has homes. Scroll flies down the coast district by district.</p>
-    <a class="open" href="3-peninsula.html">Open direction 3 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
   </article>
 </section>
 
