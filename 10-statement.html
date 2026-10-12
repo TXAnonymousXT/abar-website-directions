@@ -51,8 +51,8 @@ header .right a:hover{color:var(--ink)}
 header .right .ar{font-family:var(--arabic)}
 
 /* owner hero: the statement */
-.hero{padding:64px 0 80px;border-bottom:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
-.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:center}
+.hero{position:relative;overflow:hidden;padding:64px 0 0;border-bottom:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
+.hero>.wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:center}
 .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:13.5px;color:var(--forest);background:var(--tint);border:1px solid var(--tint-line);border-radius:30px;padding:4px 12px}
 .hero h1{font-size:clamp(2.4rem,4.6vw,3.9rem);margin-top:20px}
 .hero h1 span{color:var(--grey);font-weight:500}
@@ -100,7 +100,8 @@ header .right .ar{font-family:var(--arabic)}
 .doc-note{margin-top:12px;font-size:13px;color:var(--grey);text-align:right}
 
 /* renter hero */
-.rhero{padding:60px 0 70px;border-bottom:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
+.rhero{position:relative;overflow:hidden;padding:60px 0 70px;border-bottom:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
+.rhero>.wrap{position:relative;z-index:2}
 .rhero h1{font-size:clamp(2.2rem,4.2vw,3.4rem);max-width:18ch;margin-top:18px}
 .rhero p.lead{color:var(--grey);font-size:17px;max-width:52ch;margin-top:16px}
 .rfilters{display:flex;gap:8px;flex-wrap:wrap;margin:30px 0 26px}
@@ -110,7 +111,7 @@ header .right .ar{font-family:var(--arabic)}
 .card{background:var(--white);border:1px solid var(--rule);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s}
 .card:hover{box-shadow:0 18px 40px -26px rgba(34,34,34,.4);transform:translateY(-2px)}
 .card[hidden]{display:none}
-.card .ph{position:relative;aspect-ratio:16/10;flex:none;background:var(--rule)}
+.card .ph{position:relative;overflow:hidden;aspect-ratio:16/10;flex:none;background:var(--rule)}
 .card .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .card .ph span{position:absolute;left:12px;top:12px;background:var(--white);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:500;color:var(--forest)}
 .card .b{padding:14px 16px 16px}
@@ -135,7 +136,7 @@ header .right .ar{font-family:var(--arabic)}
 .out .lbl{font-size:13.5px;color:var(--grey)}
 .out .range{font-family:var(--mono);font-size:clamp(28px,3.4vw,40px);font-weight:500;letter-spacing:-.03em;color:var(--forest);margin-top:6px;font-variant-numeric:tabular-nums;line-height:1.1}
 .out .range small{font-family:var(--font);font-size:15px;color:var(--grey);font-weight:400;letter-spacing:0}
-.scale{position:relative;height:8px;background:var(--rule);border-radius:6px;margin:26px 0 8px}
+.scale{position:relative;height:4px;background:var(--rule);border-radius:6px;margin:6px 0 8px}
 .scale i{position:absolute;top:0;bottom:0;background:var(--forest);border-radius:6px;transition:left .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1)}
 .scale-l{display:flex;justify-content:space-between;font-size:12px;color:var(--grey);font-family:var(--mono)}
 .out dl{display:grid;grid-template-columns:1fr auto;gap:10px 16px;margin:24px 0 0;padding-top:20px;border-top:1px solid var(--rule);font-size:15px}
@@ -186,8 +187,55 @@ form.done .ok{display:block}
 footer{border-top:1px solid var(--rule);background:var(--soft)}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px;padding-bottom:22px;font-size:13.5px;color:var(--grey)}
 
+
+/* ---------- art: money moving ---------- */
+.wash{position:absolute;inset:-30% -10% auto -10%;height:130%;z-index:0;pointer-events:none;background:radial-gradient(34% 40% at 76% 38%,var(--tint) 0%,rgba(239,243,238,0) 70%),radial-gradient(26% 32% at 10% 16%,#F2F5F1 0%,rgba(242,245,241,0) 70%),radial-gradient(22% 26% at 40% 96%,#F3F5F2 0%,rgba(243,245,242,0) 70%);animation:wash 24s ease-in-out infinite alternate}
+@keyframes wash{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4%,3%,0) scale(1.05)}100%{transform:translate3d(3%,-2%,0)}}
+#streams{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.docwrap{position:relative;will-change:transform}
+.docwrap .sheet{position:absolute;inset:0;background:var(--white);border:1px solid var(--rule);border-radius:14px;box-shadow:0 18px 44px -34px rgba(34,34,34,.35)}
+.docwrap .s1{transform:translate(16px,12px) rotate(1.7deg)}
+.docwrap .s2{transform:translate(-12px,22px) rotate(-1.9deg);background:var(--soft)}
+.docwrap .doc{position:relative}
+.doc.turn{animation:turn .62s cubic-bezier(.3,.7,.2,1)}
+@keyframes turn{0%{transform:none}38%{transform:translate(-16px,12px) rotate(-1.2deg)}100%{transform:none}}
+.lines{position:relative}
+.lines.printing::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,rgba(26,40,23,0),var(--forest),rgba(26,40,23,0));opacity:.45;animation:scan .9s cubic-bezier(.4,0,.2,1) forwards;pointer-events:none}
+@keyframes scan{to{top:100%;opacity:0}}
+.lines li{transition:background .25s,box-shadow .25s}
+.lines li.hl{background:var(--tint);box-shadow:-12px 0 0 var(--tint),12px 0 0 var(--tint)}
+.net{transition:background .25s,box-shadow .25s}
+.net.hl{background:var(--tint);box-shadow:-24px 0 0 var(--tint),24px 0 0 var(--tint)}
+/* where the rent went */
+.flowband{position:relative;z-index:2;margin-top:76px;border-top:1px solid var(--rule);background:linear-gradient(rgba(255,255,255,.7),var(--white))}
+.fbhead{display:flex;justify-content:space-between;align-items:center;gap:8px 20px;padding:20px 0 0;flex-wrap:wrap}
+.fbhead b{font-weight:600;font-size:15px}
+.fbhead b i{font-style:normal}
+.fbhead>div>span{font-size:13.5px;color:var(--grey)}
+.fbsum{font-family:var(--mono);font-size:13px;color:var(--grey)}
+.fbsum b{color:var(--forest);font-weight:500;font-size:13px}
+#flow{display:block;width:100%;height:310px}
+/* estimate: one dot per home */
+#swarm{display:block;width:100%;height:64px;margin-top:22px}
+/* renters */
+.card.pop{animation:cardin .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes cardin{from{opacity:0;transform:translateY(16px) scale(.98)}}
+.card .ph img{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.card:hover .ph img{transform:scale(1.05)}
+/* quiet reveals */
+.items .item{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1),background .3s}
+.items.in .item{opacity:1;transform:none}
+.items.in .item:nth-child(2){transition-delay:.06s,.06s,0s}.items.in .item:nth-child(3){transition-delay:.12s,.12s,0s}.items.in .item:nth-child(4){transition-delay:.18s,.18s,0s}.items.in .item:nth-child(5){transition-delay:.24s,.24s,0s}.items.in .item:nth-child(6){transition-delay:.3s,.3s,0s}
+.item:hover{background:#FBFCFB}
+.steps li::after{transform:scaleX(0);transform-origin:left;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.steps.in li::after{transform:none}
+.steps.in li:nth-child(2)::after{transition-delay:.3s}.steps.in li:nth-child(3)::after{transition-delay:.6s}
+.steps li::before{transition:background .4s,color .4s}
+.steps.in li::before{background:var(--forest);color:var(--white)}
+.steps.in li:nth-child(2)::before{transition-delay:.3s}.steps.in li:nth-child(3)::before{transition-delay:.6s}.steps.in li:nth-child(4)::before{transition-delay:.9s}
+
 @media (max-width:1000px){
-  .hero .wrap,.est .wrap,.contact .wrap{grid-template-columns:1fr}
+  .hero>.wrap,.est .wrap,.contact .wrap{grid-template-columns:1fr}
   .items{grid-template-columns:1fr 1fr}
   .steps{grid-template-columns:1fr 1fr;row-gap:20px}
   .steps li:nth-child(2)::after{display:none}
@@ -209,6 +257,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   .doc .dh,.doc .prop,.doc .foot div{padding-left:16px;padding-right:16px}
   .items,.steps,.grid,.two{grid-template-columns:1fr}
   .steps li::after{display:none}
+  #flow{height:320px}
+  .flowband{margin-top:56px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
@@ -239,6 +289,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 <main>
 <!-- owners -->
 <section class="hero own-only" aria-labelledby="h1">
+  <div class="wash" aria-hidden="true"></div>
+  <canvas id="streams" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
       <span class="eyebrow">Property management · Qatar</span>
@@ -248,6 +300,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <div class="proof"><span><svg class="ico"><use href="#i-check"/></svg>Specialised in rentals</span><span><svg class="ico"><use href="#i-check"/></svg>Residential and commercial</span><span><svg class="ico"><use href="#i-check"/></svg>One team, one contact</span></div>
     </div>
     <div>
+      <div class="docwrap"><div class="sheet s2" aria-hidden="true"></div><div class="sheet s1" aria-hidden="true"></div>
       <article class="doc" aria-label="Example owner statement">
         <div class="dh">
           <div class="who"><svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g></svg><span><b>ABAR</b><small>Owner statement</small></span></div>
@@ -260,14 +313,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
         <ul class="lines" id="lines"></ul>
         <div class="net"><span><b>Paid to your account</b><span id="paidOn">on 5 November</span></span><span class="big"><small>QAR</small><span id="netAmt">16,290.00</span></span></div>
         <div class="foot"><div><b>Let until 31 Aug 2027</b>Tenant since September 2024</div><div><b>Next inspection 14 Dec</b>Renewal talks start in May</div></div>
-      </article>
+      </article></div>
       <p class="doc-note">Example statement — figures and fee shown are illustrative.</p>
     </div>
+  </div>
+  <div class="flowband">
+    <div class="wrap"><div class="fbhead"><div><b>Where <i id="fbMonth">October</i>’s rent went</b> <span>· drawn to scale — point at a stream to find it on the statement</span></div><div class="fbsum">QAR 18,000.00 in · <b>QAR <span id="fbNet">0.00</span></b> to you</div></div></div>
+    <canvas id="flow" aria-label="Diagram: the month’s rent divided into what is paid to the owner, the management fee and each repair, drawn to scale."></canvas>
   </div>
 </section>
 
 <!-- renters -->
 <section class="rhero rent-only" aria-labelledby="rh1">
+  <div class="wash" aria-hidden="true"></div>
   <div class="wrap">
     <span class="eyebrow">Homes for rent · Qatar</span>
     <h1 id="rh1">Rent a home we look after ourselves.</h1>
@@ -292,6 +350,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <div class="out" aria-live="polite">
       <span class="lbl" id="outLbl">Estimated rent</span>
       <div class="range"><span id="rLow">0</span> – <span id="rHigh">0</span> <small>QAR / month</small></div>
+      <canvas id="swarm" aria-hidden="true"></canvas>
       <div class="scale" aria-hidden="true"><i id="scaleBar"></i></div>
       <div class="scale-l"><span id="sMin"></span><span id="sArea"></span><span id="sMax"></span></div>
       <dl>
@@ -375,16 +434,24 @@ const MONTHS={
   sep:{name:'September 2026',ref:'2026-09',rent:'1 Sep',paid:'5 October',items:[],quiet:'No repairs this month'},
   oct:{name:'October 2026',ref:'2026-10',rent:'1 Oct',paid:'5 November',items:[['AC service, 2 units','9 Oct',-450,'Photos'],['Garden irrigation timer','21 Oct',-180,'Invoice']]},
 };
+let curMonth='oct',firstStatement=true;
+function scramble(el,delay){const fin=el.textContent,n=fin.length;if(reduce)return;el.textContent=fin.replace(/\d/g,'0');const t0=performance.now()+delay;
+  const f=t=>{const k=(t-t0)/460;if(k>=1){el.textContent=fin;return}if(k>0)el.textContent=fin.replace(/\d/g,(d,i)=>i/n<k?d:String(Math.random()*10|0));requestAnimationFrame(f)};requestAnimationFrame(f)}
 function statement(k){
-  const m=MONTHS[k];const fee=-RENT*FEE;
-  const rows=[['Rent received',m.rent,RENT,'','From tenant, on time'],['Management fee',`${Math.round(FEE*100)}%`,fee,'',''],...m.items.map(([t,d,a,tag])=>[t,d,a,tag,''])];
-  $('lines').innerHTML=rows.map(([t,d,a,tag,sub],i)=>`<li style="animation-delay:${i*60}ms"><span>${t}${tag?`<span class="tag"><svg class="ico"><use href="#i-${tag==='Photos'?'cam':'file'}"/></svg>${tag}</span>`:''}${sub?`<small>${sub}</small>`:''}</span><span class="d">${d}</span><span class="a ${a<0?'neg':''}">${a<0?'−':''}${money(Math.abs(a),2)}</span></li>`).join('')+(m.quiet?`<li style="animation-delay:180ms"><span style="color:var(--grey)">${m.quiet}</span><span class="d"></span><span class="a neg">0.00</span></li>`:'');
+  const m=MONTHS[k];const fee=-RENT*FEE;curMonth=k;
+  const rows=[['Rent received',m.rent,RENT,'','From tenant, on time','in'],['Management fee',`${Math.round(FEE*100)}%`,fee,'','','fee'],...m.items.map(([t,d,a,tag])=>[t,d,a,tag,'','i:'+t])];
+  const L=$('lines');
+  L.innerHTML=rows.map(([t,d,a,tag,sub,f],i)=>`<li data-f="${f}" style="animation-delay:${i*90}ms"><span>${t}${tag?`<span class="tag"><svg class="ico"><use href="#i-${tag==='Photos'?'cam':'file'}"/></svg>${tag}</span>`:''}${sub?`<small>${sub}</small>`:''}</span><span class="d">${d}</span><span class="a ${a<0?'neg':''}">${a<0?'−':''}${money(Math.abs(a),2)}</span></li>`).join('')+(m.quiet?`<li style="animation-delay:${rows.length*90}ms"><span style="color:var(--grey)">${m.quiet}</span><span class="d"></span><span class="a neg">0.00</span></li>`:'');
+  L.querySelectorAll('.a').forEach((a,i)=>scramble(a,120+i*90));
+  L.classList.remove('printing');void L.offsetWidth;L.classList.add('printing');
+  if(!firstStatement){const d=document.querySelector('.doc');d.classList.remove('turn');void d.offsetWidth;d.classList.add('turn')}firstStatement=false;
   const net=RENT+fee+m.items.reduce((s,x)=>s+x[2],0);
   tween($('netAmt'),net,2);$('paidOn').textContent=`on ${m.paid}`;$('sMonth').textContent=m.name;$('sRef').textContent=`Statement ${m.ref} · Villa 12`;
   document.querySelectorAll('.months button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));
+  window.FLOW&&FLOW.set(k);
 }
 document.querySelectorAll('.months button').forEach(b=>b.onclick=()=>statement(b.dataset.k));
-$('netAmt').dataset.v=16290;statement('oct');
+$('netAmt').dataset.v=0;statement('oct');
 
 /* ---------- rent estimate (illustrative base rents) ---------- */
 const AREAS={'Doha':['الدوحة',7000,11000],'Lusail':['لوسيل',7200,13000],'The Pearl':['اللؤلؤة',8800,19000],'Katara':['كتارا',9000,17000],'Al Wakrah':['الوكرة',5800,9500],'Al Wukair':['الوكير',5600,9000],'Al Khor':['الخور',4800,8000]};
@@ -397,6 +464,7 @@ function rentFor(area,type,beds,furn){
   else{r=vil3+(beds-3)*1800;if(type==='townhouse')r*=1.1;r=Math.max(r,vil3*.8)}
   return furn?r*1.12:r;
 }
+let lastEst=null;
 function estimate(){
   const beds=+est.beds,mid=rentFor(est.area,est.type,beds,est.furn==='yes');
   const lo=Math.round(mid*.93/100)*100,hi=Math.round(mid*1.07/100)*100;
@@ -407,6 +475,7 @@ function estimate(){
   const mn=Math.min(...all),mx=Math.max(...all);
   $('scaleBar').style.left=((lo-mn)/(mx-mn)*100).toFixed(1)+'%';$('scaleBar').style.width=Math.max(2,(hi-lo)/(mx-mn)*100).toFixed(1)+'%';
   $('sMin').textContent=money(Math.round(mn/100)*100);$('sMax').textContent=money(Math.round(mx/100)*100);$('sArea').textContent=`Range of rents in ${est.area}`;
+  lastEst=[est.area,mn,mx,lo,hi];window.SWARM&&SWARM.set(...lastEst);
   $('outLbl').textContent=`Estimated rent · ${G.type.find(t=>t[0]===est.type)[1]} in ${est.area}`;
 }
 $('valBtn').onclick=()=>{$('who').value='A property owner';$('msgText').value=`Valuation request: ${est.beds==='0'?'studio':est.beds+'-bed'} ${est.type} in ${est.area}, ${est.furn==='yes'?'furnished':'unfurnished'}.`};
@@ -422,8 +491,8 @@ const HOMES=[
   ['villa','Four-bedroom compound villa','Al Wukair',4,380,11500,'photo-1768200498972-fd56353d73fc','Shared pool'],
   ['commercial','Fitted office floor, Lusail Boulevard','Lusail',0,310,36000,'photo-1700901546317-7e1829579632','Office'],
 ];
-$('rgrid').innerHTML=HOMES.map(([t,title,area,beds,size,price,img,tag])=>`<a class="card" href="#contact" data-k="${t}" data-t="${title}"><div class="ph"><img loading="lazy" src="${IMG(img)}" alt="${title}">${tag?`<span>${tag}</span>`:''}</div><div class="b"><div class="p">QAR ${money(price)} <small>/ month</small></div><h3>${title}</h3><div class="m">${area} <bdi lang="ar">${AREAS[area][0]}</bdi> · ${beds?beds+' bed':'Office'} · ${size} m²</div></div></a>`).join('');
-document.querySelectorAll('.rfilters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.rfilters button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('#rgrid .card').forEach(c=>c.hidden=!(b.dataset.f==='all'||c.dataset.k===b.dataset.f))});
+$('rgrid').innerHTML=HOMES.map(([t,title,area,beds,size,price,img,tag],i)=>`<a class="card pop" style="animation-delay:${i*70}ms" href="#contact" data-k="${t}" data-t="${title}"><div class="ph"><img loading="lazy" src="${IMG(img)}" alt="${title}">${tag?`<span>${tag}</span>`:''}</div><div class="b"><div class="p">QAR ${money(price)} <small>/ month</small></div><h3>${title}</h3><div class="m">${area} <bdi lang="ar">${AREAS[area][0]}</bdi> · ${beds?beds+' bed':'Office'} · ${size} m²</div></div></a>`).join('');
+document.querySelectorAll('.rfilters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.rfilters button').forEach(x=>x.setAttribute('aria-pressed',x===b));let n=0;document.querySelectorAll('#rgrid .card').forEach(c=>{c.hidden=!(b.dataset.f==='all'||c.dataset.k===b.dataset.f);if(!c.hidden){c.classList.remove('pop');void c.offsetWidth;c.style.animationDelay=(n++*70)+'ms';c.classList.add('pop')}})});
 document.querySelectorAll('#rgrid .card').forEach(c=>c.onclick=()=>{$('who').value='Looking to rent';$('msgText').value=`I'm interested in: ${c.dataset.t}`});
 
 /* ---------- audience switch ---------- */
@@ -432,6 +501,159 @@ document.querySelectorAll('.mode button').forEach(b=>b.onclick=()=>setMode(b.dat
 document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>setMode(b.dataset.switch,true));
 if(location.hash==='#rent')setMode('rent');
 $('msg').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('done')});
+
+/* ---------- rent arriving: quiet streams into the statement ---------- */
+const BZ=(a,b,c,d,t)=>{const u=1-t;return u*u*u*a+3*u*u*t*b+3*u*t*t*c+t*t*t*d};
+(function(){
+  const cv=$('streams');if(!cv)return;const g=cv.getContext('2d');
+  const hero=document.querySelector('.hero'),doc=document.querySelector('.doc'),band=document.querySelector('.flowband');
+  let W=0,H=0,dpr=1,P=[],parts=[],vis=true,last=performance.now(),seed=11;
+  const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  function size(){
+    const r=hero.getBoundingClientRect();if(!r.width)return;W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);
+    cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);seed=11;
+    const d=doc.getBoundingClientRect(),top=band.getBoundingClientRect().top-r.top,mob=innerWidth<1000;
+    const tx=mob?d.left-r.left+d.width/2:d.left-r.left+2,ty=mob?d.top-r.top+2:d.top-r.top+d.height*.42;
+    P=[];const N=mob?9:16;
+    for(let i=0;i<N;i++){const f=i/(N-1);
+      if(mob){const side=i%2?1:-1,sx=side<0?-30:W+30,sy=ty-70-f*150,ex=tx+side*(.1+f*.32)*d.width;
+        P.push({p:[sx,sy,side<0?W*.18:W*.82,sy+10,ex,ty-40,ex,ty],out:false});continue}
+      const sy=Math.min(top,d.top-r.top+40)*(.05+.9*f),ey=ty+(f-.5)*d.height*.55;
+      P.push({p:[-30,sy,W*.2,sy+(rnd()-.5)*110,tx-W*.17,ey+(sy-ey)*.28,tx,ey],out:false})}
+    const ox=d.right-r.left;
+    if(!mob&&W-ox>90){const oy=d.top-r.top+d.height*.84;for(let i=0;i<4;i++){const o=i-1.5;P.push({p:[ox-2,oy+o*5,ox+(W-ox)*.45,oy+o*5,ox+(W-ox)*.55,oy+o*44,W+30,oy+o*52],out:true})}}
+    parts=[];P.forEach((Q,qi)=>{const n=Q.out?7:6;for(let j=0;j<n;j++)parts.push({q:qi,t:rnd(),sp:(Q.out?.12:.05)*(.7+rnd()*.6),dark:rnd()<.22})});
+  }
+  function frame(now){
+    requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis||!W)return;
+    g.clearRect(0,0,W,H);g.lineWidth=1;
+    P.forEach(Q=>{const p=Q.p;g.strokeStyle=Q.out?'rgba(26,40,23,.12)':'rgba(26,40,23,.065)';g.beginPath();g.moveTo(p[0],p[1]);g.bezierCurveTo(p[2],p[3],p[4],p[5],p[6],p[7]);g.stroke()});
+    parts.forEach(o=>{const p=P[o.q].p;if(!reduce)o.t+=o.sp*dt;if(o.t>1)o.t-=1;
+      const x=BZ(p[0],p[2],p[4],p[6],o.t),y=BZ(p[1],p[3],p[5],p[7],o.t),fade=Math.min(1,o.t*6,(1-o.t)*5);
+      g.fillStyle=o.dark?`rgba(26,40,23,${.5*fade})`:`rgba(150,170,146,${.6*fade})`;g.beginPath();g.arc(x,y,o.dark?1.9:1.6,0,7);g.fill()});
+  }
+  new ResizeObserver(size).observe(hero);new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(hero);
+  requestAnimationFrame(frame);
+})();
+
+/* ---------- the statement stack leans toward the pointer ---------- */
+(function(){
+  const w=document.querySelector('.docwrap');if(!w||reduce||!matchMedia('(hover:hover)').matches)return;
+  let tx=0,ty=0,cx=0,cy=0;
+  addEventListener('pointermove',e=>{const r=w.getBoundingClientRect();tx=(e.clientX-(r.left+r.width/2))/innerWidth;ty=(e.clientY-(r.top+r.height/2))/innerHeight});
+  (function loop(){requestAnimationFrame(loop);cx+=(tx-cx)*.06;cy+=(ty-cy)*.06;w.style.transform=`perspective(1600px) rotateY(${(cx*5).toFixed(2)}deg) rotateX(${(-cy*4).toFixed(2)}deg)`})();
+})();
+
+/* ---------- where the rent went: drawn to scale, always moving ---------- */
+window.FLOW=(function(){
+  const cv=$('flow');if(!cv)return null;const g=cv.getContext('2d');
+  const F=new Map();let W=0,H=0,dpr=1,L=0,R=0,mob=false,armed=false,pend=null,hov=null,ext=null,geo=[],last=performance.now(),vis=false;
+  let X0=0,X1=0,XM=0,XL=0,CY=0,HF=140;
+  function size(){const r=cv.getBoundingClientRect();if(!r.width)return;W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);
+    const wr=document.querySelector('.flowband .wrap').getBoundingClientRect();L=wr.left-r.left+28;R=wr.right-r.left-28;mob=W<700}
+  function apply(k){const m=MONTHS[k];
+    const out=[['fee','Management fee',`${Math.round(FEE*100)}% of the rent`,RENT*FEE],...m.items.map(([t,d,a])=>['i:'+t,t,d,-a])];
+    const net=RENT-out.reduce((s,x)=>s+x[3],0);
+    F.forEach(f=>{f.ta=0;f.tv=0});
+    [['owner','Paid to you',`on ${m.paid}`,net],...out].forEach(([id,name,sub,v],i)=>{let f=F.get(id);
+      if(!f){f={id,v:0,a:0,parts:[],kind:id==='owner'?'own':id==='fee'?'fee':'item'};F.set(id,f)}Object.assign(f,{name,sub,tv:v,ta:1,ord:i})});
+  }
+  function set(k){const m=MONTHS[k];$('fbMonth').textContent=m.name.split(' ')[0];tween($('fbNet'),RENT*(1-FEE)+m.items.reduce((s,x)=>s+x[2],0),2);if(armed)apply(k);else pend=k}
+  function fit(t,w){if(g.measureText(t).width<=w)return t;while(t.length>3&&g.measureText(t+'…').width>w)t=t.slice(0,-1);return t+'…'}
+  function frame(now){
+    requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis||!W)return;
+    const k=reduce?1:1-Math.exp(-dt*3.2);
+    F.forEach(f=>{f.v+=(f.tv-f.v)*k;f.a+=(f.ta-f.a)*k;if(Math.abs(f.tv-f.v)<.5)f.v=f.tv;if(f.ta===0&&f.a<.02)F.delete(f.id)});
+    const list=[...F.values()].sort((a,b)=>a.ord-b.ord||b.ta-a.ta);
+    HF=mob?110:140;const sc=HF/RENT,bw=7,total=list.reduce((s,f)=>s+f.v,0);
+    CY=mob?H/2+20:H/2+4;XL=mob?L:L+150;const xr=mob?L+(R-L)*.47:R-210;
+    let T=0;const blocks=list.map((f,i)=>{const h=f.v*sc,b=f.kind==='own'?h:Math.max(h,32*f.a),gap=i?(i===1?16:8)*f.a:0;T+=b+gap;return{f,h,b,gap}});
+    let y=CY-T/2,ly=CY-total*sc/2;const lt=ly;geo=[];
+    blocks.forEach(B=>{y+=B.gap;geo.push({f:B.f,a0:ly,a1:ly+B.h,b0:y,b1:y+B.h,by:y,bb:B.b});ly+=B.h;y+=B.b});
+    X0=XL+bw;X1=xr;XM=(X0+X1)/2;
+    const lit=hov||ext;g.clearRect(0,0,W,H);
+    // ribbons, with the rent moving through them
+    geo.forEach(G=>{const f=G.f,on=!lit||lit==='in'||lit===f.id,al=(on?1:.3)*f.a,rgb=f.kind==='own'?'26,40,23':'114,114,114';
+      const gr=g.createLinearGradient(X0,0,X1,0);gr.addColorStop(0,`rgba(${rgb},${.08*al})`);gr.addColorStop(1,`rgba(${rgb},${(f.kind==='own'?.2:.17)*al})`);
+      g.fillStyle=gr;g.beginPath();g.moveTo(X0,G.a0);g.bezierCurveTo(XM,G.a0,XM,G.b0,X1,G.b0);g.lineTo(X1,G.b1);g.bezierCurveTo(XM,G.b1,XM,G.a1,X0,G.a1);g.closePath();g.fill();
+      const want=f.v>5?Math.round(Math.max(3,(G.a1-G.a0)*(mob?.6:.8))):0;
+      while(f.parts.length<want)f.parts.push({t:Math.random(),u:Math.random(),sp:.11+Math.random()*.1});
+      if(f.parts.length>want)f.parts.length=want;
+      g.strokeStyle=f.kind==='own'?`rgba(26,40,23,${.55*al})`:`rgba(80,80,80,${.55*al})`;g.lineWidth=f.kind==='own'?1.8:1.4;g.lineCap='round';
+      const at=(t,u)=>{const yt=BZ(G.a0,G.a0,G.b0,G.b0,t),yb=BZ(G.a1,G.a1,G.b1,G.b1,t);return[BZ(X0,XM,XM,X1,t),yt+(yb-yt)*u]};
+      g.beginPath();
+      f.parts.forEach(p=>{if(!reduce)p.t+=p.sp*dt;if(p.t>1){p.t-=1;p.u=Math.random()}
+        const u=.12+p.u*.76,[x,y]=at(p.t,u),[x2,y2]=at(Math.max(0,p.t-.014),u);g.moveTo(x2,y2);g.lineTo(x,y)});
+      g.stroke();
+    });
+    // the rent, as it arrives
+    g.fillStyle='#1A2817';g.fillRect(XL,lt,bw,total*sc);g.textBaseline='alphabetic';
+    if(mob){g.textAlign='left';g.font='500 13px Geist, sans-serif';g.fillStyle='#222';g.fillText('Rent received',XL,lt-30);g.font='500 15px "Geist Mono", monospace';g.fillStyle='#1A2817';g.fillText(money(RENT,2),XL,lt-11)}
+    else{g.textAlign='right';g.font='500 13.5px Geist, sans-serif';g.fillStyle='#222';g.fillText('Rent received',XL-16,CY-14);g.font='500 18px "Geist Mono", monospace';g.fillStyle='#1A2817';g.fillText(money(RENT,2),XL-16,CY+9);g.font='400 12px Geist, sans-serif';g.fillStyle='#727272';g.fillText('from your tenant',XL-16,CY+27)}
+    // where it went
+    g.textAlign='left';
+    geo.forEach(G=>{const f=G.f,on=!lit||lit==='in'||lit===f.id;g.globalAlpha=f.a*(on?1:.4);
+      g.fillStyle=f.kind==='own'?'#1A2817':f.kind==='fee'?'#727272':'#BABABA';g.fillRect(X1,G.b0,bw,Math.max(1.5,G.b1-G.b0));
+      const tx=X1+bw+12,room=(mob?W-16:R+28)-tx;
+      if(f.kind==='own'){const c=(G.b0+G.b1)/2;g.font='500 13.5px Geist, sans-serif';g.fillStyle='#222';g.fillText(f.name,tx,c-14);g.font=`500 ${mob?15:18}px "Geist Mono", monospace`;g.fillStyle='#1A2817';g.fillText(money(f.v,2),tx,c+8);g.font='400 12px Geist, sans-serif';g.fillStyle='#727272';g.fillText(f.sub,tx,c+26)}
+      else{const c=G.b0+Math.max(G.b1-G.b0,2)/2;g.font=`400 ${mob?12.5:13}px Geist, sans-serif`;g.fillStyle='#222';g.fillText(fit(f.name,room),tx,c+4);g.font='400 12px "Geist Mono", monospace';g.fillStyle='#727272';g.fillText('−'+money(f.v,2),tx,c+20)}
+      g.globalAlpha=1});
+  }
+  function hit(px,py){
+    if(px>=X0&&px<=X1){let a=0,b=1;for(let i=0;i<22;i++){const m=(a+b)/2;if(BZ(X0,XM,XM,X1,m)<px)a=m;else b=m}const t=(a+b)/2;
+      for(const G of geo){const yt=BZ(G.a0,G.a0,G.b0,G.b0,t),yb=BZ(G.a1,G.a1,G.b1,G.b1,t);if(py>=yt-4&&py<=yb+4)return G.f.id}}
+    if(px>X1){for(const G of geo)if(py>=G.by-8&&py<=G.by+G.bb+8)return G.f.id}
+    if(px<X0&&px>XL-170&&Math.abs(py-CY)<HF/2+24)return 'in';
+    return null}
+  function mark(id){document.querySelectorAll('#lines li').forEach(li=>li.classList.toggle('hl',!!id&&li.dataset.f===id));document.querySelector('.net').classList.toggle('hl',id==='owner')}
+  cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect(),h=hit(e.clientX-r.left,e.clientY-r.top);if(h!==hov){hov=h;mark(h);cv.style.cursor=h?'pointer':'default'}});
+  cv.addEventListener('pointerleave',()=>{hov=null;mark(null)});
+  $('lines').addEventListener('pointerover',e=>{const li=e.target.closest('li[data-f]');ext=li?li.dataset.f:null});
+  $('lines').addEventListener('pointerleave',()=>ext=null);
+  const net=document.querySelector('.net');net.addEventListener('pointerenter',()=>ext='owner');net.addEventListener('pointerleave',()=>ext=null);
+  new ResizeObserver(size).observe(cv);
+  new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!armed){armed=true;if(pend)apply(pend)}},{threshold:.2}).observe(cv);
+  requestAnimationFrame(frame);
+  return{set};
+})();
+FLOW&&FLOW.set(curMonth);
+
+/* ---------- the estimate among other homes: one dot per home ---------- */
+window.SWARM=(function(){
+  const cv=$('swarm');if(!cv)return null;const g=cv.getContext('2d');
+  let W=0,H=64,dpr=1,args=null,vis=true,last=performance.now(),bl=0,bh=0,tbl=0,tbh=0,seed=5;
+  const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  const D=[...Array(110)].map(()=>({j:rnd(),n:rnd(),x:-10,y:32,tx:0,ty:32,c:0,tc:0}));
+  function size(){const r=cv.getBoundingClientRect();if(!r.width)return;W=r.width;dpr=Math.min(devicePixelRatio||1,2);cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);if(args)set(...args)}
+  function set(area,mn,mx,lo,hi){args=[area,mn,mx,lo,hi];if(!W)return;
+    const base=[];['apartment','villa','townhouse'].forEach(t=>[0,1,2,3,4,5].forEach(b=>{if(t!=='apartment'&&b<2)return;base.push(rentFor(area,t,b,false),rentFor(area,t,b,true))}));
+    const pad=6,R=2.7,X=v=>pad+Math.max(0,Math.min(1,(v-mn)/(mx-mn)))*(W-pad*2);
+    const pts=D.map(d=>{let v=base[Math.floor(d.j*base.length)]*(1+(d.n-.5)*.34);if(v<mn)v=2*mn-v;if(v>mx)v=2*mx-v;return{d,v,x:X(v)}}).sort((a,b)=>a.x-b.x);
+    const placed=[];
+    pts.forEach(p=>{let off=null;
+      for(let s2=0;s2<9&&off===null;s2++){const o=s2===0?0:(s2%2?-1:1)*Math.ceil(s2/2)*R*2.1;let ok=true;
+        for(let q=placed.length-1;q>=0&&p.x-placed[q].x<R*2.2;q--)if(Math.abs(placed[q].y-o)<R*2.1){ok=false;break}
+        if(ok)off=o}
+      if(off===null)off=(p.d.n-.5)*H*.8;
+      placed.push({x:p.x,y:off});p.d.tx=p.x;p.d.ty=H/2+off;p.d.tc=p.v>=lo&&p.v<=hi?1:0});
+    tbl=X(lo);tbh=X(hi)}
+  const A=[203,214,200],B=[26,40,23],mix=c=>`rgb(${A.map((v,i)=>Math.round(v+(B[i]-v)*c)).join(',')})`;
+  function frame(now){
+    requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis||!W)return;
+    const k=reduce?1:1-Math.exp(-dt*5),t=now/1000;bl+=(tbl-bl)*k;bh+=(tbh-bh)*k;
+    g.clearRect(0,0,W,H);g.fillStyle='rgba(26,40,23,.07)';g.beginPath();g.roundRect(bl-7,1,Math.max(14,bh-bl+14),H-2,9);g.fill();
+    D.forEach((d,i)=>{const kk=reduce?1:1-Math.exp(-dt*(2.6+(i*7%10)*.4));d.x+=(d.tx-d.x)*kk;d.y+=(d.ty-d.y)*kk;d.c+=(d.tc-d.c)*k;
+      g.fillStyle=mix(d.c);g.beginPath();g.arc(d.x,d.y+(reduce?0:Math.sin(t*1.3+i)*.6),2.6,0,7);g.fill()});
+  }
+  new ResizeObserver(size).observe(cv);new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(cv);
+  requestAnimationFrame(frame);
+  return{set};
+})();
+if(lastEst&&SWARM)SWARM.set(...lastEst);
+
+/* ---------- quiet reveals ---------- */
+(function(){const els=document.querySelectorAll('.items,.steps');
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});els.forEach(e=>io.observe(e))})();
 </script>
 </body>
 </html>

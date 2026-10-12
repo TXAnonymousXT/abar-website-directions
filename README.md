@@ -13,10 +13,10 @@ Ten working homepage designs for [aba-r.com](https://aba-r.com), plus a cover pa
 | `4-model-coast.html` | A white scale model of Doha — ABAR's buildings in green |
 | `5-pop-up.html` | A pop-up book of Qatar |
 | `6-simple.html` | A simple, bright site in ABAR's colours |
-| `7-ask.html` | Search by describing the home, in English or Arabic |
-| `8-commute.html` | Homes ranked by drive time to where you work |
-| `9-move-in.html` | Pick a move-in date; see what's free and a plan to get there |
-| `10-statement.html` | For owners: an example monthly statement and a rent estimator |
+| `7-ask.html` | Search by describing the home, in English or Arabic, over a floating 3D cloud of listing photos |
+| `8-commute.html` | Homes ranked by drive time to where you work, beside a live commuter map of Doha |
+| `9-move-in.html` | Pick a move-in date; see what's free, a plan to get there, and six months as one dot per day |
+| `10-statement.html` | For owners: a statement that prints itself, the rent drawn to scale as moving ribbons, and a rent estimator |
 
 ## Run it on another device
 

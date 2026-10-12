@@ -81,6 +81,21 @@ header nav .ar{font-family:var(--arabic);font-size:14px}
 .cal .key span{display:flex;gap:8px;align-items:center}
 .cal .key i{width:14px;height:14px;border-radius:4px;display:inline-block}
 
+
+/* living light behind the hero */
+.hero{position:relative;overflow:hidden;padding-bottom:0}
+.hero>.wrap{position:relative;z-index:2}
+.glow{position:absolute;inset:-30% -10% auto -10%;height:120%;z-index:0;pointer-events:none;background:radial-gradient(34% 40% at 78% 38%,var(--tint) 0%,rgba(239,243,238,0) 70%),radial-gradient(28% 34% at 12% 20%,#F2F5F1 0%,rgba(242,245,241,0) 70%);animation:glow 24s ease-in-out infinite alternate}
+@keyframes glow{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-4%,3%,0) scale(1.05)}100%{transform:translate3d(3%,-2%,0)}}
+/* the days band: one dot per day */
+.daysband{position:relative;z-index:2;margin-top:56px;border-top:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
+.dbhead{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 0 4px;flex-wrap:wrap}
+.dbhead b{font-weight:600;font-size:15px}
+.dbhead span{font-size:13.5px;color:var(--grey)}
+.dbkey{display:flex;gap:16px;font-size:12.5px;color:var(--grey);flex-wrap:wrap}
+.dbkey i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+#dayband{display:block;width:100%;height:360px;cursor:pointer}
+
 /* timeline of availability */
 .free{background:var(--soft);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:80px 0}
 .free .head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:34px}
@@ -183,6 +198,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 
 <main>
 <section class="hero" aria-labelledby="h1">
+  <div class="glow" aria-hidden="true"></div>
   <div class="wrap">
     <div>
       <p class="eyebrow">ABAR Real Estate · rentals across Qatar</p>
@@ -197,6 +213,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <div class="days" id="days" role="grid"></div>
       <div class="key"><span><i style="background:var(--forest)"></i>Your move-in day</span><span><i style="background:var(--tint);border:1px solid var(--tint-line)"></i>Time to get ready</span><span><i style="background:var(--forest);border-radius:50%;width:12px;height:12px"></i>Homes become free</span></div>
     </div>
+  </div>
+  <div class="daysband">
+    <div class="wrap"><div class="dbhead"><div><b>The next six months, one dot per day</b> <span>· tap any day to make it your move-in date</span></div><div class="dbkey"><span><i style="background:#1A2817"></i>Days until your keys</span><span><i style="border:1.6px solid #1A2817;width:12px;height:12px"></i>Homes become free</span></div></div></div>
+    <canvas id="dayband" aria-label="A band of dots, one per day, filling from today to your move-in date."></canvas>
   </div>
 </section>
 
@@ -337,6 +357,60 @@ function render(){
 }
 $('msg').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('done')});
 render();
+
+/* ---------- the days band: time made visible ---------- */
+(function(){
+  const cv=document.getElementById('dayband');if(!cv)return;const g=cv.getContext('2d');
+  const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const START=addDays(TODAY,-TODAY.getDay()),WEEKS=24;
+  let W=0,H=0,dpr=1,cell=20,x0=0,y0=34,fillFrom=0,fillTo=0,fillT=1,lastSel=null,hoverDay=null;
+  const opens=new Map();HOMES.forEach(h=>{const d=h.avail<TODAY?TODAY:h.avail;const k=d.toDateString();opens.set(k,(opens.get(k)||0)+1)});
+  function size(){let r=cv.getBoundingClientRect();W=r.width;
+    const wrap=document.querySelector('.daysband .wrap').getBoundingClientRect();const left=Math.max(16,wrap.left-r.left+28),span=Math.min(W-left*2,wrap.width-56);
+    cell=Math.min(50,Math.max(11,span/WEEKS));y0=34;cv.style.height=Math.round(y0+cell*7+44)+'px';
+    r=cv.getBoundingClientRect();H=r.height;dpr=Math.min(devicePixelRatio||1,2);cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);
+    x0=left+cell/2}
+  const dayAt=(c,r)=>addDays(START,c*7+r);
+  const idx=d=>Math.round((d-START)/864e5);
+  function draw(time){
+    g.clearRect(0,0,W,H);
+    const today=idx(TODAY),selI=idx(sel);
+    if(lastSel===null||+lastSel!==+sel){fillFrom=lastSel===null?today:Math.min(idx(lastSel),selI);fillTo=selI;fillT=RM?1:0;lastSel=new Date(sel)}
+    fillT=Math.min(1,fillT+(RM?1:.022));
+    const wave=(1-Math.pow(1-fillT,3));
+    // month labels
+    g.font='500 11.5px "Albert Sans", sans-serif';g.fillStyle='#727272';g.textBaseline='alphabetic';
+    let lastM=-1;for(let c=0;c<WEEKS;c++){const d=dayAt(c,0),m=d.getMonth();const first=[...Array(7)].map((_,r)=>dayAt(c,r)).find(x=>x.getDate()===1);if(c===0||first){const mm=(first||d).getMonth();if(mm!==lastM){g.fillText((first||d).toLocaleDateString('en-GB',{month:'short'}),x0+c*cell-cell/3,y0-16);lastM=mm}}}
+    for(let c=0;c<WEEKS;c++)for(let r=0;r<7;r++){
+      const d=dayAt(c,r),i=c*7+r,x=x0+c*cell,y=y0+r*cell;
+      const shimmer=RM?0:Math.sin(time*1.4-c*.35-r*.2)*.5+.5;
+      let rad=cell*.1+shimmer*cell*.035,col='#E1E5E0';
+      if(i<today){col='#F0F1EF'}
+      const reach=today+(selI-today)*wave;
+      if(i>=today&&i<=selI&&i<=reach+.5){col='#1A2817';rad=cell*.15}
+      else if(i>today&&i<=selI){col='#CBD6C8'}
+      g.fillStyle=col;g.beginPath();g.arc(x,y,rad,0,7);g.fill();
+      const n=opens.get(d.toDateString());
+      if(n&&i>=today){const pop=i<=selI?1:.55;g.strokeStyle=`rgba(26,40,23,${pop})`;g.lineWidth=1.6;g.beginPath();g.arc(x,y,cell*.28+(RM?0:Math.sin(time*3+i)*.6),0,7);g.stroke()}
+      if(i===today){const p=RM?0:(time*.7)%1;g.strokeStyle=`rgba(26,40,23,${.6*(1-p)})`;g.lineWidth=1.5;g.beginPath();g.arc(x,y,cell*.2+p*cell*.6,0,7);g.stroke()}
+      if(hoverDay&&i===idx(hoverDay)&&i>=today){g.strokeStyle='#1A2817';g.lineWidth=1.5;g.beginPath();g.arc(x,y,cell*.34,0,7);g.stroke()}
+    }
+    // the move-in marker
+    const sc=Math.floor(selI/7),sr=selI%7,sx=x0+sc*cell,sy=y0+sr*cell;
+    if(sc>=0&&sc<WEEKS){g.fillStyle='#1A2817';g.beginPath();g.arc(sx,sy,cell*.27,0,7);g.fill();g.fillStyle='#fff';g.beginPath();g.arc(sx,sy,cell*.09,0,7);g.fill();
+      const lab='Keys · '+sel.toLocaleDateString('en-GB',{day:'numeric',month:'short'});g.font='600 12px "Albert Sans", sans-serif';const lw=g.measureText(lab).width+16;
+      const lx=Math.min(W-lw-6,Math.max(6,sx-lw/2)),ly=y0+7*cell+4;g.fillStyle='#1A2817';g.beginPath();g.roundRect(lx,ly,lw,22,11);g.fill();g.fillStyle='#fff';g.textBaseline='middle';g.fillText(lab,lx+8,ly+11.5);g.textBaseline='alphabetic'}
+    const tx=x0+Math.floor(today/7)*cell;g.font='500 11px "Albert Sans", sans-serif';g.fillStyle='#727272';
+  }
+  function hit(e){const r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const c=Math.round((x-x0)/cell),rr=Math.round((y-y0)/cell);if(c<0||c>=WEEKS||rr<0||rr>6)return null;return dayAt(c,rr)}
+  cv.addEventListener('pointermove',e=>{hoverDay=hit(e);cv.title=hoverDay?hoverDay.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})+(opens.get(hoverDay.toDateString())?` · ${opens.get(hoverDay.toDateString())} homes become free`:''):''});
+  cv.addEventListener('pointerleave',()=>hoverDay=null);
+  cv.addEventListener('click',e=>{const d=hit(e);if(d&&d>=TODAY&&d<LAST)pick(d)});
+  let vis=true;new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(cv);
+  size();addEventListener('resize',size);
+  (function loop(now){requestAnimationFrame(loop);if(vis)draw(now/1000)})(performance.now());
+})();
+
 </script>
 </body>
 </html>

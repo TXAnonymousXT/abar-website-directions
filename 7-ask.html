@@ -44,14 +44,33 @@ header nav .ar{font-family:var(--arabic);font-size:14px}
 header nav .call{color:var(--forest);font-weight:500;display:inline-flex;gap:8px;align-items:center}
 
 /* the question */
-.ask{padding:13vh 0 34px}
+.ask{position:relative;overflow:hidden;padding:11vh 0 56px;min-height:min(84vh,820px);border-bottom:1px solid var(--rule)}
+.ask .wrap{position:relative;z-index:3;max-width:1240px}
+.askcol{max-width:600px}
+.wash{position:absolute;inset:-25%;z-index:0;pointer-events:none;background:radial-gradient(38% 42% at 72% 42%,var(--tint) 0%,rgba(239,243,238,0) 70%),radial-gradient(26% 30% at 18% 86%,#F1F4F0 0%,rgba(241,244,240,0) 70%),radial-gradient(22% 26% at 95% 90%,#F3F5F2 0%,rgba(243,245,242,0) 70%);animation:wash 26s ease-in-out infinite alternate}
+@keyframes wash{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-3%,2%,0) scale(1.06)}100%{transform:translate3d(2%,-2%,0) scale(1.02)}}
+.cloud{position:absolute;inset:0;z-index:1;perspective:1100px;perspective-origin:72% 45%;pointer-events:none}
+.tile{position:absolute;left:0;top:0;width:180px;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--rule);box-shadow:0 24px 44px -26px rgba(34,34,34,.45);will-change:transform,opacity;transition:opacity .7s ease,filter .7s ease;opacity:.55}
+.tile img{width:100%;height:100%;object-fit:cover}
+.tile .lab{position:absolute;left:8px;bottom:8px;right:8px;display:flex;justify-content:space-between;gap:6px;background:rgba(255,255,255,.94);border-radius:7px;padding:5px 8px;font-size:11.5px;line-height:1.25;color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+.tile .lab b{font-weight:600;color:var(--forest);white-space:nowrap}
+.tile .lab span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile.on{opacity:1;pointer-events:auto;cursor:pointer}
+.tile.on .lab{opacity:1;transform:none}
+.tile.off{opacity:.07;filter:grayscale(1) blur(1.5px)}
+.tile.hi{animation:hi .6s cubic-bezier(.2,1.4,.4,1)}
+@keyframes hi{40%{box-shadow:0 0 0 4px var(--forest),0 24px 44px -26px rgba(34,34,34,.45)}}
+.cloudcap{position:absolute;right:28px;bottom:22px;z-index:3;font-size:12.5px;color:var(--grey);display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.8);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--rule);border-radius:30px;padding:6px 12px}
+.cloudcap i{width:8px;height:8px;border-radius:50%;background:var(--forest)}
+.row.flash{animation:flash 1.4s ease}
+@keyframes flash{0%,30%{background:var(--tint)}100%{background:transparent}}
 .ask .eyebrow{font-size:13.5px;color:var(--grey);display:flex;gap:10px;align-items:center}
 .ask .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--forest);display:inline-block;box-shadow:0 0 0 4px var(--tint)}
 .ask label{display:block;margin:26px 0 10px;font-size:15px;color:var(--grey)}
 .field{position:relative;display:flex;align-items:center;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:10px;transition:border-color .3s}
 .field:focus-within{border-color:var(--forest)}
 .box{position:relative;flex:1;min-width:0}
-.box input,.mirror,.ghost{font:500 clamp(26px,4.4vw,50px)/1.25 var(--font);letter-spacing:-.025em;padding:6px 0;margin:0;border:0;width:100%;white-space:pre}
+.box input,.mirror,.ghost{font:500 clamp(24px,3.3vw,44px)/1.25 var(--font);letter-spacing:-.025em;padding:6px 0;margin:0;border:0;width:100%;white-space:pre}
 .box input{position:relative;z-index:2;background:transparent;color:var(--ink);caret-color:var(--forest);outline:none}
 .mirror{position:absolute;inset:0;z-index:1;color:transparent;overflow:hidden;pointer-events:none}
 .mirror mark{background:var(--tint);color:transparent;border-radius:6px;box-shadow:0 0 0 2px var(--tint),inset 0 -3px 0 var(--tint-line)}
@@ -148,7 +167,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 
 @media (max-width:860px){
   header nav a:not(.call):not(.ar){display:none}
-  .ask{padding-top:8vh}
+  .ask{padding-top:6vh;padding-bottom:300px;min-height:0}
+  .cloud{perspective-origin:50% 85%}
+  .tile{opacity:.85}
+  .tile.dup{display:none}
+  .tile .lab{justify-content:center}
+  .tile .lab span{display:none}
+  .cloudcap{left:50%;right:auto;transform:translateX(-50%);bottom:14px;white-space:nowrap}
   .field{flex-wrap:wrap}
   .field .count{order:3}
   .row{grid-template-columns:120px 1fr;gap:16px}
@@ -190,7 +215,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 
 <main>
 <section class="ask" aria-labelledby="ask-label">
-  <div class="wrap">
+  <div class="wash" aria-hidden="true"></div>
+  <div class="cloud" id="cloud" aria-hidden="true"></div>
+  <div class="cloudcap" aria-hidden="true"><i></i><span id="capText">Every photo is a home you can rent</span></div>
+  <div class="wrap"><div class="askcol">
     <p class="eyebrow"><i></i><span id="total">Homes for rent across Qatar, updated today</span></p>
     <label id="ask-label" for="q">Describe the home you want — in English or Arabic.</label>
     <form class="field" id="askForm" role="search">
@@ -210,7 +238,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <button type="button">office in Lusail</button>
       <button type="button" lang="ar" dir="rtl">فيلا في الوكير</button>
     </div>
-  </div>
+  </div></div>
 </section>
 
 <section class="results" id="results" aria-label="Matching homes">
@@ -366,7 +394,7 @@ function rowHTML(h,q){
   const f=[];if(h.beds)f.push([`${h.beds} bed`,q.beds!==undefined]);else f.push([h.type==='office'?'Office':h.type==='shop'?'Retail':'Studio',q.type&&q.type!=='apartment'||q.beds===0]);
   f.push([`${h.size} m²`,false]);f.push([h.furn?'Furnished':'Unfurnished',q.furn!==undefined]);
   h.feats.forEach(x=>f.push([x[0].toUpperCase()+x.slice(1),q.feats.includes(x)]));
-  return `<li class="row" data-id="${h.id}"><a class="ph" href="#contact" data-t="${h.title}"><img loading="lazy" src="${IMG(h.img)}" alt="${h.title}"></a>
+  return `<li class="row" id="row-${h.id}" data-id="${h.id}"><a class="ph" href="#contact" data-t="${h.title}"><img loading="lazy" src="${IMG(h.img)}" alt="${h.title}"></a>
   <div><h3>${h.title}</h3><div class="where"><span>${h.area}</span><span lang="ar">${AR_AREA[h.area]}</span></div><div class="facts">${f.map(([t,hit])=>`<span class="${hit?'hit':''}">${t}</span>`).join('')}</div></div>
   <div class="price"><b class="${q.max||q.min?'hit':''}">QAR ${fmt(h.price)}</b><small>per month</small><div class="avail">${av}</div><a href="#contact" data-t="${h.title}">View home <svg class="ico"><use href="#i-arrow"/></svg></a></div></li>`;
 }
@@ -382,6 +410,7 @@ function render(animate=true){
   const before=new Map([...list.children].map(li=>[li.dataset.id,li.getBoundingClientRect().top]));
   list.innerHTML=found.map(h=>rowHTML(h,q)).join('')||`<li class="empty">Nothing matches that yet. Remove a condition above, or <a href="#contact" style="color:var(--forest);font-weight:500">tell us what you need</a> and we’ll look for you.</li>`;
   if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)[...list.children].forEach((li,i)=>{const b=before.get(li.dataset.id);const a=li.getBoundingClientRect().top;if(b!==undefined){const d=b-a;if(d){li.animate([{transform:`translateY(${d}px)`},{transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}}else li.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:350,delay:i*25,fill:'backwards'})});
+  cloudSet(found,!!raw.trim());
   $('count').textContent=found.length;$('countLabel').textContent=found.length===1?'home':'homes';
   $('rtitle').innerHTML=raw.trim()?`${found.length} ${found.length===1?'home':'homes'} <span>· for “${esc(raw.trim())}”</span>`:`All homes <span>· soonest available first</span>`;
   const n=$('note');n.hidden=!note;n.innerHTML=note?`<b>${note}</b>`:'';
@@ -408,6 +437,69 @@ $('understood').addEventListener('click',e=>{const b=e.target.closest('button[da
 document.querySelectorAll('.try button').forEach(b=>b.addEventListener('click',()=>{input.value=b.textContent;render();input.focus();input.setSelectionRange(input.value.length,input.value.length)}));
 document.querySelectorAll('.sort button').forEach(b=>b.addEventListener('click',()=>{sortBy=b.dataset.s;document.querySelectorAll('.sort button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()}));
 $('msg').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('done')});
+
+
+/* ---------- the floating inventory: every photo is a listing ---------- */
+const cloudEl=$('cloud'),RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TILES=[];
+(function(){
+  const n=HOMES.length+9;
+  for(let i=0;i<n;i++){
+    const h=HOMES[i%HOMES.length],dup=i>=HOMES.length;
+    const el=document.createElement('div');el.className='tile';
+    el.innerHTML=`<img src="${IMG(h.img)}" alt="" loading="${i<12?'eager':'lazy'}"><div class="lab"><span>${h.area}</span><b>QAR ${fmt(h.price)}</b></div>`;
+    cloudEl.appendChild(el);
+    const a=i*2.39996,r=Math.sqrt((i+.5)/n);
+    const t={el,h,dup,ph:Math.random()*6.28,ax:Math.cos(a)*r,ay:Math.sin(a)*r,az:-80-Math.random()*520,w:150+Math.random()*70,cur:{x:0,y:0,z:-900,s:.6,ry:0},tgt:null,state:'idle'};
+    el.style.width=t.w+'px';
+    el.addEventListener('click',()=>{const row=document.getElementById('row-'+h.id);if(row){row.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'});row.classList.remove('flash');void row.offsetWidth;row.classList.add('flash')}});
+    TILES.push(t);
+  }
+})();
+let CW=0,CH=0,mob=false,mx=0,my=0,smx=0,smy=0;
+function measure(){const r=cloudEl.getBoundingClientRect();CW=r.width;CH=r.height;mob=innerWidth<860;
+  TILES.forEach(t=>{t.cw=mob?Math.round(t.w*.56):t.w;t.el.style.width=t.cw+'px';t.el.classList.toggle('dup',t.dup)})}
+measure();addEventListener('resize',measure);
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+let matchedOrder=[];
+function cloudSet(found,active){
+  const ids=new Set(found.map(h=>h.id));matchedOrder=found.map(h=>h.id);
+  TILES.forEach(t=>{const st=!active?'idle':(!t.dup&&ids.has(t.h.id)?'on':'off');
+    if(st!==t.state){t.el.classList.toggle('on',st==='on');t.el.classList.toggle('off',st==='off');if(st==='on'){t.el.classList.remove('hi');void t.el.offsetWidth;t.el.classList.add('hi')}t.state=st}});
+  const cap=document.getElementById('capText');
+  cap.textContent=!active?'Every photo is a home you can rent':found.length?`${found.length} ${found.length>1?'homes come':'home comes'} forward — tap one to jump to it`:'Nothing matches yet';
+}
+function cloudTargets(time){
+  // a loose cloud on the right; matched homes line up in front of it
+  const cx=mob?CW*.5:CW*.74,cy=mob?CH-150:CH*.48,rx=mob?CW*.6:CW*.25,ry=mob?105:CH*.4;
+  const on=TILES.filter(t=>t.state==='on').sort((a,b)=>matchedOrder.indexOf(a.h.id)-matchedOrder.indexOf(b.h.id)).slice(0,mob?6:9);
+  const cols=mob?3:on.length>6?3:2,gw=mob?128:205,gh=mob?100:165;
+  const rows=Math.ceil(on.length/cols);
+  TILES.forEach(t=>{
+    let x,y,z,s=1,rot=0;const k=on.indexOf(t);
+    if(k>=0){const c=k%cols,r=Math.floor(k/cols);const n=Math.min(cols,on.length-r*cols);
+      x=cx+(c-(n-1)/2)*gw-t.cw/2;y=cy+(r-(rows-1)/2)*gh-t.cw*.375;z=140-r*30;s=mob?1:1.05;
+      x+=Math.sin(time*.6+t.ph)*3;y+=Math.cos(time*.5+t.ph)*3}
+    else{const drift=RM?0:1;x=cx+t.ax*rx-t.cw/2+Math.sin(time*.18+t.ph)*16*drift;y=cy+t.ay*ry-t.cw*.375+Math.cos(time*.15+t.ph*1.3)*14*drift;
+      z=t.az-(t.state==='idle'?0:380);rot=t.ax*-14;s=t.state==='idle'?1:.85}
+    const par=(z+700)/700;x+=smx*40*par;y+=smy*26*par;
+    t.tgt={x,y,z,s,ry:rot};
+  });
+}
+let lastT=performance.now(),cloudVisible=true;
+new IntersectionObserver(es=>cloudVisible=es[0].isIntersecting).observe(cloudEl);
+function cloudFrame(now){
+  requestAnimationFrame(cloudFrame);
+  if(!cloudVisible)return;
+  const dt=Math.min(.05,(now-lastT)/1000);lastT=now;const time=now/1000;
+  smx+=(mx-smx)*Math.min(1,dt*3);smy+=(my-smy)*Math.min(1,dt*3);
+  cloudTargets(time);
+  const k=RM?1:1-Math.exp(-dt*4.2);
+  TILES.forEach(t=>{const c=t.cur,g=t.tgt;for(const p in g)c[p]+=(g[p]-c[p])*k;
+    t.el.style.transform=`translate3d(${c.x.toFixed(1)}px,${c.y.toFixed(1)}px,${c.z.toFixed(1)}px) rotateY(${c.ry.toFixed(2)}deg) scale(${c.s.toFixed(3)})`;
+    t.el.style.zIndex=Math.round(c.z+1000)});
+}
+requestAnimationFrame(cloudFrame);
 
 /* placeholder that types example requests */
 const EX=['a 2 bed apartment in Lusail under 10k','a villa with a pool in Al Wakrah','something furnished with a sea view','an office near the tram in Lusail','فيلا في الوكير'];

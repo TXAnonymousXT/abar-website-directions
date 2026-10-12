@@ -70,6 +70,22 @@ header nav .ar{font-family:var(--arabic)}
 .switch[aria-checked=true]{background:var(--forest)}
 .switch[aria-checked=true]::after{transform:translateX(18px)}
 
+
+/* hero: picker on the left, a live traffic map on the right */
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:52px;align-items:start}
+.hero .top{display:block}
+.hero .top p{margin-top:16px}
+.hero .dests{grid-template-columns:repeat(2,1fr);margin-top:28px}
+.mapcard{position:relative;border:1px solid var(--tint-line);border-radius:18px;overflow:hidden;background:var(--tint);box-shadow:0 30px 70px -44px rgba(26,40,23,.55);aspect-ratio:1/1.08}
+#flow{position:absolute;inset:0;width:100%;height:100%;cursor:default}
+#flow.hand{cursor:pointer}
+.maplegend{position:absolute;left:14px;bottom:14px;right:14px;display:flex;justify-content:flex-end;align-items:flex-end;gap:12px;pointer-events:none}
+.maplegend span{background:rgba(255,255,255,.92);border:1px solid var(--rule);border-radius:8px;padding:7px 10px;font-size:12.5px;color:var(--grey);line-height:1.35}
+.maplegend b{color:var(--ink);font-weight:500}
+.maplegend i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--forest);margin-right:6px;vertical-align:1px}
+.maptag{position:absolute;left:14px;top:14px;background:var(--forest);color:var(--white);border-radius:8px;padding:8px 12px;font-size:13px;pointer-events:none;box-shadow:0 10px 24px -14px rgba(26,40,23,.8)}
+.maptag b{display:block;font-size:15px;font-weight:600}
+
 /* timetable */
 .board{padding:40px 0 90px}
 .board .wrap{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start}
@@ -146,6 +162,8 @@ footer{border-top:1px solid var(--rule);background:var(--soft)}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px;padding-bottom:22px;font-size:13.5px;color:var(--grey)}
 
 @media (max-width:1100px){
+  .hero .wrap{grid-template-columns:1fr}
+  .mapcard{aspect-ratio:1/.9;max-width:640px}
   .dests{grid-template-columns:repeat(2,1fr)}
   .board .wrap{grid-template-columns:1fr}
   aside.areas{position:static;order:2}
@@ -186,6 +204,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 <main>
 <section class="hero" aria-labelledby="h1">
   <div class="wrap">
+   <div>
     <div class="top">
       <h1 id="h1">Where do you work?</h1>
       <p>Pick your office, campus or base. We’ll rank every home ABAR has to rent by how long the drive takes.</p>
@@ -196,6 +215,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <div class="ctl"><span>Show</span><div class="seg" id="typeSeg" role="group" aria-label="Property type"><button type="button" data-v="all" aria-pressed="true">All homes</button><button type="button" data-v="apartment" aria-pressed="false">Apartments</button><button type="button" data-v="villa" aria-pressed="false">Villas</button></div></div>
       <div class="ctl"><button class="switch" id="rush" role="switch" aria-checked="false" aria-label="Rush hour"></button><span>Rush hour (7–8am, 5–6pm)</span></div>
     </div>
+   </div>
+   <div class="mapcard">
+     <canvas id="flow" role="img" aria-label="Live map of Doha: dots flow from each area to your chosen workplace, faster where the drive is shorter."></canvas>
+     <div class="maptag"><span>Everyone heading to</span><b id="mapDest">West Bay</b></div>
+     <div class="maplegend"><span><i></i>Each dot is a commuter from one of our areas.<br><b>Faster flow, shorter drive.</b></span></div>
+   </div>
   </div>
 </section>
 
@@ -345,6 +370,83 @@ $('clearArea').onclick=()=>{st.area=null;render()};
 list.addEventListener('click',e=>{const a=e.target.closest('[data-t]');if(a)$('msgText').value=`I work in ${DESTS.find(d=>d[0]===st.dest)[1]} and I'm interested in: ${a.dataset.t}`});
 $('msg').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('done')});
 render();
+
+/* ---------- live traffic map: dots flow from every area to your workplace ---------- */
+(function(){
+  const cv=document.getElementById('flow');if(!cv)return;const g=cv.getContext('2d');
+  const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const LON0=51.355,LON1=51.685,LAT0=25.115,LAT1=25.465,K=Math.cos(25.3*Math.PI/180);
+  let W=0,H=0,dpr=1,sc=1,ox=0,oy=0;
+  function size(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);
+    const mw=(LON1-LON0)*K,mh=LAT1-LAT0;sc=Math.min(W/mw,H/mh);ox=(W-mw*sc)/2;oy=(H-mh*sc)/2}
+  const P=(lon,lat)=>[ox+(lon-LON0)*K*sc,oy+(LAT1-lat)*sc];
+  const LAND=[[51.30,25.50],[51.50,25.50],[51.505,25.445],[51.515,25.42],[51.53,25.405],[51.536,25.395],[51.526,25.385],[51.518,25.376],[51.529,25.362],[51.535,25.345],[51.54,25.33],[51.547,25.32],[51.539,25.311],[51.525,25.305],[51.516,25.299],[51.521,25.292],[51.535,25.2895],[51.548,25.2905],[51.558,25.2905],[51.572,25.284],[51.6,25.289],[51.637,25.278],[51.646,25.25],[51.641,25.228],[51.619,25.214],[51.613,25.19],[51.608,25.165],[51.603,25.13],[51.598,25.09],[51.30,25.09]];
+  const PEARL=Array.from({length:22},(_,i)=>{const a=i/22*Math.PI*2,r=1+.1*Math.sin(a*3);return[51.553+Math.cos(a)*.0165*r,25.372+Math.sin(a)*.019*r]});
+  const AREA_LL={'Doha':[51.505,25.283],'Lusail':[51.497,25.425],'The Pearl':[51.553,25.372],'Katara':[51.522,25.36],'Al Wakrah':[51.596,25.17],'Al Wukair':[51.52,25.14],'Al Khor':[51.50,25.68]};
+  const DEST_LL={wb:[51.531,25.322],ms:[51.527,25.288],ec:[51.437,25.315],lu:[51.515,25.405],hia:[51.608,25.27],hp:[51.62,25.01],ia:[51.45,25.195],az:[51.443,25.263]};
+  const inMap=(lon,lat)=>lat<=LAT1&&lat>=LAT0;
+  function pos(ll){const[lon,lat]=ll;const c=[lon,Math.max(LAT0+.012,Math.min(LAT1-.012,lat))];return{p:P(...c),edge:lat>LAT1?'n':lat<LAT0?'s':''}}
+  const counts={};HOMES.forEach(h=>counts[h.area]=(counts[h.area]||0)+1);
+  let parts=[],routes=[],hover=null,pins=[];
+  function build(){
+    routes=Object.keys(AREA_LL).map(a=>{
+      const A=pos(AREA_LL[a]),D=pos(DEST_LL[st.dest]);
+      const [x0,y0]=A.p,[x1,y1]=D.p,mx=(x0+x1)/2,my=(y0+y1)/2,dx=x1-x0,dy=y1-y0,len=Math.hypot(dx,dy)||1;
+      const bend=Math.min(60,len*.22)*(a.length%2?1:-1);
+      return{a,A,D,x0,y0,x1,y1,cx:mx-dy/len*bend,cy:my+dx/len*bend,min:T[a][st.dest],len};
+    });
+    parts=[];routes.forEach((r,ri)=>{const n=Math.max(6,(counts[r.a]||1)*7);for(let i=0;i<n;i++)parts.push({ri,t:i/n+Math.random()*.05,v:.9+Math.random()*.2})});
+  }
+  const bez=(r,t)=>{const u=1-t;return[u*u*r.x0+2*u*t*r.cx+t*t*r.x1,u*u*r.y0+2*u*t*r.cy+t*t*r.y1]};
+  function draw(time,dt){
+    g.clearRect(0,0,W,H);
+    // sea, land, island
+    g.fillStyle='#EFF3EE';g.fillRect(0,0,W,H);
+    const poly=pts=>{g.beginPath();pts.forEach(([lo,la],i)=>{const[x,y]=P(lo,la);i?g.lineTo(x,y):g.moveTo(x,y)});g.closePath()};
+    g.fillStyle='#FFFFFF';poly(LAND);g.fill();poly(PEARL);g.fill();
+    g.strokeStyle='#DDE5DA';g.lineWidth=1.2;poly(LAND);g.stroke();poly(PEARL);g.stroke();
+    // a faint survey grid on land
+    g.save();poly(LAND);g.clip();g.strokeStyle='rgba(34,34,34,.04)';g.lineWidth=1;for(let x=0;x<W;x+=28){g.beginPath();g.moveTo(x,0);g.lineTo(x,H);g.stroke()}for(let y=0;y<H;y+=28){g.beginPath();g.moveTo(0,y);g.lineTo(W,y);g.stroke()}g.restore();
+    const rush=st.rush;
+    // routes
+    routes.forEach(r=>{const on=!st.area||st.area===r.a;g.beginPath();g.moveTo(r.x0,r.y0);g.quadraticCurveTo(r.cx,r.cy,r.x1,r.y1);g.strokeStyle=on?(rush?'rgba(26,40,23,.28)':'rgba(26,40,23,.14)'):'rgba(26,40,23,.05)';g.lineWidth=rush?4:3;g.lineCap='round';g.stroke()});
+    // moving traffic: speed follows drive time; rush hour slows it and makes it bunch up
+    parts.forEach(pt=>{const r=routes[pt.ri];const on=!st.area||st.area===r.a;
+      let sp=(RM?0:1)*pt.v*.9/Math.max(6,r.min)*(rush?.62:1);
+      if(rush)sp*=.55+.45*Math.abs(Math.sin(pt.t*9+time*.7));
+      pt.t+=sp*dt*6;if(pt.t>1)pt.t-=1;
+      const [x,y]=bez(r,pt.t),[px,py]=bez(r,Math.max(0,pt.t-.025));
+      g.strokeStyle=on?'rgba(26,40,23,.85)':'rgba(26,40,23,.15)';g.lineWidth=2.4;g.beginPath();g.moveTo(px,py);g.lineTo(x,y);g.stroke();
+      g.fillStyle=on?'#1A2817':'rgba(26,40,23,.2)';g.beginPath();g.arc(x,y,2.7,0,7);g.fill()});
+    // area nodes with drive-time chips
+    g.font='500 12px "IBM Plex Sans", sans-serif';g.textBaseline='middle';
+    routes.forEach(r=>{const[x,y]=r.A.p,on=!st.area||st.area===r.a;g.globalAlpha=on?1:.35;
+      g.fillStyle='#fff';g.strokeStyle='#1A2817';g.lineWidth=2;g.beginPath();g.arc(x,y,6,0,7);g.fill();g.stroke();
+      const m=Math.round(r.min*(rush?1.33:1));const lab=(r.A.edge==='n'?'↑ ':'')+r.a,chip=m+' min';
+      const lw=g.measureText(lab).width,cw=g.measureText(chip).width+12,left=x>W*.62;
+      const bx=left?x-12-lw-cw-6:x+12;
+      g.fillStyle='rgba(255,255,255,.95)';g.beginPath();g.roundRect(bx-4,y-11,lw+cw+14,22,6);g.fill();
+      g.fillStyle='#222';g.fillText(lab,bx+2,y);g.fillStyle='#EFF3EE';g.beginPath();g.roundRect(bx+lw+8,y-8,cw,16,8);g.fill();
+      g.fillStyle='#1A2817';g.font='500 11px "IBM Plex Mono", monospace';g.fillText(chip,bx+lw+14,y+.5);g.font='500 12px "IBM Plex Sans", sans-serif';g.globalAlpha=1});
+    // destinations: every option is a pin; the chosen one pulses
+    pins=[];DESTS.forEach(([k,n])=>{const d=pos(DEST_LL[k]);const[x,y]=d.p;pins.push({k,x,y});if(k===st.dest)return;
+      g.fillStyle=hover===k?'#1A2817':'#fff';g.strokeStyle='#1A2817';g.lineWidth=1.5;g.beginPath();g.rect(x-4,y-4,8,8);g.fill();g.stroke();
+      if(hover===k){g.fillStyle='#1A2817';g.font='500 12px "IBM Plex Sans", sans-serif';g.fillText(n+(d.edge==='s'?' ↓':''),x+10,y)}});
+    const D=pos(DEST_LL[st.dest]);const[dx,dy]=D.p;const pulse=RM?0:(time*.8)%1;
+    g.strokeStyle=`rgba(26,40,23,${.5*(1-pulse)})`;g.lineWidth=2;g.beginPath();g.arc(dx,dy,10+pulse*26,0,7);g.stroke();
+    g.fillStyle='#1A2817';g.beginPath();g.arc(dx,dy,9,0,7);g.fill();g.fillStyle='#fff';g.beginPath();g.arc(dx,dy,3.5,0,7);g.fill();
+  }
+  cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const h=pins.find(p=>Math.hypot(p.x-x,p.y-y)<12);hover=h?h.k:null;cv.classList.toggle('hand',!!h)});
+  cv.addEventListener('pointerleave',()=>{hover=null});
+  cv.addEventListener('click',()=>{if(!hover)return;const b=document.querySelector(`.dest[data-k="${hover}"]`);if(b)b.click()});
+  let last=performance.now(),vis=true,key='';
+  new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(cv);
+  size();addEventListener('resize',()=>{size();build()});
+  function frame(now){requestAnimationFrame(frame);if(!vis)return;const dt=Math.min(.05,(now-last)/1000);last=now;
+    const k=st.dest+'|'+st.rush;if(k!==key){key=k;build();const dn=DESTS.find(d=>d[0]===st.dest);document.getElementById('mapDest').textContent=dn[1]}
+    draw(now/1000,dt)}
+  requestAnimationFrame(frame);
+})();
 </script>
 </body>
 </html>
