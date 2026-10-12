@@ -1,6 +1,6 @@
 # ABAR Real Estate — website directions
 
-Six working homepage designs for [aba-r.com](https://aba-r.com), plus a cover page that presents them side by side.
+Ten working homepage designs for [aba-r.com](https://aba-r.com), plus a cover page that presents them side by side.
 
 **Live:** https://txanonymousxt.github.io/abar-website-directions/ — opens on any phone or laptop.
 
@@ -13,6 +13,10 @@ Six working homepage designs for [aba-r.com](https://aba-r.com), plus a cover pa
 | `4-model-coast.html` | A white scale model of Doha — ABAR's buildings in green |
 | `5-pop-up.html` | A pop-up book of Qatar |
 | `6-simple.html` | A simple, bright site in ABAR's colours |
+| `7-ask.html` | Search by describing the home, in English or Arabic |
+| `8-commute.html` | Homes ranked by drive time to where you work |
+| `9-move-in.html` | Pick a move-in date; see what's free and a plan to get there |
+| `10-statement.html` | For owners: an example monthly statement and a rent estimator |
 
 ## Run it on another device
 

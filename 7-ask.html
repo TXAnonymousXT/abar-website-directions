@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR Real Estate — Describe the home you want</title>
+<meta name="description" content="Search ABAR's rental homes in Qatar the way you'd say it: '2 bed in Lusail under 10k'. English or Arabic.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Noto+Kufi+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--soft:#F7F8F7;--tint:#EFF3EE;--tint-line:#DDE5DA;
+  --forest:#1A2817;--forest-2:#26381F;--ink:#222222;--charcoal:#282C30;
+  --rule:#EDEDED;--mute:#BABABA;--grey:#727272;
+  --font:"Instrument Sans", system-ui, sans-serif;--arabic:"Noto Kufi Arabic", sans-serif;
+  --wrap:1080px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+[lang=ar]{font-family:var(--arabic)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.small{font-size:13px;color:var(--grey)}
+
+/* header */
+header.site{border-bottom:1px solid var(--rule)}
+header.site .wrap{display:flex;align-items:center;gap:30px;height:72px;max-width:1240px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo svg{width:46px;color:var(--ink)}
+.logo b{display:block;font-weight:600;font-size:16px;letter-spacing:.3em;line-height:1}
+.logo small{display:block;font-size:8.5px;letter-spacing:.3em;color:var(--grey);margin-top:5px;line-height:1}
+header nav{margin-left:auto;display:flex;gap:26px;align-items:center;font-size:14.5px}
+header nav a{color:var(--grey);transition:color .2s}
+header nav a:hover{color:var(--ink)}
+header nav .ar{font-family:var(--arabic);font-size:14px}
+header nav .call{color:var(--forest);font-weight:500;display:inline-flex;gap:8px;align-items:center}
+
+/* the question */
+.ask{padding:13vh 0 34px}
+.ask .eyebrow{font-size:13.5px;color:var(--grey);display:flex;gap:10px;align-items:center}
+.ask .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--forest);display:inline-block;box-shadow:0 0 0 4px var(--tint)}
+.ask label{display:block;margin:26px 0 10px;font-size:15px;color:var(--grey)}
+.field{position:relative;display:flex;align-items:center;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:10px;transition:border-color .3s}
+.field:focus-within{border-color:var(--forest)}
+.box{position:relative;flex:1;min-width:0}
+.box input,.mirror,.ghost{font:500 clamp(26px,4.4vw,50px)/1.25 var(--font);letter-spacing:-.025em;padding:6px 0;margin:0;border:0;width:100%;white-space:pre}
+.box input{position:relative;z-index:2;background:transparent;color:var(--ink);caret-color:var(--forest);outline:none}
+.mirror{position:absolute;inset:0;z-index:1;color:transparent;overflow:hidden;pointer-events:none}
+.mirror mark{background:var(--tint);color:transparent;border-radius:6px;box-shadow:0 0 0 2px var(--tint),inset 0 -3px 0 var(--tint-line)}
+.ghost{position:absolute;inset:0;z-index:0;color:var(--mute);overflow:hidden;pointer-events:none;transition:opacity .2s}
+.ghost::after{content:"";display:inline-block;width:2px;height:.9em;background:var(--forest);margin-left:4px;vertical-align:-.08em;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.has-text .ghost{opacity:0}
+.field .count{white-space:nowrap;font-size:14px;color:var(--grey);text-align:right;line-height:1.3}
+.field .count b{display:block;font-size:22px;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.go{width:54px;height:54px;border-radius:50%;border:0;background:var(--forest);color:var(--white);display:grid;place-items:center;cursor:pointer;flex:none;transition:background .2s,transform .2s}
+.go:hover{background:var(--forest-2);transform:translateX(2px)}
+.go .ico{width:22px;height:22px}
+.understood{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:38px;margin-top:16px}
+.understood .lead{font-size:14px;color:var(--grey);margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--tint);border:1px solid var(--tint-line);color:var(--forest);font-size:14px;font-weight:500;padding:6px 8px 6px 13px;border-radius:30px;animation:pop .35s cubic-bezier(.2,1.3,.4,1)}
+.chip button{width:20px;height:20px;border-radius:50%;border:0;background:transparent;color:var(--forest);display:grid;place-items:center;cursor:pointer;padding:0}
+.chip button:hover{background:var(--tint-line)}
+.chip button .ico{width:12px;height:12px;stroke-width:2.2}
+@keyframes pop{from{transform:scale(.85);opacity:0}}
+.try{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14.5px;color:var(--grey)}
+.try button{background:none;border:0;padding:0;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--rule);transition:border-color .2s,color .2s}
+.try button:hover{color:var(--forest);border-color:var(--forest)}
+.try [lang=ar]{font-size:14px}
+
+/* results */
+.results{padding:20px 0 90px}
+.rhead{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:14px 0;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.rhead h2{font-size:18px;font-weight:600}
+.rhead h2 span{color:var(--grey);font-weight:400}
+.sort{display:flex;gap:4px;background:var(--soft);border:1px solid var(--rule);border-radius:30px;padding:3px}
+.sort button{border:0;background:transparent;border-radius:30px;padding:6px 14px;font-size:13.5px;color:var(--grey);cursor:pointer}
+.sort button[aria-pressed=true]{background:var(--white);color:var(--ink);box-shadow:0 1px 3px rgba(34,34,34,.12)}
+.note{background:var(--soft);border:1px solid var(--rule);border-radius:8px;padding:12px 16px;margin-top:16px;font-size:14.5px;color:var(--grey)}
+.note b{color:var(--ink);font-weight:500}
+.list{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:200px 1fr auto;gap:26px;align-items:center;padding:20px 0;border-bottom:1px solid var(--rule);position:relative}
+.row .ph{aspect-ratio:3/2;border-radius:8px;overflow:hidden;background:var(--rule)}
+.row .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.row:hover .ph img{transform:scale(1.04)}
+.row h3{font-size:19px;font-weight:600}
+.row .where{display:flex;gap:10px;align-items:baseline;margin-top:3px;color:var(--grey);font-size:15px}
+.row .where [lang=ar]{font-size:13.5px}
+.facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.facts span{font-size:13px;border:1px solid var(--rule);border-radius:30px;padding:3px 11px;color:var(--grey)}
+.facts span.hit{border-color:var(--tint-line);background:var(--tint);color:var(--forest);font-weight:500}
+.row .price{text-align:right}
+.row .price b{display:block;font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.row .price b.hit{color:var(--forest)}
+.row .price small{color:var(--grey);font-size:13px}
+.row .price a{display:inline-flex;gap:6px;align-items:center;margin-top:12px;font-size:14px;font-weight:500;color:var(--forest)}
+.row .price a .ico{width:15px;height:15px;transition:transform .2s}
+.row:hover .price a .ico{transform:translateX(3px)}
+.row .avail{font-size:12.5px;color:var(--grey);margin-top:4px}
+.empty{padding:40px 0;text-align:center;color:var(--grey)}
+
+/* how / owners / contact */
+.how{background:var(--soft);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:80px 0}
+.how h2{font-size:clamp(1.6rem,2.6vw,2.2rem);max-width:22ch}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px;counter-reset:s}
+.steps li{list-style:none;border-top:2px solid var(--ink);padding-top:18px}
+.steps li::before{counter-increment:s;content:"Step " counter(s);display:block;font-size:13px;color:var(--grey);margin-bottom:10px}
+.steps h3{font-size:19px;margin-bottom:8px}
+.steps p{color:var(--grey);font-size:15px}
+.steps ol{padding:0;margin:0}
+.owners{padding:80px 0}
+.owners .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:start}
+.owners h2{font-size:clamp(1.6rem,2.6vw,2.2rem)}
+.owners p{color:var(--grey);margin-top:14px}
+.ticks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.ticks li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.ticks .ico{color:var(--forest);margin-top:3px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--forest);color:var(--white);border:0;border-radius:8px;padding:13px 20px;font-weight:500;font-size:15px;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--forest-2)}
+.btn.line{background:transparent;color:var(--forest);border:1px solid var(--forest)}
+.btn.line:hover{background:var(--tint)}
+.owners .btn{margin-top:28px}
+.contact{border-top:1px solid var(--rule);padding:80px 0}
+.contact .wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:60px}
+.contact h2{font-size:clamp(1.6rem,2.6vw,2.2rem)}
+.contact dl{margin:24px 0 0;display:grid;grid-template-columns:90px 1fr;gap:12px 16px;font-size:15px}
+.contact dt{color:var(--grey)}
+.contact dd{margin:0}
+.contact dd a:hover{color:var(--forest)}
+form.msg{display:grid;gap:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f input,.f textarea{width:100%;border:1px solid var(--rule);border-radius:8px;padding:13px 14px;font-size:15px;background:var(--white);transition:border-color .2s}
+.f textarea{min-height:110px;resize:vertical}
+.f input:focus,.f textarea:focus{outline:none;border-color:var(--forest)}
+.f span{display:block;font-size:13.5px;color:var(--grey);margin-bottom:6px}
+.ok{display:none;color:var(--forest);font-weight:500}
+form.done .ok{display:block}
+footer{border-top:1px solid var(--rule);background:var(--soft)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px;padding-bottom:22px;font-size:13.5px;color:var(--grey);max-width:1240px}
+
+@media (max-width:860px){
+  header nav a:not(.call):not(.ar){display:none}
+  .ask{padding-top:8vh}
+  .field{flex-wrap:wrap}
+  .field .count{order:3}
+  .row{grid-template-columns:120px 1fr;gap:16px}
+  .row .price{grid-column:2;text-align:left}
+  .row .price a{margin-top:6px}
+  .steps,.owners .wrap,.contact .wrap{grid-template-columns:1fr}
+  .ticks{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .row{grid-template-columns:96px 1fr}
+  .row h3{font-size:16.5px}
+  .two{grid-template-columns:1fr}
+  header nav .call span{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+</svg>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="ABAR Real Estate, home">
+      <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+      <span><b>ABAR</b><small>REAL ESTATE</small></span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#results">Homes</a><a href="#owners">Owners</a><a href="#contact">Contact</a>
+      <a class="ar" href="#" lang="ar">عربي</a>
+      <a class="call" href="tel:+97400000000"><svg class="ico"><use href="#i-phone"/></svg><span>+974 0000 0000</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="ask" aria-labelledby="ask-label">
+  <div class="wrap">
+    <p class="eyebrow"><i></i><span id="total">Homes for rent across Qatar, updated today</span></p>
+    <label id="ask-label" for="q">Describe the home you want — in English or Arabic.</label>
+    <form class="field" id="askForm" role="search">
+      <div class="box">
+        <div class="mirror" id="mirror" aria-hidden="true"></div>
+        <div class="ghost" id="ghost" aria-hidden="true"></div>
+        <input id="q" type="text" autocomplete="off" spellcheck="false" dir="auto" aria-describedby="understood">
+      </div>
+      <div class="count" aria-live="polite"><b id="count">17</b><span id="countLabel">homes</span></div>
+      <button class="go" type="submit" aria-label="Show results"><svg class="ico"><use href="#i-arrow"/></svg></button>
+    </form>
+    <div class="understood" id="understood" aria-live="polite"></div>
+    <div class="try"><span>Try:</span>
+      <button type="button">2 bed in Lusail under 10k</button>
+      <button type="button">villa with a pool in Al Wakrah</button>
+      <button type="button">furnished apartment with sea view</button>
+      <button type="button">office in Lusail</button>
+      <button type="button" lang="ar" dir="rtl">فيلا في الوكير</button>
+    </div>
+  </div>
+</section>
+
+<section class="results" id="results" aria-label="Matching homes">
+  <div class="wrap">
+    <div class="rhead">
+      <h2 id="rtitle">All homes <span>· newest first</span></h2>
+      <div class="sort" role="group" aria-label="Sort">
+        <button type="button" data-s="match" aria-pressed="true">Best match</button>
+        <button type="button" data-s="low" aria-pressed="false">Lowest rent</button>
+        <button type="button" data-s="size" aria-pressed="false">Largest</button>
+      </div>
+    </div>
+    <div class="note" id="note" hidden></div>
+    <ul class="list" id="list"></ul>
+  </div>
+</section>
+
+<section class="how" aria-labelledby="how-t">
+  <div class="wrap">
+    <h2 id="how-t">From a sentence to a set of keys</h2>
+    <ol class="steps">
+      <li><h3>Tell us what you need</h3><p>Search here, or call us and describe it. We shortlist homes that fit your budget, your commute and your family.</p></li>
+      <li><h3>View the ones you like</h3><p>We arrange viewings at times that suit you, evenings included, and answer every question about the building and the lease.</p></li>
+      <li><h3>Sign and move in</h3><p>We draft the lease, explain it clause by clause and register it. After that, one number to call for anything that needs fixing.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="owners" id="owners" aria-labelledby="own-t">
+  <div class="wrap">
+    <div>
+      <h2 id="own-t">Own property in Qatar?</h2>
+      <p>We specialise in rentals, and we manage what we lease. Experienced property managers keep your home well maintained and your rent on time.</p>
+      <a class="btn" href="#contact">List your property <svg class="ico"><use href="#i-arrow"/></svg></a>
+    </div>
+    <ul class="ticks">
+      <li><svg class="ico"><use href="#i-check"/></svg>Tenant screening and references</li>
+      <li><svg class="ico"><use href="#i-check"/></svg>Lease drafting and registration</li>
+      <li><svg class="ico"><use href="#i-check"/></svg>Rent collected and reported monthly</li>
+      <li><svg class="ico"><use href="#i-check"/></svg>Maintenance by vetted contractors</li>
+      <li><svg class="ico"><use href="#i-check"/></svg>Tenant requests handled for you</li>
+      <li><svg class="ico"><use href="#i-check"/></svg>Renewals planned months ahead</li>
+    </ul>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="con-t">
+  <div class="wrap">
+    <div>
+      <h2 id="con-t">Prefer to talk it through?</h2>
+      <dl>
+        <dt>Office</dt><dd>Muaither, Street 267, Building 23, 2nd floor, Office 1, Doha</dd>
+        <dt>Post</dt><dd>P.O. Box 23345, Doha, State of Qatar</dd>
+        <dt>Phone</dt><dd><a href="tel:+97400000000">+974 0000 0000</a></dd>
+        <dt>Email</dt><dd><a href="mailto:info@aba-r.com">info@aba-r.com</a></dd>
+        <dt>Hours</dt><dd>Sunday – Thursday, 8:00 – 18:00</dd>
+      </dl>
+    </div>
+    <form class="msg" id="msg">
+      <div class="two"><label class="f"><span>Name</span><input required autocomplete="name"></label><label class="f"><span>Phone</span><input type="tel" required autocomplete="tel"></label></div>
+      <label class="f"><span>What you’re looking for</span><textarea id="msgText"></textarea></label>
+      <div><button class="btn" type="submit">Send <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+      <p class="ok" role="status">Sent — an advisor will call you within one working day.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 ABAR Real Estate · Doha, State of Qatar</span><span>Listings shown are examples for this design proposal.</span></div></footer>
+
+<script>
+const IMG=id=>`https://images.unsplash.com/${id}?w=600&q=70&auto=format&fit=crop`;
+const TODAY=new Date('2026-10-12');
+const HOMES=[
+  {id:1,title:'Two-bedroom apartment, Porto Arabia',area:'The Pearl',type:'apartment',beds:2,baths:2,size:145,price:12500,furn:true,feats:['sea view','pool','gym'],avail:'2026-10-12',img:'photo-1728488448472-16a259c6ba7c'},
+  {id:2,title:'Five-bedroom villa with private pool',area:'Al Wakrah',type:'villa',beds:5,baths:5,size:520,price:18000,furn:false,feats:['pool','garden','parking'],avail:'2026-11-01',img:'photo-1613977257363-707ba9348227'},
+  {id:3,title:'One-bedroom apartment, Marina District',area:'Lusail',type:'apartment',beds:1,baths:1,size:88,price:8200,furn:true,feats:['tram','gym'],avail:'2026-10-12',img:'photo-1741764014072-68953e93cd48'},
+  {id:4,title:'Three-bedroom sea-view apartment, West Bay',area:'Doha',type:'apartment',beds:3,baths:3,size:190,price:14000,furn:false,feats:['sea view','gym','parking'],avail:'2026-11-15',img:'photo-1758448755778-90ebf4d0f1e7'},
+  {id:5,title:'Four-bedroom compound villa',area:'Al Wukair',type:'villa',beds:4,baths:4,size:380,price:11500,furn:false,feats:['pool','garden','gym'],avail:'2026-10-12',img:'photo-1768200498972-fd56353d73fc'},
+  {id:6,title:'Fitted office floor, Lusail Boulevard',area:'Lusail',type:'office',beds:0,baths:2,size:310,price:36000,furn:true,feats:['parking','tram'],avail:'2026-10-12',img:'photo-1700901546317-7e1829579632'},
+  {id:7,title:'Three-bedroom townhouse by the beach',area:'Katara',type:'townhouse',beds:3,baths:3,size:240,price:19500,furn:true,feats:['beach','sea view'],avail:'2026-12-01',img:'photo-1600596542815-ffad4c1539a9'},
+  {id:8,title:'One-bedroom apartment, Msheireb',area:'Doha',type:'apartment',beds:1,baths:1,size:76,price:9000,furn:true,feats:['metro'],avail:'2026-12-01',img:'photo-1757924461488-ef9ad0670978'},
+  {id:9,title:'Four-bedroom villa with garden',area:'Al Khor',type:'villa',beds:4,baths:4,size:360,price:9800,furn:false,feats:['garden','parking'],avail:'2026-10-12',img:'photo-1613490493576-7fde63acd811'},
+  {id:10,title:'Studio apartment, Fox Hills',area:'Lusail',type:'apartment',beds:0,baths:1,size:48,price:5800,furn:true,feats:['tram'],avail:'2026-10-26',img:'photo-1724582586458-a51791349977'},
+  {id:11,title:'Three-bedroom penthouse, Viva Bahriya',area:'The Pearl',type:'apartment',beds:3,baths:4,size:410,price:42000,furn:true,feats:['sea view','pool','gym','terrace'],avail:'2026-12-15',img:'photo-1776362355123-ca966d36e29c'},
+  {id:12,title:'Two-bedroom apartment, Al Sadd',area:'Doha',type:'apartment',beds:2,baths:2,size:120,price:8500,furn:false,feats:['parking','metro'],avail:'2026-11-01',img:'photo-1713832139688-79676097edde'},
+  {id:13,title:'Three-bedroom villa near the souq',area:'Al Wakrah',type:'villa',beds:3,baths:3,size:280,price:10500,furn:false,feats:['garden','parking','beach'],avail:'2026-11-15',img:'photo-1580587771525-78b9dba3b914'},
+  {id:14,title:'Two-bedroom apartment, Qanat Quartier',area:'The Pearl',type:'apartment',beds:2,baths:2,size:130,price:11000,furn:true,feats:['sea view'],avail:'2026-10-26',img:'photo-1682184805271-11671b7ecf4c'},
+  {id:15,title:'Shopfront on Lusail Boulevard',area:'Lusail',type:'shop',beds:0,baths:1,size:140,price:28000,furn:false,feats:['parking','tram'],avail:'2026-12-15',img:'photo-1646205028102-76c46b2a10c1'},
+  {id:17,title:'Two-bedroom apartment, Lusail Marina',area:'Lusail',type:'apartment',beds:2,baths:2,size:118,price:9600,furn:true,feats:['tram','gym','sea view'],avail:'2026-11-01',img:'photo-1790276319469-e495208bfd45'},
+  {id:16,title:'Two-bedroom apartment by the beach',area:'Katara',type:'apartment',beds:2,baths:2,size:135,price:13000,furn:true,feats:['beach','sea view','pool'],avail:'2026-10-12',img:'photo-1724582586495-d050726cf354'},
+];
+const AR_AREA={'Doha':'الدوحة','Lusail':'لوسيل','The Pearl':'اللؤلؤة','Katara':'كتارا','Al Wakrah':'الوكرة','Al Wukair':'الوكير','Al Khor':'الخور'};
+const fmt=n=>n.toLocaleString('en-US');
+
+/* ---------- understanding a sentence ---------- */
+const AREAS=[['The Pearl',/\b(the\s+)?pearl\b|porto\s*arabia|qanat|viva\s*bahriya|اللؤلؤة|اللؤلؤه/],['Lusail',/\blusail\b|fox\s*hills|marina\s*district|لوسيل/],['Katara',/\bkatara\b|كتارا/],['Al Wakrah',/\b(al[\s-]?)?wakra?h?\b|الوكرة|الوكره/],['Al Wukair',/\b(al[\s-]?)?wukair\b|الوكير/],['Al Khor',/\b(al[\s-]?)?khor\b|الخور/],['Doha',/\bdoha\b|west\s*bay|msheireb|al\s*sadd|الدوحة|الدوحه|مشيرب|السد/]];
+const TYPES=[['villa',/\bvillas?\b|\bhouses?\b|\bcompound\b|فيلا|فلة|فيلات|بيت/],['townhouse',/\btown\s?houses?\b/],['office',/\boffices?\b|\bworkspace\b|مكتب/],['shop',/\bshop(front)?s?\b|\bretail\b|\bstore\b|محل/],['commercial',/\bcommercial\b|تجاري/],['apartment',/\bapartments?\b|\bflats?\b|\bapts?\b|\bpenthouse\b|\bstudio\b|شقة|شقه|شقق/]];
+const FEATS=[['pool',/\bpool\b|swimming|مسبح/],['sea view',/\bsea(\s*view)?\b|waterfront|marina\s+view|إطلالة\s*بحرية|بحر/],['beach',/\bbeach\b|شاطئ/],['garden',/\bgarden\b|yard|حديقة/],['gym',/\bgym\b|نادي/],['parking',/\bparking\b|garage|موقف/],['tram',/\btram\b|ترام/],['metro',/\bmetro\b|مترو/]];
+const NUMW={zero:0,one:1,two:2,three:3,four:4,five:5,six:6};
+function understand(raw){
+  const spans=[],add=(m,i)=>{if(m)spans.push([i,i+m.length])};
+  let s=raw.replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).toLowerCase();
+  const q={};
+  const find=(re)=>{const m=re.exec(s);if(m){add(m[0],m.index);return m}return null};
+  for(const [name,re] of AREAS){if(find(new RegExp(re.source,'i'))){q.area=name;break}}
+  for(const [name,re] of TYPES){if(find(new RegExp(re.source,'i'))){q.type=name;break}}
+  let m=/\bstudio\b/.exec(s);if(m){q.beds=0;q.exact=true}
+  m=/(\d+|zero|one|two|three|four|five|six)\s*-?\s*(bed(room)?s?|bd|br|غرف(ة)?|غرفة\s*نوم)/i.exec(s);
+  if(m){q.beds=isNaN(m[1])?NUMW[m[1]]:+m[1];add(m[0],m.index)}
+  m=/(under|below|max(imum)?|less\s+than|up\s+to|upto|<|budget(\s+of)?|within|أقل\s+من|حتى|بحدود)\s*(qar|qr|ر\.?ق)?\s*([\d.,]+)\s*(k|thousand|ألف|الف)?/i.exec(s);
+  if(m){let v=parseFloat(m[5].replace(/,/g,''));if(m[6]||v<100)v*=1000;q.max=v;add(m[0],m.index)}
+  m=/(over|above|from|more\s+than|at\s+least|min(imum)?|>|أكثر\s+من)\s*(qar|qr)?\s*([\d.,]+)\s*(k|thousand)?/i.exec(s);
+  if(m){let v=parseFloat(m[4].replace(/,/g,''));if(m[5]||v<100)v*=1000;q.min=v;add(m[0],m.index)}
+  if(q.max===undefined){m=/(qar|qr)?\s*\b(\d{1,2}(\.\d)?\s*k|\d{4,6}|\d{1,3}(,\d{3})+)\b\s*(qar|qr)?/i.exec(s);if(m&&!/bed|br|bd/.test(s.slice(m.index+m[0].length,m.index+m[0].length+6))){let t=m[2].replace(/,/g,'');let v=/k/i.test(t)?parseFloat(t)*1000:+t;if(v>=1000){q.max=v;add(m[0],m.index)}}}
+  m=/\bunfurnished\b|غير\s*مفروشة/i.exec(s);if(m){q.furn=false;add(m[0],m.index)}else{m=/\bfurnished\b|مفروشة|مفروشه/i.exec(s);if(m){q.furn=true;add(m[0],m.index)}}
+  q.feats=[];for(const [name,re] of FEATS){const r=new RegExp(re.source,'i').exec(s);if(r){q.feats.push(name);add(r[0],r.index)}}
+  if(/\bcheap(est)?\b|lowest|أرخص/.test(s)){q.sort='low';m=/\bcheap(est)?\b|lowest|أرخص/.exec(s);add(m[0],m.index)}
+  if(/\b(big|biggest|largest|spacious)\b|أكبر/.test(s)){q.sort='size';m=/\b(big|biggest|largest|spacious)\b|أكبر/.exec(s);add(m[0],m.index)}
+  q.spans=spans.sort((a,b)=>a[0]-b[0]);return q;
+}
+function matches(h,q,relax=0){
+  if(relax<4&&q.area&&h.area!==q.area)return false;
+  if(q.type){const t=q.type==='commercial'?['office','shop']:[q.type];if(!t.includes(h.type)&&!(q.type==='villa'&&h.type==='townhouse'))return false}
+  if(relax<3&&q.beds!==undefined&&(q.exact?h.beds!==q.beds:h.beds<q.beds))return false;
+  if(relax<2&&q.max&&h.price>q.max)return false;
+  if(relax<2&&q.min&&h.price<q.min)return false;
+  if(q.furn!==undefined&&h.furn!==q.furn)return false;
+  if(relax<1&&q.feats.some(f=>!h.feats.includes(f)))return false;
+  return true;
+}
+
+/* ---------- rendering ---------- */
+const $=id=>document.getElementById(id);
+const input=$('q'),mirror=$('mirror'),ghost=$('ghost'),list=$('list');
+let sortBy='match',lastQ={feats:[],spans:[]};
+const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function paintMirror(raw,spans){let o='',i=0;for(const [a,b] of spans){if(a<i)continue;o+=esc(raw.slice(i,a))+'<mark>'+esc(raw.slice(a,b))+'</mark>';i=b}mirror.innerHTML=o+esc(raw.slice(i));mirror.scrollLeft=input.scrollLeft}
+const label={apartment:'Apartment',villa:'Villa',townhouse:'Townhouse',office:'Office',shop:'Retail unit',commercial:'Commercial'};
+function chips(q){
+  const c=[];
+  if(q.type)c.push(['type',label[q.type]]);
+  if(q.beds!==undefined)c.push(['beds',q.beds===0?'Studio':q.exact?`${q.beds} bedrooms`:`${q.beds}+ bedroom${q.beds>1?'s':''}`]);
+  if(q.area)c.push(['area',`${q.area} · ${AR_AREA[q.area]}`]);
+  if(q.max)c.push(['max',`Up to QAR ${fmt(q.max)}`]);
+  if(q.min)c.push(['min',`From QAR ${fmt(q.min)}`]);
+  if(q.furn!==undefined)c.push(['furn',q.furn?'Furnished':'Unfurnished']);
+  q.feats.forEach(f=>c.push(['feat:'+f,f[0].toUpperCase()+f.slice(1)]));
+  $('understood').innerHTML=c.length?`<span class="lead">Understood:</span>`+c.map(([k,t])=>`<span class="chip">${t}<button type="button" data-k="${k}" aria-label="Remove ${t}"><svg class="ico"><use href="#i-x"/></svg></button></span>`).join(''):(input.value.trim()?`<span class="lead">Keep typing — try an area, a budget or a number of bedrooms.</span>`:'');
+}
+function rowHTML(h,q){
+  const av=new Date(h.avail)<=TODAY?'Available now':'From '+new Date(h.avail).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  const f=[];if(h.beds)f.push([`${h.beds} bed`,q.beds!==undefined]);else f.push([h.type==='office'?'Office':h.type==='shop'?'Retail':'Studio',q.type&&q.type!=='apartment'||q.beds===0]);
+  f.push([`${h.size} m²`,false]);f.push([h.furn?'Furnished':'Unfurnished',q.furn!==undefined]);
+  h.feats.forEach(x=>f.push([x[0].toUpperCase()+x.slice(1),q.feats.includes(x)]));
+  return `<li class="row" data-id="${h.id}"><a class="ph" href="#contact" data-t="${h.title}"><img loading="lazy" src="${IMG(h.img)}" alt="${h.title}"></a>
+  <div><h3>${h.title}</h3><div class="where"><span>${h.area}</span><span lang="ar">${AR_AREA[h.area]}</span></div><div class="facts">${f.map(([t,hit])=>`<span class="${hit?'hit':''}">${t}</span>`).join('')}</div></div>
+  <div class="price"><b class="${q.max||q.min?'hit':''}">QAR ${fmt(h.price)}</b><small>per month</small><div class="avail">${av}</div><a href="#contact" data-t="${h.title}">View home <svg class="ico"><use href="#i-arrow"/></svg></a></div></li>`;
+}
+function render(animate=true){
+  const raw=input.value,q=understand(raw);lastQ=q;
+  document.querySelector('.field').classList.toggle('has-text',!!raw);
+  paintMirror(raw,q.spans);chips(q);
+  let found=HOMES.filter(h=>matches(h,q)),note='';
+  if(!found.length&&raw.trim()){const NOTES=['','No exact match with every feature — these are the closest.','Nothing in that budget yet — these are the nearest prices.','Nothing with that many bedrooms there yet — here are the nearest options.','Nothing in that area yet — here are similar homes elsewhere.'];for(let r=1;r<=4;r++){const f=HOMES.filter(h=>matches(h,q,r));if(f.length){found=f;note=NOTES[r];break}}}
+  const s=q.sort||sortBy;
+  found=[...found].sort(s==='low'?(a,b)=>a.price-b.price:s==='size'?(a,b)=>b.size-a.size:(a,b)=>new Date(a.avail)-new Date(b.avail)||a.price-b.price);
+  // FLIP: remember where rows were
+  const before=new Map([...list.children].map(li=>[li.dataset.id,li.getBoundingClientRect().top]));
+  list.innerHTML=found.map(h=>rowHTML(h,q)).join('')||`<li class="empty">Nothing matches that yet. Remove a condition above, or <a href="#contact" style="color:var(--forest);font-weight:500">tell us what you need</a> and we’ll look for you.</li>`;
+  if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)[...list.children].forEach((li,i)=>{const b=before.get(li.dataset.id);const a=li.getBoundingClientRect().top;if(b!==undefined){const d=b-a;if(d){li.animate([{transform:`translateY(${d}px)`},{transform:'none'}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'})}}else li.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:350,delay:i*25,fill:'backwards'})});
+  $('count').textContent=found.length;$('countLabel').textContent=found.length===1?'home':'homes';
+  $('rtitle').innerHTML=raw.trim()?`${found.length} ${found.length===1?'home':'homes'} <span>· for “${esc(raw.trim())}”</span>`:`All homes <span>· soonest available first</span>`;
+  const n=$('note');n.hidden=!note;n.innerHTML=note?`<b>${note}</b>`:'';
+  list.querySelectorAll('[data-t]').forEach(a=>a.addEventListener('click',()=>$('msgText').value=`I'm interested in: ${a.dataset.t}`));
+}
+input.addEventListener('input',()=>render());
+input.addEventListener('scroll',()=>mirror.scrollLeft=input.scrollLeft);
+input.addEventListener('keyup',()=>mirror.scrollLeft=input.scrollLeft);
+$('askForm').addEventListener('submit',e=>{e.preventDefault();$('results').scrollIntoView({behavior:'smooth'})});
+$('understood').addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b)return;
+  // remove the words that produced this condition
+  const k=b.dataset.k,q=understand(input.value);let raw=input.value;
+  const strip=re=>{raw=raw.replace(new RegExp(re.source,'i'),'').replace(/\s{2,}/g,' ').trim()};
+  if(k==='area')strip(AREAS.find(a=>a[0]===q.area)[1]);
+  if(k==='type')strip(TYPES.find(t=>t[0]===q.type)[1]);
+  if(k==='beds')strip(/(\d+|one|two|three|four|five|six)\s*-?\s*(bed(room)?s?|bd|br)\b|\bstudio\b|\d+\s*غرف(ة)?/);
+  if(k==='max')strip(/(under|below|max(imum)?|less\s+than|up\s+to|<|budget(\s+of)?|within|أقل\s+من|حتى)?\s*(qar|qr)?\s*(\d{1,2}(\.\d)?\s*k|[\d.,]{4,})\s*(qar|qr)?/);
+  if(k==='min')strip(/(over|above|from|more\s+than|at\s+least)\s*(qar|qr)?\s*[\d.,]+\s*k?/);
+  if(k==='furn')strip(/\b(un)?furnished\b|مفروشة/);
+  if(k.startsWith('feat:'))strip(FEATS.find(f=>f[0]===k.slice(5))[1]);
+  raw=raw.replace(/\b(with|in|and|a|an|near|by)\s*$/i,'').trim();
+  input.value=raw;render();input.focus();
+});
+document.querySelectorAll('.try button').forEach(b=>b.addEventListener('click',()=>{input.value=b.textContent;render();input.focus();input.setSelectionRange(input.value.length,input.value.length)}));
+document.querySelectorAll('.sort button').forEach(b=>b.addEventListener('click',()=>{sortBy=b.dataset.s;document.querySelectorAll('.sort button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()}));
+$('msg').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('done')});
+
+/* placeholder that types example requests */
+const EX=['a 2 bed apartment in Lusail under 10k','a villa with a pool in Al Wakrah','something furnished with a sea view','an office near the tram in Lusail','فيلا في الوكير'];
+let ei=0,ci=0,del=false;
+function typeLoop(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ghost.textContent=EX[0];return}
+  const t=EX[ei];
+  if(!del){ci++;if(ci>t.length){del=true;setTimeout(typeLoop,1700);return}}
+  else{ci-=2;if(ci<=0){ci=0;del=false;ei=(ei+1)%EX.length}}
+  ghost.textContent=t.slice(0,ci);ghost.dir=/[؀-ۿ]/.test(t)?'rtl':'ltr';
+  setTimeout(typeLoop,del?28:55+Math.random()*40);
+}
+const QS=new URLSearchParams(location.search);
+if(QS.has('q'))input.value=QS.get('q');
+$('total').textContent=`${HOMES.length} homes for rent across Qatar, updated today`;
+render(false);typeLoop();
+</script>
+</body>
+</html>

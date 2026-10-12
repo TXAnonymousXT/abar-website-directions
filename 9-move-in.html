@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR Real Estate — When do you move in?</title>
+<meta name="description" content="Pick your move-in date and see every ABAR rental home in Qatar that's free by then.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Readex+Pro:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--soft:#F7F8F7;--tint:#EFF3EE;--tint-line:#DDE5DA;
+  --forest:#1A2817;--forest-2:#26381F;--ink:#222222;--charcoal:#282C30;
+  --rule:#EDEDED;--mute:#BABABA;--grey:#727272;
+  --font:"Albert Sans", system-ui, sans-serif;--arabic:"Readex Pro", sans-serif;
+  --wrap:1200px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.025em;line-height:1.12;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+[lang=ar]{font-family:var(--arabic)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--forest);color:var(--white);border:0;border-radius:40px;padding:12px 20px;font-weight:500;font-size:15px;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--forest-2)}
+
+header.site{border-bottom:1px solid var(--rule)}
+header.site .wrap{display:flex;align-items:center;gap:30px;height:72px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo svg{width:46px}
+.logo b{display:block;font-weight:700;font-size:16px;letter-spacing:.3em;line-height:1}
+.logo small{display:block;font-size:8.5px;letter-spacing:.3em;color:var(--grey);margin-top:5px;line-height:1}
+header nav{margin-left:auto;display:flex;gap:26px;align-items:center;font-size:15px}
+header nav a{color:var(--grey)}
+header nav a:hover{color:var(--ink)}
+header nav .ar{font-family:var(--arabic);font-size:14px}
+
+/* hero */
+.hero{padding:64px 0 70px}
+.hero .wrap{display:grid;grid-template-columns:1fr 470px;gap:64px;align-items:center}
+.eyebrow{font-size:14px;color:var(--grey)}
+.hero h1{font-size:clamp(2.5rem,5vw,4.2rem);margin-top:16px}
+.hero p.lead{color:var(--grey);font-size:17.5px;max-width:40ch;margin-top:18px}
+.result{margin-top:36px;padding-top:24px;border-top:1px solid var(--rule);display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap}
+.result .n{font-size:64px;font-weight:600;line-height:.9;letter-spacing:-.04em;color:var(--forest);font-variant-numeric:tabular-nums}
+.result .t{font-size:16px;color:var(--grey);line-height:1.4}
+.result .t b{display:block;color:var(--ink);font-weight:600;font-size:18px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.quick button{border:1px solid var(--rule);background:var(--white);border-radius:30px;padding:7px 14px;font-size:14px;cursor:pointer;color:var(--grey);transition:all .2s}
+.quick button:hover{border-color:var(--forest);color:var(--forest)}
+.quick button[aria-pressed=true]{background:var(--tint);border-color:var(--tint-line);color:var(--forest);font-weight:500}
+
+.cal{border:1px solid var(--rule);border-radius:16px;padding:22px;background:var(--white);box-shadow:0 24px 60px -36px rgba(34,34,34,.3)}
+.cal .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cal .top h2{font-size:19px}
+.cal .nav{display:flex;gap:6px}
+.cal .nav button{width:36px;height:36px;border-radius:50%;border:1px solid var(--rule);background:var(--white);cursor:pointer;display:grid;place-items:center;transition:border-color .2s}
+.cal .nav button:hover:not(:disabled){border-color:var(--forest)}
+.cal .nav button:disabled{opacity:.35;cursor:default}
+.dow,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dow span{text-align:center;font-size:12px;color:var(--mute);padding:6px 0;font-weight:500}
+.day{position:relative;aspect-ratio:1/1;border:0;background:transparent;border-radius:10px;font-size:15px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-variant-numeric:tabular-nums;transition:background .15s;padding:0}
+.day:hover:not(:disabled){background:var(--soft)}
+.day:disabled{color:var(--rule);cursor:default}
+.day.blank{visibility:hidden}
+.day.run{background:var(--tint);border-radius:0}
+.day.today{font-weight:600}
+.day.today::before{content:"Today";position:absolute;top:2px;left:0;right:0;text-align:center;font-size:9px;color:var(--grey);font-weight:500}
+.day.sel{background:var(--forest);color:var(--white);border-radius:10px;font-weight:600}
+.day.sel::before{color:rgba(255,255,255,.7)}
+.day .dot{min-width:17px;height:15px;padding:0 4px;border-radius:9px;background:var(--forest);color:var(--white);font-size:9.5px;font-weight:600;display:grid;place-items:center;line-height:1}
+.day.sel .dot{background:var(--white);color:var(--forest)}
+.cal .key{display:flex;gap:18px;margin-top:14px;padding-top:14px;border-top:1px solid var(--rule);font-size:13px;color:var(--grey);flex-wrap:wrap}
+.cal .key span{display:flex;gap:8px;align-items:center}
+.cal .key i{width:14px;height:14px;border-radius:4px;display:inline-block}
+
+/* timeline of availability */
+.free{background:var(--soft);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:80px 0}
+.free .head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:34px}
+.free h2{font-size:clamp(1.7rem,2.8vw,2.4rem)}
+.free .head p{color:var(--grey);max-width:44ch}
+.slot{display:grid;grid-template-columns:170px 1fr;gap:30px;padding:26px 0;border-top:1px solid var(--rule);transition:opacity .4s}
+.slot.later{opacity:.42}
+.slot.later:hover{opacity:.8}
+.slot .when b{display:block;font-size:20px;font-weight:600;letter-spacing:-.02em}
+.slot .when span{font-size:14px;color:var(--grey)}
+.slot .when em{display:inline-block;margin-top:8px;font-style:normal;font-size:12.5px;font-weight:500;color:var(--forest);background:var(--tint);border:1px solid var(--tint-line);border-radius:20px;padding:2px 10px}
+.slot.later .when em{color:var(--grey);background:var(--white);border-color:var(--rule)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--white);border:1px solid var(--rule);border-radius:12px;overflow:hidden;transition:box-shadow .3s,transform .3s;display:flex;flex-direction:column}
+.card:hover{box-shadow:0 18px 40px -26px rgba(34,34,34,.4);transform:translateY(-2px)}
+.card .ph{position:relative;aspect-ratio:16/10;background:var(--rule);flex:none}
+.card .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card .b{padding:14px 16px 16px}
+.card .p{font-weight:600;font-size:17px;font-variant-numeric:tabular-nums}
+.card .p small{font-weight:400;font-size:13px;color:var(--grey)}
+.card h3{font-size:15.5px;font-weight:500;margin-top:4px;letter-spacing:-.01em}
+.card .m{font-size:13.5px;color:var(--grey);margin-top:4px}
+.card .m bdi{color:var(--mute)}
+.line{display:flex;align-items:center;gap:14px;margin:6px 0;color:var(--forest);font-weight:600;font-size:14px}
+.line::before,.line::after{content:"";height:2px;background:var(--forest);flex:1}
+.line span{display:flex;gap:8px;align-items:center;background:var(--tint);border:1px solid var(--tint-line);border-radius:30px;padding:6px 14px}
+
+/* countdown plan */
+.plan{padding:80px 0}
+.plan .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+.plan h2{font-size:clamp(1.7rem,2.8vw,2.4rem)}
+.plan .intro p{color:var(--grey);margin-top:14px;max-width:38ch}
+.plan .intro .btn{margin-top:26px}
+.steps{list-style:none;margin:0;padding:0;position:relative}
+.steps::before{content:"";position:absolute;left:83px;top:10px;bottom:10px;width:2px;background:var(--rule)}
+.steps li{display:grid;grid-template-columns:70px 28px 1fr;gap:14px;padding:0 0 26px;align-items:start}
+.steps .d{text-align:right;font-size:13.5px;color:var(--grey);line-height:1.3;padding-top:3px;font-variant-numeric:tabular-nums}
+.steps .d b{display:block;color:var(--ink);font-size:16px;font-weight:600}
+.steps .o{width:16px;height:16px;border-radius:50%;background:var(--white);border:2px solid var(--forest);margin:6px auto 0;position:relative;z-index:1}
+.steps li.now .o{background:var(--forest);box-shadow:0 0 0 5px var(--tint)}
+.steps li.last .o{background:var(--forest)}
+.steps h3{font-size:17px;font-weight:600}
+.steps h3 em{font-style:normal;font-size:12px;font-weight:600;color:var(--forest);background:var(--tint);border-radius:20px;padding:2px 9px;margin-left:8px;vertical-align:2px}
+.steps p{color:var(--grey);font-size:15px;margin-top:4px}
+
+.owner{background:var(--tint);border-top:1px solid var(--tint-line);border-bottom:1px solid var(--tint-line);padding:56px 0}
+.owner .wrap{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.owner h2{font-size:clamp(1.4rem,2.2vw,1.9rem)}
+.owner p{color:var(--grey);margin-top:6px;max-width:58ch}
+.contact{padding:80px 0}
+.contact .wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:60px}
+.contact h2{font-size:clamp(1.7rem,2.8vw,2.4rem)}
+.contact dl{margin:24px 0 0;display:grid;grid-template-columns:90px 1fr;gap:12px 16px;font-size:15px}
+.contact dt{color:var(--grey)}
+.contact dd{margin:0}
+form.msg{display:grid;gap:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f span{display:block;font-size:13.5px;color:var(--grey);margin-bottom:6px}
+.f input,.f textarea{width:100%;border:1px solid var(--rule);border-radius:10px;padding:12px 14px;font-size:15px;background:var(--white)}
+.f textarea{min-height:100px;resize:vertical}
+.f input:focus,.f textarea:focus{outline:none;border-color:var(--forest)}
+.ok{display:none;color:var(--forest);font-weight:500}
+form.done .ok{display:block}
+footer{border-top:1px solid var(--rule);background:var(--soft)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px;padding-bottom:22px;font-size:13.5px;color:var(--grey)}
+
+@media (max-width:1000px){
+  .hero .wrap,.plan .wrap,.contact .wrap{grid-template-columns:1fr}
+  .cal{max-width:520px}
+  .cards{grid-template-columns:1fr 1fr}
+  .slot{grid-template-columns:1fr;gap:14px}
+}
+@media (max-width:600px){
+  header nav a:not(.ar){display:none}
+  .cards{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .result .n{font-size:52px}
+  .cal{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3M14 9l2 2"/></symbol>
+</svg>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="ABAR Real Estate, home">
+      <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+      <span><b>ABAR</b><small>REAL ESTATE</small></span>
+    </a>
+    <nav aria-label="Main"><a href="#free">Homes</a><a href="#plan">Your plan</a><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a><a class="btn" href="#contact">Book a viewing</a></nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">ABAR Real Estate · rentals across Qatar</p>
+      <h1 id="h1">When do you move in?</h1>
+      <p class="lead">Pick the day you need the keys. We’ll show every home that’s free by then — and a plan to get you there on time.</p>
+      <div class="result" aria-live="polite"><span class="n" id="n">0</span><span class="t"><b id="nLabel">homes free</b><span id="nDate">by your date</span></span></div>
+      <div class="quick" id="quick" role="group" aria-label="Quick dates"></div>
+    </div>
+    <div class="cal" aria-label="Move-in calendar">
+      <div class="top"><h2 id="month">October 2026</h2><div class="nav"><button type="button" id="prev" aria-label="Previous month"><svg class="ico"><use href="#i-left"/></svg></button><button type="button" id="next" aria-label="Next month"><svg class="ico"><use href="#i-right"/></svg></button></div></div>
+      <div class="dow" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+      <div class="days" id="days" role="grid"></div>
+      <div class="key"><span><i style="background:var(--forest)"></i>Your move-in day</span><span><i style="background:var(--tint);border:1px solid var(--tint-line)"></i>Time to get ready</span><span><i style="background:var(--forest);border-radius:50%;width:12px;height:12px"></i>Homes become free</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="free" id="free" aria-labelledby="free-t">
+  <div class="wrap">
+    <div class="head"><h2 id="free-t">What’s free, and when</h2><p>Homes free on or before your date are ready for you. The ones below the line open up later — still worth a look if your date can move.</p></div>
+    <div id="slots"></div>
+  </div>
+</section>
+
+<section class="plan" id="plan" aria-labelledby="plan-t">
+  <div class="wrap">
+    <div class="intro">
+      <h2 id="plan-t">Your plan to <span id="planDate">1 November</span></h2>
+      <p>Most moves take about four weeks from first viewing to keys. Here is yours, worked back from the date you picked.</p>
+      <a class="btn" href="#contact">Start with a viewing <svg class="ico"><use href="#i-arrow"/></svg></a>
+    </div>
+    <ol class="steps" id="steps"></ol>
+  </div>
+</section>
+
+<section class="owner" aria-labelledby="own-t">
+  <div class="wrap">
+    <div><h2 id="own-t">Is your property free soon?</h2><p>Tell us the date it becomes vacant. We’ll market it ahead of time so the next tenant moves in as the last one leaves.</p></div>
+    <a class="btn" href="#contact">List your property <svg class="ico"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="con-t">
+  <div class="wrap">
+    <div>
+      <h2 id="con-t">Tell us your date. We’ll take it from there.</h2>
+      <dl>
+        <dt>Office</dt><dd>Muaither, Street 267, Building 23, 2nd floor, Office 1, Doha</dd>
+        <dt>Post</dt><dd>P.O. Box 23345, Doha, State of Qatar</dd>
+        <dt>Phone</dt><dd><a href="tel:+97400000000">+974 0000 0000</a></dd>
+        <dt>Email</dt><dd><a href="mailto:info@aba-r.com">info@aba-r.com</a></dd>
+        <dt>Hours</dt><dd>Sunday – Thursday, 8:00 – 18:00</dd>
+      </dl>
+    </div>
+    <form class="msg" id="msg">
+      <div class="two"><label class="f"><span>Name</span><input required autocomplete="name"></label><label class="f"><span>Phone</span><input type="tel" required autocomplete="tel"></label></div>
+      <label class="f"><span>Message</span><textarea id="msgText"></textarea></label>
+      <div><button class="btn" type="submit">Send <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+      <p class="ok" role="status">Sent — an advisor will call you within one working day.</p>
+    </form>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>© 2026 ABAR Real Estate · Doha, State of Qatar</span><span>Listings and dates shown are examples for this design proposal.</span></div></footer>
+
+<script>
+const IMG=id=>`https://images.unsplash.com/${id}?w=600&q=70&auto=format&fit=crop`;
+const fmt=n=>n.toLocaleString('en-US');
+const D=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const TODAY=D('2026-10-12');
+const AR={'Doha':'الدوحة','Lusail':'لوسيل','The Pearl':'اللؤلؤة','Katara':'كتارا','Al Wakrah':'الوكرة','Al Wukair':'الوكير','Al Khor':'الخور'};
+const HOMES=[
+  ['Two-bedroom apartment, Porto Arabia','The Pearl',2,145,12500,'2026-10-12','photo-1728488448472-16a259c6ba7c'],
+  ['One-bedroom apartment, Marina District','Lusail',1,88,8200,'2026-10-12','photo-1741764014072-68953e93cd48'],
+  ['Four-bedroom compound villa','Al Wukair',4,380,11500,'2026-10-12','photo-1768200498972-fd56353d73fc'],
+  ['Four-bedroom villa with garden','Al Khor',4,360,9800,'2026-10-12','photo-1613490493576-7fde63acd811'],
+  ['Two-bedroom apartment by the beach','Katara',2,135,13000,'2026-10-12','photo-1724582586495-d050726cf354'],
+  ['Studio apartment, Fox Hills','Lusail',0,48,5800,'2026-10-26','photo-1724582586458-a51791349977'],
+  ['Two-bedroom apartment, Qanat Quartier','The Pearl',2,130,11000,'2026-10-26','photo-1682184805271-11671b7ecf4c'],
+  ['Five-bedroom villa with private pool','Al Wakrah',5,520,18000,'2026-11-01','photo-1613977257363-707ba9348227'],
+  ['Two-bedroom apartment, Al Sadd','Doha',2,120,8500,'2026-11-01','photo-1713832139688-79676097edde'],
+  ['Two-bedroom apartment, Lusail Marina','Lusail',2,118,9600,'2026-11-01','photo-1790276319469-e495208bfd45'],
+  ['Three-bedroom sea-view apartment, West Bay','Doha',3,190,14000,'2026-11-15','photo-1758448755778-90ebf4d0f1e7'],
+  ['Three-bedroom villa near the souq','Al Wakrah',3,280,10500,'2026-11-15','photo-1580587771525-78b9dba3b914'],
+  ['Three-bedroom townhouse by the beach','Katara',3,240,19500,'2026-12-01','photo-1600596542815-ffad4c1539a9'],
+  ['One-bedroom apartment, Msheireb','Doha',1,76,9000,'2026-12-01','photo-1757924461488-ef9ad0670978'],
+  ['Three-bedroom penthouse, Viva Bahriya','The Pearl',3,410,42000,'2026-12-15','photo-1776362355123-ca966d36e29c'],
+  ['Four-bedroom townhouse, Al Wukair','Al Wukair',4,300,12000,'2027-01-01','photo-1613977257592-4871e5fcd7c4'],
+].map(([title,area,beds,size,price,avail,img])=>({title,area,beds,size,price,avail:D(avail),img}));
+
+const $=id=>document.getElementById(id);
+const same=(a,b)=>a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const nice=(d,o={})=>d.toLocaleDateString('en-GB',{weekday:o.wd?'long':undefined,day:'numeric',month:'long',year:o.y?'numeric':undefined});
+const short=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+const FIRST=new Date(2026,9,1),LAST=new Date(2027,1,1);
+let sel=D('2026-11-01'),view=new Date(sel.getFullYear(),sel.getMonth(),1);
+
+const QUICK=[['As soon as possible',TODAY],['In two weeks',addDays(TODAY,14)],['1 November',D('2026-11-01')],['1 December',D('2026-12-01')],['1 January',D('2027-01-01')]];
+$('quick').innerHTML=QUICK.map(([t],i)=>`<button type="button" data-i="${i}">${t}</button>`).join('');
+$('quick').querySelectorAll('button').forEach(b=>b.onclick=()=>pick(QUICK[+b.dataset.i][1]));
+
+function pick(d){sel=d;view=new Date(d.getFullYear(),d.getMonth(),1);render()}
+$('prev').onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()-1,1);calendar()};
+$('next').onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()+1,1);calendar()};
+
+function calendar(){
+  $('month').textContent=view.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+  $('prev').disabled=view<=FIRST;$('next').disabled=new Date(view.getFullYear(),view.getMonth()+1,1)>=LAST;
+  const startDow=view.getDay(),dim=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();let o='';
+  for(let i=0;i<startDow;i++)o+='<span class="day blank"></span>';
+  for(let d=1;d<=dim;d++){
+    const day=new Date(view.getFullYear(),view.getMonth(),d);const past=day<TODAY;
+    const opens=HOMES.filter(h=>same(h.avail,day)&&!(h.avail<TODAY)).length;
+    const cls=['day'];if(same(day,TODAY))cls.push('today');if(same(day,sel))cls.push('sel');else if(day>TODAY&&day<sel)cls.push('run');
+    o+=`<button type="button" class="${cls.join(' ')}" data-d="${day.toISOString()}" ${past?'disabled':''} aria-pressed="${same(day,sel)}" aria-label="${nice(day,{wd:1})}${opens?`, ${opens} homes become free`:''}">${d}${opens?`<span class="dot">${opens}</span>`:''}</button>`;
+  }
+  $('days').innerHTML=o;
+  $('days').querySelectorAll('.day:not(:disabled):not(.blank)').forEach(b=>b.onclick=()=>{sel=new Date(b.dataset.d);render()});
+}
+function count(to,el){const from=+el.textContent||0;if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=to;return}const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/500);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function card(h){return`<a class="card" href="#contact" data-t="${h.title}"><div class="ph"><img loading="lazy" src="${IMG(h.img)}" alt="${h.title}"></div><div class="b"><div class="p">QAR ${fmt(h.price)} <small>/ month</small></div><h3>${h.title}</h3><div class="m">${h.area} <bdi lang="ar">${AR[h.area]}</bdi> · ${h.beds?h.beds+' bed':'Studio'} · ${h.size} m²</div></div></a>`}
+function render(){
+  calendar();
+  const ready=HOMES.filter(h=>h.avail<=sel);
+  count(ready.length,$('n'));$('nLabel').textContent=ready.length===1?'home free':'homes free';
+  $('nDate').textContent=same(sel,TODAY)?'today':`by ${nice(sel,{wd:1})}`;
+  $('quick').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',same(QUICK[+b.dataset.i][1],sel)));
+  // availability timeline with the move-in line
+  const groups=[...new Set(HOMES.map(h=>+(h.avail<TODAY?TODAY:h.avail)))].sort((a,b)=>a-b).map(t=>new Date(t));
+  let o='',lineDone=false;
+  groups.forEach(g=>{
+    if(!lineDone&&g>sel){o+=`<div class="line"><span><svg class="ico"><use href="#i-key"/></svg>Your move-in date · ${nice(sel,{wd:1})}</span></div>`;lineDone=true}
+    const hs=HOMES.filter(h=>same(h.avail<TODAY?TODAY:h.avail,g));const later=g>sel;
+    const diff=Math.round((g-sel)/864e5),wk=Math.round(diff/7);
+    const tag=same(g,TODAY)?'Ready now':later?(wk>=1?`${wk} week${wk>1?'s':''} after your date`:`${diff} days after your date`):'Ready for you';
+    o+=`<div class="slot ${later?'later':''}"><div class="when"><b>${same(g,TODAY)?'Available now':short(g)}</b><span>${hs.length} ${hs.length>1?'homes':'home'}</span><br><em>${tag}</em></div><div class="cards">${hs.map(card).join('')}</div></div>`;
+  });
+  if(!lineDone)o+=`<div class="line"><span><svg class="ico"><use href="#i-key"/></svg>Your move-in date · ${nice(sel,{wd:1})}</span></div>`;
+  $('slots').innerHTML=o;
+  $('slots').querySelectorAll('[data-t]').forEach(a=>a.onclick=()=>$('msgText').value=`I'd like to move in on ${nice(sel)}. I'm interested in: ${a.dataset.t}`);
+  // the plan, worked back from the date
+  $('planDate').textContent=nice(sel);
+  const STEPS=[[28,'Shortlist and view homes','Pick the homes you like from the list above. We book viewings around your hours, evenings included.'],
+    [21,'Reserve and send documents','Usually a passport, residence permit (QID) and a letter from your employer. We tell you exactly what each landlord needs.'],
+    [14,'Sign the lease','We draft it, explain it clause by clause and register it, so there are no surprises later.'],
+    [7,'Connect electricity, water and internet','Kahramaa for electricity and water, plus your internet provider. We sort out the landlord’s side.'],
+    [0,'Move in','Keys, an inventory check and meter readings, with someone from our team there to hand over.']];
+  let nowSet=false;
+  $('steps').innerHTML=STEPS.map(([d,t,p],i)=>{let day=addDays(sel,-d);const late=day<TODAY;if(late)day=TODAY;const now=!nowSet&&(late||same(day,TODAY)||i===0);if(now)nowSet=true;
+    return`<li class="${now?'now':''} ${d===0?'last':''}"><div class="d"><b>${short(day)}</b>${day.toLocaleDateString('en-GB',{weekday:'short'})}</div><span class="o"></span><div><h3>${t}${late&&d>0?'<em>Do this now</em>':''}</h3><p>${p}</p></div></li>`}).join('');
+}
+$('msg').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('done')});
+render();
+</script>
+</body>
+</html>

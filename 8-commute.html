@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR Real Estate — Live closer to work</title>
+<meta name="description" content="Choose where you work in Qatar and see ABAR's rental homes ranked by drive time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--soft:#F7F8F7;--tint:#EFF3EE;--tint-line:#DDE5DA;
+  --forest:#1A2817;--forest-2:#26381F;--ink:#222222;--charcoal:#282C30;
+  --rule:#EDEDED;--mute:#BABABA;--grey:#727272;
+  --font:"IBM Plex Sans", system-ui, sans-serif;--mono:"IBM Plex Mono", ui-monospace, monospace;--arabic:"IBM Plex Sans Arabic", sans-serif;
+  --wrap:1240px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+[lang=ar]{font-family:var(--arabic)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--grey)}
+
+header.site{border-bottom:1px solid var(--rule);background:var(--white);position:sticky;top:0;z-index:30}
+header.site .wrap{display:flex;align-items:center;gap:30px;height:70px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo svg{width:46px}
+.logo b{display:block;font-weight:600;font-size:16px;letter-spacing:.3em;line-height:1}
+.logo small{display:block;font-size:8.5px;letter-spacing:.3em;color:var(--grey);margin-top:5px;line-height:1}
+header nav{margin-left:auto;display:flex;gap:26px;align-items:center;font-size:14.5px}
+header nav a{color:var(--grey)}
+header nav a:hover{color:var(--ink)}
+header nav .ar{font-family:var(--arabic)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--forest);color:var(--white);border:0;border-radius:6px;padding:11px 18px;font-weight:500;font-size:14.5px;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--forest-2)}
+.btn.line{background:var(--white);color:var(--forest);border:1px solid var(--forest)}
+.btn.line:hover{background:var(--tint)}
+
+/* hero: pick a destination */
+.hero{padding:64px 0 28px;background:linear-gradient(var(--white),var(--soft));border-bottom:1px solid var(--rule)}
+.hero .top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+.hero h1{font-size:clamp(2.2rem,4.4vw,3.6rem);max-width:13ch}
+.hero p{color:var(--grey);max-width:44ch;font-size:16.5px}
+.dests{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:36px}
+.dest{position:relative;text-align:left;background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:14px 16px 14px;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s;display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center}
+.dest:hover{border-color:var(--forest)}
+.dest b{font-weight:600;font-size:15.5px}
+.dest small{grid-column:1;color:var(--grey);font-size:13px}
+.dest .pin{grid-row:1/span 2;grid-column:2;width:30px;height:30px;border-radius:50%;border:1px solid var(--rule);display:grid;place-items:center;color:var(--grey);transition:all .2s}
+.dest .pin .ico{width:15px;height:15px}
+.dest[aria-pressed=true]{background:var(--forest);border-color:var(--forest);color:var(--white);box-shadow:0 12px 26px -16px rgba(26,40,23,.7)}
+.dest[aria-pressed=true] small{color:rgba(255,255,255,.7)}
+.dest[aria-pressed=true] .pin{background:var(--white);color:var(--forest);border-color:var(--white)}
+.controls{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;margin-top:22px}
+.seg{display:flex;background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:3px}
+.seg button{border:0;background:transparent;border-radius:6px;padding:7px 13px;font-size:14px;color:var(--grey);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--tint);color:var(--forest);font-weight:500}
+.ctl{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--grey)}
+.switch{position:relative;width:42px;height:24px;border-radius:20px;background:var(--rule);border:0;cursor:pointer;transition:background .2s;padding:0}
+.switch::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s}
+.switch[aria-checked=true]{background:var(--forest)}
+.switch[aria-checked=true]::after{transform:translateX(18px)}
+
+/* timetable */
+.board{padding:40px 0 90px}
+.board .wrap{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start}
+.bhead{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.bhead h2{font-size:22px}
+.bhead h2 span{color:var(--grey);font-weight:400}
+.cols{display:grid;grid-template-columns:92px 1fr 150px;gap:24px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.group{display:flex;align-items:center;gap:12px;padding:22px 0 8px}
+.group span{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--forest);background:var(--tint);border-radius:4px;padding:3px 8px}
+.group i{flex:1;height:1px;background:var(--rule)}
+.trip{display:grid;grid-template-columns:92px 1fr 150px;gap:24px;align-items:center;padding:16px 0;border-bottom:1px solid var(--rule)}
+.trip[hidden]{display:none}
+.mins{font-family:var(--mono);font-variant-numeric:tabular-nums;line-height:1}
+.mins b{display:block;font-size:34px;font-weight:500;color:var(--forest);letter-spacing:-.03em}
+.mins small{font-size:12px;color:var(--grey)}
+.home{display:grid;grid-template-columns:112px 1fr;gap:18px;align-items:center}
+.home .ph{aspect-ratio:4/3;border-radius:6px;overflow:hidden;background:var(--rule)}
+.home .ph img{width:100%;height:100%;object-fit:cover}
+.home h3{font-size:16.5px;font-weight:600}
+.home .meta{color:var(--grey);font-size:14px;margin-top:2px}
+.home .meta [lang=ar]{font-size:13px;color:var(--mute)}
+.track{position:relative;height:6px;background:var(--rule);border-radius:4px;margin-top:12px;overflow:hidden}
+.track i{position:absolute;left:0;top:0;bottom:0;background:var(--forest);border-radius:4px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.track em{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(90deg,var(--forest) 0 4px,transparent 4px 7px);opacity:.35;transition:left .6s cubic-bezier(.2,.8,.2,1),width .6s cubic-bezier(.2,.8,.2,1)}
+.price{text-align:right}
+.price b{display:block;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+.price small{color:var(--grey);font-size:13px}
+.price a{display:inline-flex;gap:6px;align-items:center;margin-top:8px;color:var(--forest);font-weight:500;font-size:14px}
+.price a .ico{width:15px;height:15px}
+.empty{padding:40px 0;color:var(--grey)}
+.disc{margin-top:18px;font-size:13.5px;color:var(--grey)}
+
+aside.areas{position:sticky;top:94px;border:1px solid var(--rule);border-radius:10px;padding:20px 20px 12px;background:var(--white)}
+aside h3{font-size:16px;margin-bottom:4px}
+aside p{font-size:13.5px;color:var(--grey);margin-bottom:14px}
+.arow{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--rule);padding:10px 0;cursor:pointer}
+.arow b{font-weight:500;font-size:14.5px}
+.arow b span{font-family:var(--arabic);font-weight:400;color:var(--mute);font-size:12.5px;margin-left:6px}
+.arow .m{font-family:var(--mono);font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.arow .bar{grid-column:1/-1;height:4px;background:var(--rule);border-radius:3px;overflow:hidden}
+.arow .bar i{display:block;height:100%;background:var(--forest);border-radius:3px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.arow[aria-pressed=true] b{color:var(--forest)}
+.arow[aria-pressed=true] .bar i{background:var(--forest)}
+.arow:hover b{color:var(--forest)}
+aside .clear{background:none;border:0;color:var(--forest);font-size:13.5px;font-weight:500;cursor:pointer;padding:8px 0}
+
+/* lower sections */
+.svc{background:var(--soft);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:80px 0}
+.svc h2{font-size:clamp(1.6rem,2.6vw,2.2rem);max-width:24ch}
+.svc .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px}
+.svc .card{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:26px}
+.svc .card .ico{width:26px;height:26px;color:var(--forest);margin-bottom:16px}
+.svc .card h3{font-size:18px;margin-bottom:8px}
+.svc .card p{color:var(--grey);font-size:15px}
+.owner{padding:70px 0;border-bottom:1px solid var(--rule)}
+.owner .wrap{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.owner h2{font-size:clamp(1.5rem,2.4vw,2rem)}
+.owner p{color:var(--grey);margin-top:8px;max-width:56ch}
+.contact{padding:80px 0}
+.contact .wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:60px}
+.contact h2{font-size:clamp(1.6rem,2.6vw,2.2rem)}
+.contact dl{margin:24px 0 0;display:grid;grid-template-columns:90px 1fr;gap:12px 16px;font-size:15px}
+.contact dt{color:var(--grey)}
+.contact dd{margin:0}
+form.msg{display:grid;gap:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f span{display:block;font-size:13.5px;color:var(--grey);margin-bottom:6px}
+.f input,.f textarea{width:100%;border:1px solid var(--rule);border-radius:6px;padding:12px 14px;font-size:15px;background:var(--white)}
+.f textarea{min-height:100px;resize:vertical}
+.f input:focus,.f textarea:focus{outline:none;border-color:var(--forest)}
+.ok{display:none;color:var(--forest);font-weight:500}
+form.done .ok{display:block}
+footer{border-top:1px solid var(--rule);background:var(--soft)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px;padding-bottom:22px;font-size:13.5px;color:var(--grey)}
+
+@media (max-width:1100px){
+  .dests{grid-template-columns:repeat(2,1fr)}
+  .board .wrap{grid-template-columns:1fr}
+  aside.areas{position:static;order:2}
+}
+@media (max-width:760px){
+  header nav a:not(.ar){display:none}
+  .trip,.cols{grid-template-columns:64px 1fr}
+  .cols span:last-child{display:none}
+  .price{grid-column:2;text-align:left;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .price a{margin:0 0 0 auto}
+  .mins b{font-size:26px}
+  .home{grid-template-columns:84px 1fr;gap:12px}
+  .svc .grid,.contact .wrap,.two{grid-template-columns:1fr}
+}
+@media (max-width:440px){.dests{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3M14 9l2 2"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5l8-2v18M12 21V8l8 3v10M3 21h18M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h4"/></symbol>
+</svg>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="ABAR Real Estate, home">
+      <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+      <span><b>ABAR</b><small>REAL ESTATE</small></span>
+    </a>
+    <nav aria-label="Main"><a href="#board">Homes</a><a href="#services">Services</a><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a><a class="btn" href="#contact">Book a viewing</a></nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="top">
+      <h1 id="h1">Where do you work?</h1>
+      <p>Pick your office, campus or base. We’ll rank every home ABAR has to rent by how long the drive takes.</p>
+    </div>
+    <div class="dests" id="dests" role="group" aria-label="Your place of work"></div>
+    <div class="controls">
+      <div class="ctl"><span>Drive up to</span><div class="seg" id="maxSeg" role="group" aria-label="Maximum drive time"><button type="button" data-v="15" aria-pressed="false">15 min</button><button type="button" data-v="20" aria-pressed="false">20</button><button type="button" data-v="30" aria-pressed="true">30</button><button type="button" data-v="45" aria-pressed="false">45</button><button type="button" data-v="999" aria-pressed="false">Any</button></div></div>
+      <div class="ctl"><span>Show</span><div class="seg" id="typeSeg" role="group" aria-label="Property type"><button type="button" data-v="all" aria-pressed="true">All homes</button><button type="button" data-v="apartment" aria-pressed="false">Apartments</button><button type="button" data-v="villa" aria-pressed="false">Villas</button></div></div>
+      <div class="ctl"><button class="switch" id="rush" role="switch" aria-checked="false" aria-label="Rush hour"></button><span>Rush hour (7–8am, 5–6pm)</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="board" aria-label="Homes ranked by drive time">
+  <div class="wrap">
+    <div>
+      <div class="bhead"><h2 id="btitle">To West Bay</h2><span class="mono" id="bcount"></span></div>
+      <div class="cols mono"><span>Drive</span><span>Home</span><span style="text-align:right">Rent</span></div>
+      <div id="list"></div>
+      <p class="disc">Typical door-to-door drive times by car, estimated for this proposal. Rush hour adds about a third. The dashed part of each bar shows the extra time at rush hour.</p>
+    </div>
+    <aside class="areas" aria-label="Drive time by area">
+      <h3 id="atitle">Each area, to West Bay</h3>
+      <p>Typical drive. Select an area to see only its homes.</p>
+      <div id="areas"></div>
+      <button class="clear" id="clearArea" hidden>Show all areas</button>
+    </aside>
+  </div>
+</section>
+
+<section class="svc" id="services" aria-labelledby="svc-t">
+  <div class="wrap">
+    <h2 id="svc-t">A shorter drive is a start. Here’s the rest of what we do.</h2>
+    <div class="grid">
+      <div class="card"><svg class="ico"><use href="#i-key"/></svg><h3>Specialised in rentals</h3><p>We focus on rental property in Qatar, so the advice you get is about leasing — not selling.</p></div>
+      <div class="card"><svg class="ico"><use href="#i-building"/></svg><h3>Managed by our own team</h3><p>Experienced property managers handle tenant requests and repairs, and keep every home well maintained.</p></div>
+      <div class="card"><svg class="ico"><use href="#i-doc"/></svg><h3>A clear, simple process</h3><p>Viewings, offer, lease and registration explained at every step, whether it’s your first rental or your tenth.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="owner" aria-labelledby="own-t">
+  <div class="wrap">
+    <div><h2 id="own-t">Own a home near a business district?</h2><p>Homes with short commutes let fastest. We’ll lease yours, collect the rent and look after the maintenance.</p></div>
+    <a class="btn" href="#contact">List your property <svg class="ico"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="con-t">
+  <div class="wrap">
+    <div>
+      <h2 id="con-t">Tell us where you work. We’ll do the rest.</h2>
+      <dl>
+        <dt>Office</dt><dd>Muaither, Street 267, Building 23, 2nd floor, Office 1, Doha</dd>
+        <dt>Post</dt><dd>P.O. Box 23345, Doha, State of Qatar</dd>
+        <dt>Phone</dt><dd><a href="tel:+97400000000">+974 0000 0000</a></dd>
+        <dt>Email</dt><dd><a href="mailto:info@aba-r.com">info@aba-r.com</a></dd>
+        <dt>Hours</dt><dd>Sunday – Thursday, 8:00 – 18:00</dd>
+      </dl>
+    </div>
+    <form class="msg" id="msg">
+      <div class="two"><label class="f"><span>Name</span><input required autocomplete="name"></label><label class="f"><span>Phone</span><input type="tel" required autocomplete="tel"></label></div>
+      <label class="f"><span>Message</span><textarea id="msgText"></textarea></label>
+      <div><button class="btn" type="submit">Send <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+      <p class="ok" role="status">Sent — an advisor will call you within one working day.</p>
+    </form>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>© 2026 ABAR Real Estate · Doha, State of Qatar</span><span>Listings and drive times shown are examples for this design proposal.</span></div></footer>
+
+<script>
+const IMG=id=>`https://images.unsplash.com/${id}?w=400&q=70&auto=format&fit=crop`;
+const fmt=n=>n.toLocaleString('en-US');
+const DESTS=[
+  ['wb','West Bay','Towers, ministries, embassies'],
+  ['ms','Msheireb','Downtown Doha, Souq Waqif'],
+  ['ec','Education City','Qatar Foundation, universities'],
+  ['lu','Lusail','Boulevard, Marina, Place Vendôme'],
+  ['hia','Hamad Airport','Hamad International Airport'],
+  ['hp','Hamad Port','Umm Al Houl, logistics'],
+  ['ia','Industrial Area','Workshops and warehouses'],
+  ['az','Aspire Zone','Al Waab, Khalifa Stadium'],
+];
+// typical off-peak drive (minutes) from each area to each destination — estimates for the proposal
+const T={
+  'Doha':     {wb:12,ms:8, ec:16,lu:22,hia:18,hp:35,ia:20,az:12},
+  'Lusail':   {wb:15,ms:22,ec:25,lu:5, hia:30,hp:45,ia:30,az:26},
+  'The Pearl':{wb:12,ms:20,ec:25,lu:10,hia:28,hp:44,ia:30,az:25},
+  'Katara':   {wb:8, ms:17,ec:21,lu:10,hia:25,hp:42,ia:28,az:21},
+  'Al Wakrah':{wb:28,ms:22,ec:32,lu:35,hia:15,hp:18,ia:24,az:25},
+  'Al Wukair':{wb:30,ms:25,ec:29,lu:38,hia:21,hp:20,ia:16,az:21},
+  'Al Khor':  {wb:40,ms:45,ec:48,lu:30,hia:52,hp:68,ia:52,az:48},
+};
+const AR={'Doha':'الدوحة','Lusail':'لوسيل','The Pearl':'اللؤلؤة','Katara':'كتارا','Al Wakrah':'الوكرة','Al Wukair':'الوكير','Al Khor':'الخور'};
+const HOMES=[
+  ['Two-bedroom apartment, Porto Arabia','The Pearl','apartment',2,145,12500,'photo-1728488448472-16a259c6ba7c',1],
+  ['Five-bedroom villa with private pool','Al Wakrah','villa',5,520,18000,'photo-1613977257363-707ba9348227',2],
+  ['One-bedroom apartment, Marina District','Lusail','apartment',1,88,8200,'photo-1741764014072-68953e93cd48',-2],
+  ['Three-bedroom sea-view apartment, West Bay','Doha','apartment',3,190,14000,'photo-1758448755778-90ebf4d0f1e7',-6],
+  ['Four-bedroom compound villa','Al Wukair','villa',4,380,11500,'photo-1768200498972-fd56353d73fc',0],
+  ['Three-bedroom townhouse by the beach','Katara','villa',3,240,19500,'photo-1600596542815-ffad4c1539a9',1],
+  ['One-bedroom apartment, Msheireb','Doha','apartment',1,76,9000,'photo-1757924461488-ef9ad0670978',-3],
+  ['Four-bedroom villa with garden','Al Khor','villa',4,360,9800,'photo-1613490493576-7fde63acd811',0],
+  ['Studio apartment, Fox Hills','Lusail','apartment',0,48,5800,'photo-1724582586458-a51791349977',2],
+  ['Three-bedroom penthouse, Viva Bahriya','The Pearl','apartment',3,410,42000,'photo-1776362355123-ca966d36e29c',2],
+  ['Two-bedroom apartment, Al Sadd','Doha','apartment',2,120,8500,'photo-1713832139688-79676097edde',1],
+  ['Three-bedroom villa near the souq','Al Wakrah','villa',3,280,10500,'photo-1580587771525-78b9dba3b914',-1],
+  ['Two-bedroom apartment, Qanat Quartier','The Pearl','apartment',2,130,11000,'photo-1682184805271-11671b7ecf4c',3],
+  ['Two-bedroom apartment, Lusail Marina','Lusail','apartment',2,118,9600,'photo-1790276319469-e495208bfd45',0],
+  ['Two-bedroom apartment by the beach','Katara','apartment',2,135,13000,'photo-1724582586495-d050726cf354',-1],
+].map(([title,area,type,beds,size,price,img,adj],i)=>({id:i,title,area,type,beds,size,price,img,adj}));
+
+const st={dest:'wb',max:30,type:'all',rush:false,area:null};
+const $=id=>document.getElementById(id);
+$('dests').innerHTML=DESTS.map(([k,n,s])=>`<button type="button" class="dest" data-k="${k}" aria-pressed="${k===st.dest}"><b>${n}</b><small>${s}</small><span class="pin"><svg class="ico"><use href="#i-pin"/></svg></span></button>`).join('');
+const list=$('list');
+// one row per home, built once and re-ordered so the bars can animate
+list.innerHTML=HOMES.map(h=>`<div class="trip" data-id="${h.id}"><div class="mins"><b>0</b><small>min</small></div>
+  <div class="home"><a class="ph" href="#contact" data-t="${h.title}"><img loading="lazy" src="${IMG(h.img)}" alt="${h.title}"></a><div><h3>${h.title}</h3><div class="meta">${h.area} <bdi lang="ar">${AR[h.area]}</bdi> · ${h.beds?h.beds+' bed':'Studio'} · ${h.size} m²</div><div class="track"><i></i><em></em></div></div></div>
+  <div class="price"><b>QAR ${fmt(h.price)}</b><small>per month</small><a href="#contact" data-t="${h.title}">Book viewing <svg class="ico"><use href="#i-arrow"/></svg></a></div></div>`).join('');
+const rows=new Map([...list.children].map(r=>[+r.dataset.id,r]));
+const mins=h=>Math.max(3,T[h.area][st.dest]+h.adj);
+const tween=(el,to)=>{const from=+el.textContent||0;if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=to;return}const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/450);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)};
+
+function render(){
+  const dn=DESTS.find(d=>d[0]===st.dest)[1];
+  const rf=st.rush?1.33:1;
+  const ranked=HOMES.map(h=>({h,m:Math.round(mins(h)*rf),base:mins(h)})).sort((a,b)=>a.m-b.m||a.h.price-b.h.price);
+  const before=new Map([...rows].map(([id,r])=>[id,r.offsetParent?r.getBoundingClientRect().top:null]));
+  list.querySelectorAll('.group').forEach(g=>g.remove());
+  let shown=0,lastBand=null;
+  ranked.forEach(({h,m,base})=>{
+    const r=rows.get(h.id);const ok=m<=st.max&&(st.type==='all'||h.type===st.type)&&(!st.area||h.area===st.area);
+    r.hidden=!ok;list.appendChild(r);
+    if(ok){shown++;const band=m<15?'Under 15 minutes':m<30?'15 to 30 minutes':m<45?'30 to 45 minutes':'45 minutes or more';
+      if(band!==lastBand){const g=document.createElement('div');g.className='group';g.innerHTML=`<span>${band}</span><i></i>`;list.insertBefore(g,r);lastBand=band}}
+    tween(r.querySelector('.mins b'),m);
+    r.querySelector('.track i').style.width=Math.min(100,base/60*100)+'%';
+    const em=r.querySelector('.track em');em.style.left=Math.min(100,base/60*100)+'%';em.style.width=st.rush?Math.min(100-base/60*100,(m-base)/60*100)+'%':'0%';
+  });
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)rows.forEach((r,id)=>{if(r.hidden)return;const b=before.get(id),a=r.getBoundingClientRect().top;if(b!=null&&b!==a)r.animate([{transform:`translateY(${b-a}px)`},{transform:'none'}],{duration:500,easing:'cubic-bezier(.2,.8,.2,1)'})});
+  let empty=list.querySelector('.empty');if(!shown){if(!empty){empty=document.createElement('p');empty.className='empty';list.appendChild(empty)}empty.innerHTML=`No homes within ${st.max} minutes of ${dn} yet. <a href="#" id="widen" style="color:var(--forest);font-weight:500">Widen to 45 minutes</a> or <a href="#contact" style="color:var(--forest);font-weight:500">ask us to look for you</a>.`;$('widen').onclick=e=>{e.preventDefault();setSeg('maxSeg','45');st.max=45;render()}}else if(empty)empty.remove();
+  $('btitle').innerHTML=`To ${dn} <span>${st.area?'· '+st.area:''}</span>`;$('bcount').textContent=`${shown} of ${HOMES.length} homes`;
+  $('atitle').textContent=`Each area, to ${dn}`;
+  const areas=Object.keys(T).map(a=>({a,m:Math.round(T[a][st.dest]*rf)})).sort((x,y)=>x.m-y.m);
+  $('areas').innerHTML=areas.map(({a,m})=>`<button type="button" class="arow" data-a="${a}" aria-pressed="${st.area===a}"><b>${a}<span lang="ar">${AR[a]}</span></b><span class="m">${m} min</span><span class="bar"><i style="width:${Math.min(100,m/70*100)}%"></i></span></button>`).join('');
+  $('areas').querySelectorAll('.arow').forEach(b=>b.onclick=()=>{st.area=st.area===b.dataset.a?null:b.dataset.a;render()});
+  $('clearArea').hidden=!st.area;
+}
+function setSeg(id,v){document.querySelectorAll(`#${id} button`).forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v))}
+$('dests').querySelectorAll('.dest').forEach(b=>b.onclick=()=>{st.dest=b.dataset.k;$('dests').querySelectorAll('.dest').forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
+document.querySelectorAll('#maxSeg button').forEach(b=>b.onclick=()=>{st.max=+b.dataset.v;setSeg('maxSeg',b.dataset.v);render()});
+document.querySelectorAll('#typeSeg button').forEach(b=>b.onclick=()=>{st.type=b.dataset.v;setSeg('typeSeg',b.dataset.v);render()});
+$('rush').onclick=()=>{st.rush=!st.rush;$('rush').setAttribute('aria-checked',st.rush);render()};
+$('clearArea').onclick=()=>{st.area=null;render()};
+list.addEventListener('click',e=>{const a=e.target.closest('[data-t]');if(a)$('msgText').value=`I work in ${DESTS.find(d=>d[0]===st.dest)[1]} and I'm interested in: ${a.dataset.t}`});
+$('msg').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('done')});
+render();
+</script>
+</body>
+</html>

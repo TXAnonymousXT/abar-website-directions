@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR Real Estate — Your property, managed</title>
+<meta name="description" content="ABAR leases and manages rental property across Qatar. See the statement owners receive every month, and estimate what your property would rent for.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Noto+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--soft:#F7F8F7;--tint:#EFF3EE;--tint-line:#DDE5DA;
+  --forest:#1A2817;--forest-2:#26381F;--ink:#222222;--charcoal:#282C30;
+  --rule:#EDEDED;--mute:#BABABA;--grey:#727272;
+  --font:"Geist", system-ui, sans-serif;--mono:"Geist Mono", ui-monospace, monospace;--arabic:"Noto Sans Arabic", sans-serif;
+  --wrap:1200px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font:400 16px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.03em;line-height:1.1;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+[lang=ar]{font-family:var(--arabic)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--forest);color:var(--white);border:1px solid var(--forest);border-radius:8px;padding:12px 18px;font-weight:500;font-size:15px;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--forest-2)}
+.btn.line{background:var(--white);color:var(--ink);border-color:var(--rule)}
+.btn.line:hover{border-color:var(--forest);color:var(--forest)}
+body[data-mode=own] .rent-only,body[data-mode=rent] .own-only{display:none!important}
+
+header.site{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+header.site .wrap{display:flex;align-items:center;gap:30px;height:70px}
+.logo{display:flex;align-items:center;gap:11px}
+.logo svg{width:46px}
+.logo b{display:block;font-weight:600;font-size:16px;letter-spacing:.3em;line-height:1}
+.logo small{display:block;font-size:8.5px;letter-spacing:.3em;color:var(--grey);margin-top:5px;line-height:1}
+.mode{margin:0 auto;display:flex;background:var(--soft);border:1px solid var(--rule);border-radius:10px;padding:3px}
+.mode button{border:0;background:transparent;border-radius:8px;padding:8px 16px;font-size:14.5px;color:var(--grey);cursor:pointer;transition:all .2s}
+.mode .short{display:none}
+.mode button[aria-pressed=true]{background:var(--white);color:var(--ink);font-weight:500;box-shadow:0 1px 3px rgba(34,34,34,.12)}
+header .right{display:flex;gap:22px;align-items:center;font-size:14.5px}
+header .right a{color:var(--grey)}
+header .right a:hover{color:var(--ink)}
+header .right .ar{font-family:var(--arabic)}
+
+/* owner hero: the statement */
+.hero{padding:64px 0 80px;border-bottom:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:center}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:13.5px;color:var(--forest);background:var(--tint);border:1px solid var(--tint-line);border-radius:30px;padding:4px 12px}
+.hero h1{font-size:clamp(2.4rem,4.6vw,3.9rem);margin-top:20px}
+.hero h1 span{color:var(--grey);font-weight:500}
+.hero p.lead{color:var(--grey);font-size:17.5px;max-width:44ch;margin-top:20px}
+.hero .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.hero .proof{display:flex;gap:26px;margin-top:34px;font-size:14px;color:var(--grey);flex-wrap:wrap}
+.hero .proof span{display:flex;gap:8px;align-items:center}
+.hero .proof .ico{color:var(--forest)}
+
+.doc{background:var(--white);border:1px solid var(--rule);border-radius:14px;box-shadow:0 30px 70px -40px rgba(34,34,34,.45),0 2px 0 var(--rule);overflow:hidden}
+.doc .dh{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:22px 24px 18px;border-bottom:1px solid var(--rule)}
+.doc .dh .who{display:flex;gap:10px;align-items:center}
+.doc .dh .who svg{width:36px}
+.doc .dh .who b{display:block;font-size:12.5px;letter-spacing:.24em}
+.doc .dh .who small{display:block;font-size:12px;color:var(--grey)}
+.doc .dh .t{text-align:right}
+.doc .dh .t b{display:block;font-size:15px;font-weight:600}
+.doc .dh .t small{color:var(--grey);font-size:13px}
+.doc .prop{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px;background:var(--soft);border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.doc .prop b{font-weight:500}
+.doc .prop small{color:var(--grey);font-size:13.5px}
+.months{display:flex;background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:2px}
+.months button{border:0;background:transparent;border-radius:6px;padding:5px 11px;font-size:13px;color:var(--grey);cursor:pointer;font-family:var(--mono)}
+.months button[aria-pressed=true]{background:var(--forest);color:var(--white)}
+.lines{list-style:none;margin:0;padding:6px 24px}
+.lines li{display:grid;grid-template-columns:1fr 80px 128px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px dashed var(--rule);font-size:15px;animation:in .45s cubic-bezier(.2,.8,.2,1) both}
+.lines li:last-child{border-bottom:0}
+.lines .d{font-family:var(--mono);font-size:12.5px;color:var(--grey)}
+.lines .a{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.lines .neg{color:var(--grey)}
+.lines small{display:block;color:var(--grey);font-size:13px}
+.lines .tag{display:inline-flex;gap:5px;align-items:center;margin-left:8px;font-size:11.5px;color:var(--forest);background:var(--tint);border-radius:20px;padding:1px 8px;vertical-align:1px}
+.lines .tag .ico{width:11px;height:11px;stroke-width:2.4}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.net{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding:18px 24px;border-top:2px solid var(--ink);margin:0 24px;padding-left:0;padding-right:0}
+.net span{font-size:14px;color:var(--grey)}
+.net span b{display:block;color:var(--ink);font-size:16px;font-weight:600}
+.net .big span{font-size:inherit;color:inherit}
+.net .big{font-family:var(--mono);font-size:30px;font-weight:500;color:var(--forest);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.net .big small{font-size:14px;color:var(--grey);margin-right:6px}
+.doc .foot{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule);margin-top:8px}
+.doc .foot div{padding:14px 24px;font-size:13.5px;color:var(--grey)}
+.doc .foot div+div{border-left:1px solid var(--rule)}
+.doc .foot b{display:block;color:var(--ink);font-weight:500;font-size:14px}
+.doc-note{margin-top:12px;font-size:13px;color:var(--grey);text-align:right}
+
+/* renter hero */
+.rhero{padding:60px 0 70px;border-bottom:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
+.rhero h1{font-size:clamp(2.2rem,4.2vw,3.4rem);max-width:18ch;margin-top:18px}
+.rhero p.lead{color:var(--grey);font-size:17px;max-width:52ch;margin-top:16px}
+.rfilters{display:flex;gap:8px;flex-wrap:wrap;margin:30px 0 26px}
+.rfilters button{border:1px solid var(--rule);background:var(--white);border-radius:30px;padding:8px 15px;font-size:14px;cursor:pointer;color:var(--grey)}
+.rfilters button[aria-pressed=true]{background:var(--forest);border-color:var(--forest);color:var(--white)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--white);border:1px solid var(--rule);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s}
+.card:hover{box-shadow:0 18px 40px -26px rgba(34,34,34,.4);transform:translateY(-2px)}
+.card[hidden]{display:none}
+.card .ph{position:relative;aspect-ratio:16/10;flex:none;background:var(--rule)}
+.card .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card .ph span{position:absolute;left:12px;top:12px;background:var(--white);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:500;color:var(--forest)}
+.card .b{padding:14px 16px 16px}
+.card .p{font-family:var(--mono);font-size:17px;font-weight:500}
+.card .p small{font-family:var(--font);font-size:13px;color:var(--grey);font-weight:400}
+.card h3{font-size:15.5px;font-weight:500;letter-spacing:-.01em;margin-top:4px}
+.card .m{font-size:13.5px;color:var(--grey);margin-top:3px}
+.card .m bdi{color:var(--mute)}
+
+/* estimate */
+.est{padding:84px 0;border-bottom:1px solid var(--rule)}
+.est .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.est h2,.handle h2,.steps-sec h2,.contact h2{font-size:clamp(1.7rem,2.8vw,2.4rem)}
+.est .intro p{color:var(--grey);margin-top:14px;max-width:42ch}
+.form{display:grid;gap:18px;margin-top:30px}
+.form label>span{display:block;font-size:13.5px;color:var(--grey);margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pills button{border:1px solid var(--rule);background:var(--white);border-radius:8px;padding:8px 13px;font-size:14px;cursor:pointer;transition:all .15s}
+.pills button:hover{border-color:var(--forest)}
+.pills button[aria-pressed=true]{background:var(--tint);border-color:var(--forest);color:var(--forest);font-weight:500}
+.out{border:1px solid var(--rule);border-radius:14px;padding:28px;background:var(--soft);position:sticky;top:96px}
+.out .lbl{font-size:13.5px;color:var(--grey)}
+.out .range{font-family:var(--mono);font-size:clamp(28px,3.4vw,40px);font-weight:500;letter-spacing:-.03em;color:var(--forest);margin-top:6px;font-variant-numeric:tabular-nums;line-height:1.1}
+.out .range small{font-family:var(--font);font-size:15px;color:var(--grey);font-weight:400;letter-spacing:0}
+.scale{position:relative;height:8px;background:var(--rule);border-radius:6px;margin:26px 0 8px}
+.scale i{position:absolute;top:0;bottom:0;background:var(--forest);border-radius:6px;transition:left .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1)}
+.scale-l{display:flex;justify-content:space-between;font-size:12px;color:var(--grey);font-family:var(--mono)}
+.out dl{display:grid;grid-template-columns:1fr auto;gap:10px 16px;margin:24px 0 0;padding-top:20px;border-top:1px solid var(--rule);font-size:15px}
+.out dt{color:var(--grey)}
+.out dd{margin:0;font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.out dd.k{color:var(--forest);font-weight:500}
+.out .btn{margin-top:24px;width:100%;justify-content:center}
+.out .fine{font-size:12.5px;color:var(--grey);margin-top:12px}
+
+/* what we handle */
+.handle{padding:84px 0;background:var(--soft);border-bottom:1px solid var(--rule)}
+.handle .head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.handle .head p{color:var(--grey);max-width:44ch}
+.items{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-top:36px}
+.item{background:var(--white);padding:24px}
+.item .freq{display:inline-block;font-family:var(--mono);font-size:11.5px;color:var(--forest);background:var(--tint);border-radius:20px;padding:2px 9px}
+.item h3{font-size:18px;margin:14px 0 6px}
+.item p{color:var(--grey);font-size:15px}
+
+.steps-sec{padding:84px 0;border-bottom:1px solid var(--rule)}
+.steps{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+.steps li{position:relative;padding:22px 24px 0 0}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--white);border:1.5px solid var(--forest);color:var(--forest);font-family:var(--mono);font-size:13px;margin-bottom:16px;position:relative;z-index:1}
+.steps li::after{content:"";position:absolute;left:30px;right:0;top:37px;height:1.5px;background:var(--tint-line)}
+.steps li:last-child::after{display:none}
+.steps h3{font-size:17px;margin-bottom:6px}
+.steps p{color:var(--grey);font-size:15px}
+.steps small{display:block;font-family:var(--mono);font-size:12px;color:var(--forest);margin-top:10px}
+
+.strip{padding:60px 0;border-bottom:1px solid var(--rule)}
+.strip .wrap{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.strip h2{font-size:clamp(1.4rem,2.2vw,1.9rem)}
+.strip p{color:var(--grey);margin-top:6px}
+
+.contact{padding:84px 0}
+.contact .wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:64px}
+.contact dl{margin:24px 0 0;display:grid;grid-template-columns:90px 1fr;gap:12px 16px;font-size:15px}
+.contact dt{color:var(--grey)}
+.contact dd{margin:0}
+form.msg{display:grid;gap:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f span{display:block;font-size:13.5px;color:var(--grey);margin-bottom:6px}
+.f input,.f textarea,.f select{width:100%;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;font-size:15px;background:var(--white)}
+.f textarea{min-height:100px;resize:vertical}
+.f input:focus,.f textarea:focus,.f select:focus{outline:none;border-color:var(--forest)}
+.ok{display:none;color:var(--forest);font-weight:500}
+form.done .ok{display:block}
+footer{border-top:1px solid var(--rule);background:var(--soft)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px;padding-bottom:22px;font-size:13.5px;color:var(--grey)}
+
+@media (max-width:1000px){
+  .hero .wrap,.est .wrap,.contact .wrap{grid-template-columns:1fr}
+  .items{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr;row-gap:20px}
+  .steps li:nth-child(2)::after{display:none}
+  .grid{grid-template-columns:1fr 1fr}
+  .out{position:static}
+  header .right a:not(.ar){display:none}
+}
+@media (max-width:640px){
+  header.site .wrap{gap:14px}
+  .logo span{display:none}
+  .mode button{padding:7px 12px;font-size:13.5px}
+  .mode .long{display:none}
+  .mode .short{display:inline}
+  .lines{padding:6px 16px}
+  .lines li{grid-template-columns:1fr 104px;gap:6px}
+  .lines .d{display:none}
+  .net{margin:0 16px}
+  .net .big{font-size:24px}
+  .doc .dh,.doc .prop,.doc .foot div{padding-left:16px;padding-right:16px}
+  .items,.steps,.grid,.two{grid-template-columns:1fr}
+  .steps li::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body data-mode="own">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h4"/></symbol>
+</svg>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="ABAR Real Estate, home">
+      <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+      <span><b>ABAR</b><small>REAL ESTATE</small></span>
+    </a>
+    <div class="mode" role="group" aria-label="Show the site for">
+      <button type="button" data-m="own" aria-pressed="true"><span class="long">I own property</span><span class="short">Owners</span></button>
+      <button type="button" data-m="rent" aria-pressed="false"><span class="long">I’m looking to rent</span><span class="short">Renters</span></button>
+    </div>
+    <div class="right"><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a></div>
+  </div>
+</header>
+
+<main>
+<!-- owners -->
+<section class="hero own-only" aria-labelledby="h1">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Property management · Qatar</span>
+      <h1 id="h1">Your property, managed. <span>Your statement, every month.</span></h1>
+      <p class="lead">We find the tenant, collect the rent and handle the repairs — then send you a clear statement on the 5th of every month. This is what one looks like.</p>
+      <div class="acts"><a class="btn" href="#estimate">Estimate your rent <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn line" href="#handle">What we handle</a></div>
+      <div class="proof"><span><svg class="ico"><use href="#i-check"/></svg>Specialised in rentals</span><span><svg class="ico"><use href="#i-check"/></svg>Residential and commercial</span><span><svg class="ico"><use href="#i-check"/></svg>One team, one contact</span></div>
+    </div>
+    <div>
+      <article class="doc" aria-label="Example owner statement">
+        <div class="dh">
+          <div class="who"><svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g></svg><span><b>ABAR</b><small>Owner statement</small></span></div>
+          <div class="t"><b id="sMonth">October 2026</b><small id="sRef">Statement 2026-10 · Villa 12</small></div>
+        </div>
+        <div class="prop">
+          <div><b>Garden villa · Al Wakrah</b><br><small>5 bedrooms · 520 m² · Let to a family</small></div>
+          <div class="months" role="group" aria-label="Month"><button type="button" data-k="aug" aria-pressed="false">Aug</button><button type="button" data-k="sep" aria-pressed="false">Sep</button><button type="button" data-k="oct" aria-pressed="true">Oct</button></div>
+        </div>
+        <ul class="lines" id="lines"></ul>
+        <div class="net"><span><b>Paid to your account</b><span id="paidOn">on 5 November</span></span><span class="big"><small>QAR</small><span id="netAmt">16,290.00</span></span></div>
+        <div class="foot"><div><b>Let until 31 Aug 2027</b>Tenant since September 2024</div><div><b>Next inspection 14 Dec</b>Renewal talks start in May</div></div>
+      </article>
+      <p class="doc-note">Example statement — figures and fee shown are illustrative.</p>
+    </div>
+  </div>
+</section>
+
+<!-- renters -->
+<section class="rhero rent-only" aria-labelledby="rh1">
+  <div class="wrap">
+    <span class="eyebrow">Homes for rent · Qatar</span>
+    <h1 id="rh1">Rent a home we look after ourselves.</h1>
+    <p class="lead">Every home below is in a property ABAR manages — so the people who lease it to you are the people who fix things when they break.</p>
+    <div class="rfilters" role="group" aria-label="Filter homes"><button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="apartment" aria-pressed="false">Apartments</button><button type="button" data-f="villa" aria-pressed="false">Villas</button><button type="button" data-f="commercial" aria-pressed="false">Commercial</button></div>
+    <div class="grid" id="rgrid"></div>
+  </div>
+</section>
+
+<section class="est own-only" id="estimate" aria-labelledby="est-t">
+  <div class="wrap">
+    <div class="intro">
+      <h2 id="est-t">What would your property rent for?</h2>
+      <p>A quick estimate from current rents in each area. For an exact figure we visit, measure and photograph the property — at no cost.</p>
+      <div class="form" id="estForm">
+        <label><span>Area</span><div class="pills" data-g="area"></div></label>
+        <label><span>Property</span><div class="pills" data-g="type"></div></label>
+        <label><span>Bedrooms</span><div class="pills" data-g="beds"></div></label>
+        <label><span>Furnishing</span><div class="pills" data-g="furn"></div></label>
+      </div>
+    </div>
+    <div class="out" aria-live="polite">
+      <span class="lbl" id="outLbl">Estimated rent</span>
+      <div class="range"><span id="rLow">0</span> – <span id="rHigh">0</span> <small>QAR / month</small></div>
+      <div class="scale" aria-hidden="true"><i id="scaleBar"></i></div>
+      <div class="scale-l"><span id="sMin"></span><span id="sArea"></span><span id="sMax"></span></div>
+      <dl>
+        <dt>About a year</dt><dd id="yr">0</dd>
+        <dt>Management fee (illustrative 7%)</dt><dd id="fee">0</dd>
+        <dt>To you, each month</dt><dd class="k" id="toYou">0</dd>
+      </dl>
+      <a class="btn" href="#contact" id="valBtn">Book a free valuation visit <svg class="ico"><use href="#i-arrow"/></svg></a>
+      <p class="fine">Estimates are illustrative for this proposal and depend on condition, floor, view and finish.</p>
+    </div>
+  </div>
+</section>
+
+<section class="handle" id="handle" aria-labelledby="hd-t">
+  <div class="wrap">
+    <div class="head"><h2 id="hd-t"><span class="own-only">Everything after “for rent”, handled</span><span class="rent-only">What “managed by ABAR” means for you</span></h2><p class="own-only">You keep the asset. We keep it let, paid and in good repair — and tell you what happened every month.</p><p class="rent-only">One team leases the home, collects the rent and answers when something needs fixing.</p></div>
+    <div class="items">
+      <div class="item"><span class="freq">Before every lease</span><h3>Tenant screening</h3><p>References, employment and previous landlords checked before anyone signs.</p></div>
+      <div class="item"><span class="freq">Every lease</span><h3>Contract and registration</h3><p>Leases drafted clearly, explained to both sides and registered properly.</p></div>
+      <div class="item"><span class="freq">Monthly</span><h3>Rent collection</h3><p>Collected on schedule and reported on your statement, with nothing to chase.</p></div>
+      <div class="item"><span class="freq">As needed</span><h3>Repairs and upkeep</h3><p>Vetted contractors, agreed prices, and photographs before and after each job.</p></div>
+      <div class="item"><span class="freq">Twice a year</span><h3>Inspections</h3><p>We check the property’s condition and flag small problems before they grow.</p></div>
+      <div class="item"><span class="freq">3 months ahead</span><h3>Renewals and vacancies</h3><p>We talk to tenants early and market vacancies in advance, so gaps stay short.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-sec own-only" aria-labelledby="st-t">
+  <div class="wrap">
+    <h2 id="st-t">How handing over works</h2>
+    <ol class="steps">
+      <li><h3>Valuation visit</h3><p>We visit, measure, photograph and give you an honest rent figure.</p><small>Week 1</small></li>
+      <li><h3>Listing and viewings</h3><p>Measured plans and proper photographs, then viewings with screened applicants.</p><small>Weeks 1–3</small></li>
+      <li><h3>Tenant and lease</h3><p>References checked, contract signed and registered, keys handed over.</p><small>Weeks 2–4</small></li>
+      <li><h3>Monthly management</h3><p>Rent, repairs and renewals — and your statement on the 5th.</p><small>Ongoing</small></li>
+    </ol>
+  </div>
+</section>
+
+<section class="strip own-only" aria-labelledby="sr-t">
+  <div class="wrap"><div><h2 id="sr-t">Looking to rent instead?</h2><p>See homes in the properties we manage across Doha, Lusail, The Pearl and Al Wakrah.</p></div><button class="btn line" type="button" data-switch="rent">Show homes for rent <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+</section>
+<section class="strip rent-only" aria-labelledby="so-t">
+  <div class="wrap"><div><h2 id="so-t">Own property in Qatar?</h2><p>See the statement our owners receive every month, and estimate what your property would rent for.</p></div><button class="btn line" type="button" data-switch="own">Switch to the owner view <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="con-t">
+  <div class="wrap">
+    <div>
+      <h2 id="con-t">Talk to a property manager</h2>
+      <dl>
+        <dt>Office</dt><dd>Muaither, Street 267, Building 23, 2nd floor, Office 1, Doha</dd>
+        <dt>Post</dt><dd>P.O. Box 23345, Doha, State of Qatar</dd>
+        <dt>Phone</dt><dd><a href="tel:+97400000000">+974 0000 0000</a></dd>
+        <dt>Email</dt><dd><a href="mailto:info@aba-r.com">info@aba-r.com</a></dd>
+        <dt>Hours</dt><dd>Sunday – Thursday, 8:00 – 18:00</dd>
+      </dl>
+    </div>
+    <form class="msg" id="msg">
+      <div class="two"><label class="f"><span>Name</span><input required autocomplete="name"></label><label class="f"><span>Phone</span><input type="tel" required autocomplete="tel"></label></div>
+      <label class="f"><span>I am</span><select id="who"><option>A property owner</option><option>Looking to rent</option><option>A business looking for space</option></select></label>
+      <label class="f"><span>Message</span><textarea id="msgText"></textarea></label>
+      <div><button class="btn" type="submit">Send <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+      <p class="ok" role="status">Sent — a property manager will call you within one working day.</p>
+    </form>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>© 2026 ABAR Real Estate · Doha, State of Qatar</span><span>Statement, estimates and listings shown are examples for this design proposal.</span></div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const money=(n,dp=0)=>n.toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp});
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function tween(el,to,dp=0){const from=parseFloat((el.dataset.v||'0'));el.dataset.v=to;if(reduce){el.textContent=money(to,dp);return}const t0=performance.now();const f=t=>{const k=Math.min(1,(t-t0)/550);el.textContent=money(from+(to-from)*(1-Math.pow(1-k,3)),dp);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+
+/* ---------- the statement ---------- */
+const FEE=.07,RENT=18000;
+const MONTHS={
+  aug:{name:'August 2026',ref:'2026-08',rent:'1 Aug',paid:'5 September',items:[['Kitchen tap replaced','14 Aug',-320,'Photos']]},
+  sep:{name:'September 2026',ref:'2026-09',rent:'1 Sep',paid:'5 October',items:[],quiet:'No repairs this month'},
+  oct:{name:'October 2026',ref:'2026-10',rent:'1 Oct',paid:'5 November',items:[['AC service, 2 units','9 Oct',-450,'Photos'],['Garden irrigation timer','21 Oct',-180,'Invoice']]},
+};
+function statement(k){
+  const m=MONTHS[k];const fee=-RENT*FEE;
+  const rows=[['Rent received',m.rent,RENT,'','From tenant, on time'],['Management fee',`${Math.round(FEE*100)}%`,fee,'',''],...m.items.map(([t,d,a,tag])=>[t,d,a,tag,''])];
+  $('lines').innerHTML=rows.map(([t,d,a,tag,sub],i)=>`<li style="animation-delay:${i*60}ms"><span>${t}${tag?`<span class="tag"><svg class="ico"><use href="#i-${tag==='Photos'?'cam':'file'}"/></svg>${tag}</span>`:''}${sub?`<small>${sub}</small>`:''}</span><span class="d">${d}</span><span class="a ${a<0?'neg':''}">${a<0?'−':''}${money(Math.abs(a),2)}</span></li>`).join('')+(m.quiet?`<li style="animation-delay:180ms"><span style="color:var(--grey)">${m.quiet}</span><span class="d"></span><span class="a neg">0.00</span></li>`:'');
+  const net=RENT+fee+m.items.reduce((s,x)=>s+x[2],0);
+  tween($('netAmt'),net,2);$('paidOn').textContent=`on ${m.paid}`;$('sMonth').textContent=m.name;$('sRef').textContent=`Statement ${m.ref} · Villa 12`;
+  document.querySelectorAll('.months button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));
+}
+document.querySelectorAll('.months button').forEach(b=>b.onclick=()=>statement(b.dataset.k));
+$('netAmt').dataset.v=16290;statement('oct');
+
+/* ---------- rent estimate (illustrative base rents) ---------- */
+const AREAS={'Doha':['الدوحة',7000,11000],'Lusail':['لوسيل',7200,13000],'The Pearl':['اللؤلؤة',8800,19000],'Katara':['كتارا',9000,17000],'Al Wakrah':['الوكرة',5800,9500],'Al Wukair':['الوكير',5600,9000],'Al Khor':['الخور',4800,8000]};
+const est={area:'Lusail',type:'apartment',beds:'2',furn:'yes'};
+const G={area:Object.keys(AREAS).map(a=>[a,a]),type:[['apartment','Apartment'],['villa','Villa'],['townhouse','Townhouse']],beds:[['0','Studio'],['1','1'],['2','2'],['3','3'],['4','4'],['5','5+']],furn:[['yes','Furnished'],['no','Unfurnished']]};
+function pills(){document.querySelectorAll('.pills').forEach(p=>{const g=p.dataset.g;p.innerHTML=G[g].map(([v,t])=>`<button type="button" data-v="${v}" aria-pressed="${est[g]===v}">${t}</button>`).join('');p.querySelectorAll('button').forEach(b=>b.onclick=()=>{est[g]=b.dataset.v;pills();estimate()})})}
+function rentFor(area,type,beds,furn){
+  const [,apt1,vil3]=AREAS[area];let r;
+  if(type==='apartment'){r=beds===0?apt1*.75:apt1+(beds-1)*(area==='The Pearl'?3200:2600)}
+  else{r=vil3+(beds-3)*1800;if(type==='townhouse')r*=1.1;r=Math.max(r,vil3*.8)}
+  return furn?r*1.12:r;
+}
+function estimate(){
+  const beds=+est.beds,mid=rentFor(est.area,est.type,beds,est.furn==='yes');
+  const lo=Math.round(mid*.93/100)*100,hi=Math.round(mid*1.07/100)*100;
+  tween($('rLow'),lo);tween($('rHigh'),hi);
+  const avg=(lo+hi)/2;tween($('yr'),avg*12);tween($('fee'),-avg*.07);tween($('toYou'),avg*.93);
+  // where this sits among homes in the area
+  const all=[];['apartment','villa','townhouse'].forEach(t=>[0,1,2,3,4,5].forEach(b=>{if(t!=='apartment'&&b<2)return;all.push(rentFor(est.area,t,b,false),rentFor(est.area,t,b,true))}));
+  const mn=Math.min(...all),mx=Math.max(...all);
+  $('scaleBar').style.left=((lo-mn)/(mx-mn)*100).toFixed(1)+'%';$('scaleBar').style.width=Math.max(2,(hi-lo)/(mx-mn)*100).toFixed(1)+'%';
+  $('sMin').textContent=money(Math.round(mn/100)*100);$('sMax').textContent=money(Math.round(mx/100)*100);$('sArea').textContent=`Range of rents in ${est.area}`;
+  $('outLbl').textContent=`Estimated rent · ${G.type.find(t=>t[0]===est.type)[1]} in ${est.area}`;
+}
+$('valBtn').onclick=()=>{$('who').value='A property owner';$('msgText').value=`Valuation request: ${est.beds==='0'?'studio':est.beds+'-bed'} ${est.type} in ${est.area}, ${est.furn==='yes'?'furnished':'unfurnished'}.`};
+pills();estimate();
+
+/* ---------- renter view ---------- */
+const IMG=id=>`https://images.unsplash.com/${id}?w=600&q=70&auto=format&fit=crop`;
+const HOMES=[
+  ['apartment','Two-bedroom apartment, Porto Arabia','The Pearl',2,145,12500,'photo-1728488448472-16a259c6ba7c','Furnished'],
+  ['villa','Five-bedroom villa with private pool','Al Wakrah',5,520,18000,'photo-1613977257363-707ba9348227','Private pool'],
+  ['apartment','One-bedroom apartment, Marina District','Lusail',1,88,8200,'photo-1741764014072-68953e93cd48','Available now'],
+  ['apartment','Three-bedroom sea-view apartment, West Bay','Doha',3,190,14000,'photo-1758448755778-90ebf4d0f1e7',''],
+  ['villa','Four-bedroom compound villa','Al Wukair',4,380,11500,'photo-1768200498972-fd56353d73fc','Shared pool'],
+  ['commercial','Fitted office floor, Lusail Boulevard','Lusail',0,310,36000,'photo-1700901546317-7e1829579632','Office'],
+];
+$('rgrid').innerHTML=HOMES.map(([t,title,area,beds,size,price,img,tag])=>`<a class="card" href="#contact" data-k="${t}" data-t="${title}"><div class="ph"><img loading="lazy" src="${IMG(img)}" alt="${title}">${tag?`<span>${tag}</span>`:''}</div><div class="b"><div class="p">QAR ${money(price)} <small>/ month</small></div><h3>${title}</h3><div class="m">${area} <bdi lang="ar">${AREAS[area][0]}</bdi> · ${beds?beds+' bed':'Office'} · ${size} m²</div></div></a>`).join('');
+document.querySelectorAll('.rfilters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.rfilters button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('#rgrid .card').forEach(c=>c.hidden=!(b.dataset.f==='all'||c.dataset.k===b.dataset.f))});
+document.querySelectorAll('#rgrid .card').forEach(c=>c.onclick=()=>{$('who').value='Looking to rent';$('msgText').value=`I'm interested in: ${c.dataset.t}`});
+
+/* ---------- audience switch ---------- */
+function setMode(m,scroll){document.body.dataset.mode=m;document.querySelectorAll('.mode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));$('who').value=m==='own'?'A property owner':'Looking to rent';history.replaceState(null,'',m==='rent'?'#rent':'#own');if(scroll)scrollTo({top:0,behavior:reduce?'auto':'smooth'})}
+document.querySelectorAll('.mode button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>setMode(b.dataset.switch,true));
+if(location.hash==='#rent')setMode('rent');
+$('msg').addEventListener('submit',e=>{e.preventDefault();e.target.classList.add('done')});
+</script>
+</body>
+</html>

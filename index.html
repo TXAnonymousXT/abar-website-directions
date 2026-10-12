@@ -27,6 +27,8 @@ header p{margin:16px 0 0;color:var(--dim);max-width:62ch}
 .row{display:grid;gap:0}
 .row.two{grid-template-columns:1fr 1fr}
 .row.three{grid-template-columns:repeat(3,1fr)}
+.row.four{grid-template-columns:repeat(4,1fr)}
+.row.four .d{padding-left:clamp(18px,2vw,30px);padding-right:clamp(18px,2vw,30px)}
 .d{padding:28px clamp(20px,2.4vw,40px) 44px;border-right:1px solid var(--line);display:flex;flex-direction:column}
 .d:last-child{border-right:0}
 .shot{display:block;position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:4px;background:var(--panel)}
@@ -49,15 +51,16 @@ dd{margin:0}
 hr{border:0;border-top:1px solid var(--line);margin:0}
 footer{border-top:1px solid var(--line);padding:28px clamp(20px,4vw,64px) 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:30px;color:var(--dim);font-size:14px}
 footer b{display:block;color:var(--fg);font-weight:500;margin-bottom:6px}
-@media (max-width:1000px){.row.two,.row.three{grid-template-columns:1fr}.d{border-right:0;border-bottom:1px solid var(--line)}footer{grid-template-columns:1fr}header{grid-template-columns:1fr}}
+@media (max-width:1200px){.row.four{grid-template-columns:1fr 1fr}.row.four .d:nth-child(2n){border-right:0}}
+@media (max-width:1000px){.row.two,.row.three,.row.four{grid-template-columns:1fr}.d{border-right:0;border-bottom:1px solid var(--line)}footer{grid-template-columns:1fr}header{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header>
   <div>
     <span class="mono">ABAR Real Estate · Website proposal · October 2026</span>
-    <h1>Six directions for the new website</h1>
-    <p>Six working homepages for ABAR Real Estate. Directions 1–3 each have their own palette; directions 4–6 use ABAR’s own colours, and direction 6 is the simple, conventional version. Open each one on a laptop first, then on a phone.</p>
+    <h1>Ten directions for the new website</h1>
+    <p>Ten working homepages for ABAR Real Estate. Directions 1–3 each have their own palette; 4–10 use ABAR’s own colours. Direction 6 is the simple, conventional version, and 7–10 are simple too, each organised around one question people actually ask. Open each one on a laptop first, then on a phone.</p>
   </div>
   <div class="pal" aria-label="ABAR palette"><span class="mono">ABAR colours</span><i style="background:#fff"></i><i style="background:#1A2817"></i><i style="background:#282C30"></i><i style="background:#222"></i><i style="background:#EDEDED"></i><i style="background:#BABABA"></i><i style="background:#727272"></i></div>
 </header>
@@ -119,6 +122,47 @@ footer b{display:block;color:var(--fg);font-weight:500;margin-bottom:6px}
     <p>A conventional, easy-to-scroll real estate site in ABAR’s colours and its own font, Poppins. Hero with search, featured properties with filters, the six popular areas, services, a landlord banner, the vision and contact — following the structure and wording of the current aba-r.com, with no 3D or artwork.</p>
     <dl><dt class="mono">Type</dt><dd>Poppins · Tajawal Arabic</dd><dt class="mono">Signature</dt><dd>Working search and filters, light and fast</dd><dt class="mono">Mood</dt><dd>Clear, familiar, professional</dd></dl>
     <a class="open" href="6-simple.html">Open direction 6 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+</section>
+
+<hr>
+<div class="round"><h2>Simple and smart</h2><span class="mono">No 3D or artwork — each built around one question renters and owners actually ask</span></div>
+<section class="row four">
+  <article class="d">
+    <a class="shot" href="7-ask.html"><img src="previews/7-ask.jpg" alt="Direction 7: A single search box with understood words highlighted"><span class="badge new">Simple</span></a>
+    <span class="mono" style="margin-top:20px">Direction 7</span>
+    <h3>Ask</h3>
+    <p class="idea">Describe it the way you’d say it.</p>
+    <p>One search box is the whole homepage. Type “2 bed in Lusail under 10k” — or in Arabic, <bdi lang="ar">«فيلا في الوكير»</bdi> — and the words it understood light up in place while the homes below filter instantly. No dropdowns, no forms.</p>
+    <dl><dt class="mono">Type</dt><dd>Instrument Sans · Noto Kufi Arabic</dd><dt class="mono">Signature</dt><dd>Plain-language search, English and Arabic</dd><dt class="mono">Mood</dt><dd>Effortless, modern</dd></dl>
+    <a class="open" href="7-ask.html">Open direction 7 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+  <article class="d">
+    <a class="shot" href="8-commute.html"><img src="previews/8-commute.jpg" alt="Direction 8: Workplace tiles and homes ranked by drive time"><span class="badge new">Simple</span></a>
+    <span class="mono" style="margin-top:20px">Direction 8</span>
+    <h3>Commute</h3>
+    <p class="idea">Where do you work?</p>
+    <p>Pick your office or campus — West Bay, Education City, the airport, Hamad Port — and every home re-ranks by drive time, laid out like a timetable. A rush-hour switch shows the extra minutes on each bar.</p>
+    <dl><dt class="mono">Type</dt><dd>IBM Plex Sans &amp; Mono · IBM Plex Arabic</dd><dt class="mono">Signature</dt><dd>Homes ranked by drive time</dd><dt class="mono">Mood</dt><dd>Practical, data-clear</dd></dl>
+    <a class="open" href="8-commute.html">Open direction 8 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+  <article class="d">
+    <a class="shot" href="9-move-in.html"><img src="previews/9-move-in.jpg" alt="Direction 9: A move-in calendar with homes free by the chosen date"><span class="badge new">Simple</span></a>
+    <span class="mono" style="margin-top:20px">Direction 9</span>
+    <h3>Move-in</h3>
+    <p class="idea">When do you need the keys?</p>
+    <p>A calendar is the homepage. Pick your date: the homes free by then appear, everything later sits below a “your move-in date” line, and a countdown plan is worked back from your day.</p>
+    <dl><dt class="mono">Type</dt><dd>Albert Sans · Readex Pro Arabic</dd><dt class="mono">Signature</dt><dd>Date-first browsing with a move plan</dd><dt class="mono">Mood</dt><dd>Calm, organised, helpful</dd></dl>
+    <a class="open" href="9-move-in.html">Open direction 9 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </article>
+  <article class="d">
+    <a class="shot" href="10-statement.html"><img src="previews/10-statement.jpg" alt="Direction 10: An example monthly owner statement"><span class="badge new">Simple</span></a>
+    <span class="mono" style="margin-top:20px">Direction 10</span>
+    <h3>Statement</h3>
+    <p class="idea">Show owners what they get.</p>
+    <p>Built for landlords. The hero is the monthly owner statement ABAR would send — switch between months — followed by a rent estimator. One switch at the top turns the whole site into the renter view.</p>
+    <dl><dt class="mono">Type</dt><dd>Geist &amp; Geist Mono · Noto Sans Arabic</dd><dt class="mono">Signature</dt><dd>Owner statement + rent estimator</dd><dt class="mono">Mood</dt><dd>Trustworthy, transparent</dd></dl>
+    <a class="open" href="10-statement.html">Open direction 10 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
   </article>
 </section>
 
