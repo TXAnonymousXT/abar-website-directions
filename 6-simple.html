@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABAR Real Estate — Rental properties in Qatar</title>
+<meta name="description" content="Apartments, villas and commercial space for rent across Qatar. ABAR finds, leases and manages rental properties in Doha, Lusail, The Pearl, Katara, Al Wakrah and Al Wukair.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Tajawal:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;
+  --forest:#1A2817;
+  --forest-hover:#26381F;
+  --charcoal:#282C30;
+  --ink:#222222;
+  --rule:#EDEDED;
+  --soft:#F7F8F7;
+  --tint:#EFF3EE;
+  --tint-line:#DDE5DA;
+  --mute:#BABABA;
+  --grey:#727272;
+  --font:"Poppins", system-ui, sans-serif;
+  --arabic:"Tajawal", sans-serif;
+  --wrap:1240px;
+  --radius:6px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--grey);font:400 15.5px/1.75 var(--font);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{color:var(--ink);font-weight:600;letter-spacing:-.015em;margin:0;line-height:1.2;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+[lang=ar]{font-family:var(--arabic)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.eyebrow{display:block;font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--forest);margin-bottom:12px}
+.sec{padding:96px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:44px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(1.8rem,3vw,2.4rem);max-width:24ch}
+.sec-head p{max-width:46ch}
+.sec-head.center{flex-direction:column;align-items:center;text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--forest);color:var(--white);border:1px solid var(--forest);border-radius:var(--radius);padding:13px 24px;font-weight:500;font-size:14.5px;cursor:pointer;transition:background .25s,border-color .25s,color .25s}
+.btn:hover{background:var(--forest-hover);border-color:var(--forest-hover)}
+.btn.line{background:transparent;color:var(--forest)}
+.btn.line:hover{background:var(--forest);color:var(--white)}
+.btn.light{background:var(--white);color:var(--forest);border-color:var(--white)}
+.btn.light:hover{background:var(--rule);border-color:var(--rule)}
+.btn svg{width:17px;height:17px}
+.ico{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.fade{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.fade.in{opacity:1;transform:none}
+
+/* top bar + header */
+.topbar{background:var(--soft);color:var(--grey);font-size:13px;border-bottom:1px solid var(--rule)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:40px;gap:20px}
+.topbar span,.topbar a{display:inline-flex;align-items:center;gap:8px}
+.topbar .l,.topbar .r{display:flex;gap:24px;align-items:center}
+.topbar a:hover{color:var(--forest)}
+.topbar .ico{width:15px;height:15px}
+.topbar [lang=ar]{font-size:14px}
+header.site{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--rule);transition:box-shadow .3s}
+header.site.shadow{box-shadow:0 6px 24px -14px rgba(34,34,34,.25)}
+header.site .wrap{display:flex;align-items:center;height:80px;gap:40px}
+.logo{display:flex;align-items:center;gap:12px;color:var(--ink)}
+.logo svg{width:52px}
+.logo b{display:block;font-weight:600;font-size:18px;letter-spacing:.32em;line-height:1}
+.logo small{display:block;font-size:9px;letter-spacing:.32em;color:var(--grey);margin-top:6px;line-height:1}
+.menu{display:flex;gap:32px;margin-left:auto;list-style:none;padding:0;margin-top:0;margin-bottom:0}
+.menu a{font-size:14.5px;font-weight:500;color:var(--ink);padding:6px 0;position:relative;transition:color .2s}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--forest);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.menu a:hover,.menu a.on{color:var(--forest)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1)}
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--rule);border-radius:var(--radius);width:44px;height:44px;cursor:pointer;align-items:center;justify-content:center}
+.burger .ico{width:22px;height:22px;color:var(--ink)}
+
+/* hero */
+.hero{position:relative;background:linear-gradient(180deg,var(--white) 0%,var(--soft) 100%);border-bottom:1px solid var(--rule)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;padding-top:64px;padding-bottom:64px}
+.hero h1{font-size:clamp(2.3rem,4.2vw,3.4rem);max-width:16ch;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--forest)}
+.hero p{font-size:17px;max-width:46ch;margin-top:18px}
+.hero .pic{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:5/4;box-shadow:0 30px 60px -34px rgba(34,34,34,.35)}
+.hero .pic img{width:100%;height:100%;object-fit:cover}
+.hero .badge{position:absolute;left:18px;bottom:18px;background:var(--white);border-radius:10px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 12px 30px -16px rgba(34,34,34,.4);font-size:13.5px}
+.hero .badge b{display:block;color:var(--ink);font-weight:600;font-size:15px;line-height:1.2}
+.hero .badge i{width:40px;height:40px;border-radius:50%;background:var(--tint);color:var(--forest);display:grid;place-items:center}
+.search{grid-column:1/-1;margin-top:8px;background:var(--white);border:1px solid var(--rule);border-radius:10px;box-shadow:0 18px 44px -26px rgba(34,34,34,.3)}
+.tabs{display:flex;border-bottom:1px solid var(--rule)}
+.tabs button{background:none;border:0;padding:14px 22px;font-weight:500;font-size:14px;color:var(--grey);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected=true]{color:var(--forest);border-color:var(--forest)}
+.fields{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:0;align-items:stretch}
+.field{padding:14px 20px;border-right:1px solid var(--rule)}
+.field label{display:block;font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.field select{width:100%;border:0;background:transparent;padding:4px 0;color:var(--grey);font-size:14.5px;cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23727272' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right center/10px}
+.field select:focus{outline:none;color:var(--ink)}
+.search .btn{margin:10px;padding:0 30px;border-radius:var(--radius)}
+.hero-stats{display:flex;gap:12px 24px;margin-top:30px;font-size:14px;color:var(--ink);flex-wrap:wrap}
+.hero-stats span{display:flex;gap:10px;align-items:center}
+.hero-stats .ico{color:var(--forest)}
+
+/* properties */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{border:1px solid var(--rule);background:var(--white);border-radius:40px;padding:8px 18px;font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;transition:all .2s}
+.filters button:hover{border-color:var(--forest)}
+.filters button[aria-pressed=true]{background:var(--forest);border-color:var(--forest);color:var(--white)}
+.props{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.prop{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;transition:box-shadow .3s,transform .3s;display:flex;flex-direction:column}
+.prop:hover{box-shadow:0 18px 40px -22px rgba(34,34,34,.35);transform:translateY(-3px)}
+.prop[hidden]{display:none}
+.prop .ph{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--rule)}
+.prop .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.prop:hover .ph img{transform:scale(1.04)}
+.tag{position:absolute;left:14px;top:14px;background:var(--forest);color:var(--white);font-size:12px;font-weight:500;padding:5px 11px;border-radius:4px}
+.tag.alt{left:auto;right:14px;background:var(--white);color:var(--ink)}
+.prop .body{padding:20px 22px 0;flex:1}
+.price{font-size:20px;font-weight:600;color:var(--forest)}
+.price small{font-size:13px;font-weight:400;color:var(--grey)}
+.prop h3{font-size:17px;font-weight:500;margin:6px 0 6px}
+.loc{display:flex;align-items:center;gap:6px;font-size:14px}
+.loc .ico{width:16px;height:16px}
+.loc [lang=ar]{color:var(--mute);margin-left:auto;font-size:14px}
+.feats{display:flex;gap:0;border-top:1px solid var(--rule);margin-top:18px}
+.feats span{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:13px 6px;font-size:13.5px;color:var(--ink)}
+.feats span+span{border-left:1px solid var(--rule)}
+.feats .ico{width:17px;height:17px;color:var(--grey)}
+.more{text-align:center;margin-top:44px}
+
+/* areas */
+.areas{background:var(--soft)}
+.area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.area{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:16/11;color:var(--white);display:flex;align-items:flex-end}
+.area img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.area::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(34,34,34,0) 50%,rgba(34,34,34,.55) 100%)}
+.area:hover img{transform:scale(1.05)}
+.area .t{position:relative;z-index:1;padding:22px 24px;width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.area h3{color:var(--white);font-size:21px}
+.area h3 span{display:block;font:400 15px/1.4 var(--arabic);color:rgba(255,255,255,.75);margin-top:2px}
+.area .n{font-size:13.5px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.area .n i{width:30px;height:30px;border-radius:50%;background:var(--white);color:var(--forest);display:grid;place-items:center;transition:transform .3s}
+.area .n i .ico{width:15px;height:15px}
+.area:hover .n i{transform:translateX(3px)}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.svc{border:1px solid var(--rule);border-radius:var(--radius);padding:34px 30px;transition:border-color .3s}
+.svc:hover{border-color:var(--forest)}
+.svc .i{width:56px;height:56px;border-radius:50%;background:var(--tint);color:var(--forest);display:grid;place-items:center;margin-bottom:22px}
+.svc .i .ico{width:24px;height:24px}
+.svc h3{font-size:18px;margin-bottom:10px}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.split .img{border-radius:var(--radius);overflow:hidden;aspect-ratio:5/4}
+.split .img img{width:100%;height:100%;object-fit:cover}
+.split h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:18px}
+.checks{list-style:none;padding:0;margin:26px 0 32px;display:grid;gap:14px}
+.checks li{display:flex;gap:12px;align-items:flex-start;color:var(--ink)}
+.checks li i{width:22px;height:22px;border-radius:50%;background:var(--tint);color:var(--forest);display:grid;place-items:center;flex:none;margin-top:3px}
+.checks li i .ico{width:13px;height:13px;stroke-width:2.2}
+
+/* landlord band */
+.band{background:var(--tint);color:var(--grey);border-top:1px solid var(--tint-line);border-bottom:1px solid var(--tint-line)}
+.band .wrap{display:flex;justify-content:space-between;align-items:center;gap:40px;padding-top:64px;padding-bottom:64px;flex-wrap:wrap}
+.band h2{color:var(--ink);font-size:clamp(1.6rem,2.6vw,2.1rem);margin-bottom:8px}
+.band .acts{display:flex;gap:12px;flex-wrap:wrap}
+.band .btn.ghost{background:transparent;border-color:var(--forest);color:var(--forest)}
+.band .btn.ghost:hover{background:var(--forest);color:var(--white)}
+
+/* vision */
+.vision{text-align:center}
+.vision blockquote{margin:0 auto;max-width:30ch;font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.45;color:var(--ink);font-weight:500;letter-spacing:-.01em}
+.vision .who{margin-top:22px;font-size:14px}
+
+/* contact */
+.contact{background:var(--soft)}
+.contact .grid{display:grid;grid-template-columns:1fr 1.25fr;gap:40px}
+.info{display:grid;gap:16px;align-content:start}
+.info .row{display:flex;gap:16px;background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);padding:20px 22px}
+.info .row i{width:44px;height:44px;border-radius:50%;background:var(--tint);color:var(--forest);display:grid;place-items:center;flex:none}
+.info .row b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px}
+.info .row a:hover{color:var(--forest)}
+form.card{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius);padding:34px}
+form.card h3{font-size:22px;margin-bottom:6px}
+form.card>p{margin-bottom:24px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{display:block;margin-bottom:16px}
+.f span{display:block;font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.f input,.f select,.f textarea{width:100%;border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;background:var(--white);color:var(--ink);font-size:14.5px;transition:border-color .2s}
+.f textarea{min-height:110px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--forest)}
+.sent{display:none;margin-top:14px;color:var(--forest);font-weight:500}
+form.done .sent{display:block}
+
+/* footer */
+footer.site{background:var(--soft);color:var(--grey);font-size:14.5px;border-top:1px solid var(--rule)}
+footer .cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:40px;padding-top:70px;padding-bottom:50px}
+footer .logo{color:var(--ink)}
+footer h4{color:var(--ink);font-size:15px;font-weight:500;margin-bottom:16px}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+footer a:hover{color:var(--forest)}
+footer .about{margin-top:18px;max-width:34ch}
+footer .bottom{border-top:1px solid var(--rule)}
+footer .bottom .wrap{display:flex;justify-content:space-between;gap:20px;padding-top:20px;padding-bottom:20px;font-size:13px;flex-wrap:wrap}
+
+/* responsive */
+@media (max-width:1024px){
+  .menu{display:none}
+  .burger{display:inline-flex}
+  header.site .wrap > .btn{display:none}
+  .menu.open{display:flex;position:absolute;top:80px;left:0;right:0;flex-direction:column;gap:0;background:var(--white);border-bottom:1px solid var(--rule);padding:8px 24px 16px;box-shadow:0 20px 30px -20px rgba(34,34,34,.3)}
+  .menu.open a{display:block;padding:12px 0;border-bottom:1px solid var(--rule)}
+  .menu.open a::after{display:none}
+  .hero .wrap{grid-template-columns:1fr;gap:36px;padding-top:44px}
+  .fields{grid-template-columns:1fr 1fr}
+  .field:nth-child(2){border-right:0}
+  .field{border-bottom:1px solid var(--rule)}
+  .search .btn{grid-column:1/-1;padding:14px}
+  .props,.area-grid,.services{grid-template-columns:1fr 1fr}
+  .split{grid-template-columns:1fr;gap:36px}
+  .contact .grid{grid-template-columns:1fr}
+  footer .cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .topbar .l span:nth-child(2),.topbar .r span{display:none}
+  .sec{padding:70px 0}
+  .hero{min-height:0}
+  .hero .wrap{padding-top:56px;padding-bottom:56px}
+  .fields{grid-template-columns:1fr}
+  .field{border-right:0}
+  .props,.area-grid,.services{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  footer .cols{grid-template-columns:1fr}
+  .hero-stats{gap:16px 26px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}html{scroll-behavior:auto}.fade{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7M3 14h18M3 18v2M21 18v2M7 9V6h4v3"/></symbol>
+  <symbol id="i-bath" viewBox="0 0 24 24"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM6 12V6a2 2 0 0 1 4 0M7 19l-1 2M17 19l1 2"/></symbol>
+  <symbol id="i-area" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h5M15 20v-5M9 4v5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3M14 9l2 2"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V5l8-2v18M12 21V8l8 3v10M3 21h18M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h4"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/></symbol>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="l">
+      <a href="tel:+97400000000"><svg class="ico"><use href="#i-phone"/></svg>+974 0000 0000</a>
+      <a href="mailto:info@aba-r.com"><svg class="ico"><use href="#i-mail"/></svg>info@aba-r.com</a>
+    </div>
+    <div class="r">
+      <span><svg class="ico"><use href="#i-clock"/></svg>Sun – Thu, 8:00 – 18:00</span>
+      <a href="#" lang="ar">عربي</a>
+    </div>
+  </div>
+</div>
+
+<header class="site" id="header">
+  <div class="wrap">
+    <a class="logo" href="#home" aria-label="ABAR Real Estate, home">
+      <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+      <span><b>ABAR</b><small>REAL ESTATE</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#home" class="on">Home</a></li>
+      <li><a href="#properties">Properties</a></li>
+      <li><a href="#areas">Areas</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn" href="#contact">List your property</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg class="ico"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <div>
+    <span class="eyebrow">ABAR Real Estate · Qatar</span>
+    <h1>Step into your perfect <em>home</em> in Qatar</h1>
+    <p>Apartments, villas and commercial space for rent across Doha, Lusail, The Pearl and beyond — leased and looked after by a team that knows the local market.</p>
+    <div class="hero-stats">
+      <span><svg class="ico"><use href="#i-key"/></svg>Specialists in rentals</span>
+      <span><svg class="ico"><use href="#i-building"/></svg>Residential &amp; commercial</span>
+      <span><svg class="ico"><use href="#i-shield"/></svg>Property management</span>
+    </div>
+    </div>
+    <div class="pic"><img src="https://images.unsplash.com/photo-1700901742651-6b353164caf3?w=1400&q=75&auto=format&fit=crop" alt="The Katara Towers in Lusail on a sunny day"><div class="badge"><i><svg class="ico"><use href="#i-key"/></svg></i><div><b>39 properties</b>across six popular areas</div></div></div>
+
+    <form class="search" id="search" role="search" aria-label="Find a property">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-status="rent">For rent</button>
+        <button type="button" role="tab" aria-selected="false" data-status="sale">For sale</button>
+      </div>
+      <div class="fields">
+        <div class="field"><label for="s-area">Location</label>
+          <select id="s-area"><option value="">All areas</option><option>Doha</option><option>Lusail</option><option>The Pearl</option><option>Katara</option><option>Al Wakrah</option><option>Al Wukair</option><option>Al Khor</option></select></div>
+        <div class="field"><label for="s-type">Property type</label>
+          <select id="s-type"><option value="">All types</option><option value="apartment">Apartment</option><option value="villa">Villa</option><option value="commercial">Commercial</option></select></div>
+        <div class="field"><label for="s-beds">Bedrooms</label>
+          <select id="s-beds"><option value="0">Any</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select></div>
+        <div class="field"><label for="s-price">Max price</label>
+          <select id="s-price"><option value="0">Any price</option><option value="8000">QAR 8,000 / mo</option><option value="12000">QAR 12,000 / mo</option><option value="20000">QAR 20,000 / mo</option><option value="40000">QAR 40,000 / mo</option></select></div>
+        <button class="btn" type="submit"><svg class="ico"><use href="#i-search"/></svg>Search</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- PROPERTIES -->
+<section class="sec" id="properties">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Featured properties</span>
+        <h2>Find your property in your city</h2>
+      </div>
+      <div class="filters" role="group" aria-label="Filter properties">
+        <button type="button" data-f="all" aria-pressed="true">All</button>
+        <button type="button" data-f="apartment" aria-pressed="false">Apartments</button>
+        <button type="button" data-f="villa" aria-pressed="false">Villas</button>
+        <button type="button" data-f="commercial" aria-pressed="false">Commercial</button>
+      </div>
+    </div>
+    <div class="props" id="props"></div>
+    <p class="none" id="none" hidden style="text-align:center;padding:30px 0">No properties match those filters yet. <a href="#properties" id="reset" style="color:var(--forest);font-weight:500">Show all properties</a></p>
+    <div class="more"><a class="btn line" href="#contact">Browse all properties <svg class="ico"><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<!-- AREAS -->
+<section class="sec areas" id="areas">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Most popular places</span>
+      <h2>Let us find real estate options specially curated for you</h2>
+    </div>
+    <div class="area-grid" id="areaGrid"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Our services</span>
+      <h2>What we do for you</h2>
+      <p>At ABAR Real Estate we specialise in helping you find the right rental property — and in looking after it once the lease is signed.</p>
+    </div>
+    <div class="services">
+      <div class="svc fade"><div class="i"><svg class="ico"><use href="#i-key"/></svg></div><h3>Specialised in rental properties</h3><p>We focus on rentals, so you get advice tailored to leasing in Qatar and a team that knows where the best properties are.</p></div>
+      <div class="svc fade"><div class="i"><svg class="ico"><use href="#i-building"/></svg></div><h3>Experienced property managers</h3><p>Every property we manage is well maintained — from tenant requests to on-time rent collection, we keep things running smoothly.</p></div>
+      <div class="svc fade"><div class="i"><svg class="ico"><use href="#i-doc"/></svg></div><h3>Transparent, hassle-free process</h3><p>Clear communication at every step, whether you are renting for the first time or you are an experienced landlord.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY / ABOUT -->
+<section class="sec" id="about" style="padding-top:0">
+  <div class="wrap split">
+    <div class="img fade"><img loading="lazy" src="https://images.unsplash.com/photo-1741764014072-68953e93cd48?w=1200&q=72&auto=format&fit=crop" alt="Bright open-plan living room with kitchen"></div>
+    <div class="fade">
+      <span class="eyebrow">Who we are</span>
+      <h2>Your trusted partner in finding the right rental</h2>
+      <p>Whether you need an apartment, a family home or commercial space, our team offers personalised service and local expertise for a smooth rental experience from the first viewing to the last renewal.</p>
+      <ul class="checks">
+        <li><i><svg class="ico"><use href="#i-check"/></svg></i>A diverse portfolio of residential and commercial properties</li>
+        <li><i><svg class="ico"><use href="#i-check"/></svg></i>Deep knowledge of the local rental market and the latest listings</li>
+        <li><i><svg class="ico"><use href="#i-check"/></svg></i>Clear, transparent information at every step</li>
+        <li><i><svg class="ico"><use href="#i-check"/></svg></i>One dedicated team for the lease, the keys and the repairs</li>
+      </ul>
+      <a class="btn" href="#contact">Talk to our team <svg class="ico"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- LANDLORDS -->
+<section class="band">
+  <div class="wrap">
+    <div>
+      <h2>Own a property in Qatar?</h2>
+      <p>Let us lease it and manage it for you — tenant screening, rent collection, maintenance and renewals.</p>
+    </div>
+    <div class="acts">
+      <a class="btn" href="#contact">List your property</a>
+      <a class="btn ghost" href="tel:+97400000000"><svg class="ico"><use href="#i-phone"/></svg>Call us</a>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="sec vision">
+  <div class="wrap fade">
+    <span class="eyebrow">Our vision</span>
+    <blockquote>To lead the real estate industry in Qatar by setting benchmarks in quality, innovation and sustainability — shaping thriving communities and delivering exceptional value.</blockquote>
+    <p class="who">ABAR Real Estate</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Get in touch</span>
+        <h2>Looking for the perfect rental property?</h2>
+      </div>
+      <p>Whether you are searching for a new home or managing rental properties, contact us today and an agent will get back to you shortly.</p>
+    </div>
+    <div class="grid">
+      <div class="info">
+        <div class="row fade"><i><svg class="ico"><use href="#i-pin"/></svg></i><div><b>Head office</b>Muaither, Street 267, Building 23, 2nd floor, Office 1, P.O. Box 23345, Doha, State of Qatar</div></div>
+        <div class="row fade"><i><svg class="ico"><use href="#i-phone"/></svg></i><div><b>Phone</b><a href="tel:+97400000000">+974 0000 0000</a></div></div>
+        <div class="row fade"><i><svg class="ico"><use href="#i-mail"/></svg></i><div><b>Email</b><a href="mailto:info@aba-r.com">info@aba-r.com</a></div></div>
+        <div class="row fade"><i><svg class="ico"><use href="#i-clock"/></svg></i><div><b>Office hours</b>Sunday – Thursday, 8:00 – 18:00</div></div>
+      </div>
+      <form class="card fade" id="form" novalidate>
+        <h3>Send us a message</h3>
+        <p>Fill out the form and one of our agents will contact you.</p>
+        <div class="frow">
+          <label class="f"><span>Full name</span><input name="name" autocomplete="name" required></label>
+          <label class="f"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" required></label>
+        </div>
+        <div class="frow">
+          <label class="f"><span>Email</span><input name="email" type="email" autocomplete="email"></label>
+          <label class="f"><span>I am</span><select name="who"><option>Looking to rent</option><option>A property owner</option><option>A business looking for space</option></select></label>
+        </div>
+        <label class="f"><span>Message</span><textarea name="msg" id="msg" placeholder="Tell us what you are looking for"></textarea></label>
+        <button class="btn" type="submit">Submit now <svg class="ico"><use href="#i-arrow"/></svg></button>
+        <p class="sent" role="status">Thank you — your message has been sent. We will contact you within one working day.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap cols">
+    <div>
+      <a class="logo" href="#home" aria-label="ABAR Real Estate">
+        <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
+        <span><b>ABAR</b><small>REAL ESTATE</small></span>
+      </a>
+      <p class="about">Rental properties and property management across Qatar — residential and commercial.</p>
+    </div>
+    <div><h4>Company</h4><ul><li><a href="#about">About us</a></li><li><a href="#services">Services</a></li><li><a href="#properties">Properties</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div><h4>Areas</h4><ul id="footAreas"></ul></div>
+    <div><h4>Contact</h4><ul><li>Muaither, Street 267, Building 23, Doha</li><li><a href="tel:+97400000000">+974 0000 0000</a></li><li><a href="mailto:info@aba-r.com">info@aba-r.com</a></li><li>Sunday – Thursday, 8:00 – 18:00</li></ul></div>
+  </div>
+  <div class="bottom"><div class="wrap"><span>© 2026 ABAR Real Estate. All rights reserved.</span><span>Listings shown are examples for this design proposal.</span></div></div>
+</footer>
+
+<script>
+const IMG=(id,w=900)=>`https://images.unsplash.com/${id}?w=${w}&q=72&auto=format&fit=crop`;
+const icon=n=>`<svg class="ico"><use href="#i-${n}"/></svg>`;
+const fmt=n=>n.toLocaleString('en-US');
+
+/* listings: placeholders until ABAR supplies its own */
+const PROPS=[
+  {t:'apartment',title:'Two-bedroom apartment, Porto Arabia',area:'The Pearl',ar:'اللؤلؤة',price:12500,beds:2,baths:2,size:145,img:'photo-1728488448472-16a259c6ba7c',tag:'Furnished'},
+  {t:'villa',title:'Five-bedroom villa with private pool',area:'Al Wakrah',ar:'الوكرة',price:18000,beds:5,baths:5,size:520,img:'photo-1613977257363-707ba9348227'},
+  {t:'apartment',title:'One-bedroom apartment, Marina District',area:'Lusail',ar:'لوسيل',price:8200,beds:1,baths:1,size:88,img:'photo-1741764014072-68953e93cd48',tag:'New'},
+  {t:'apartment',title:'Three-bedroom sea-view apartment',area:'Doha',ar:'الدوحة',price:14000,beds:3,baths:3,size:190,img:'photo-1758448755778-90ebf4d0f1e7'},
+  {t:'villa',title:'Four-bedroom compound villa',area:'Al Wukair',ar:'الوكير',price:11500,beds:4,baths:4,size:380,img:'photo-1768200498972-fd56353d73fc'},
+  {t:'commercial',title:'Fitted office floor, Lusail Boulevard',area:'Lusail',ar:'لوسيل',price:36000,beds:0,baths:2,size:310,img:'photo-1700901546317-7e1829579632'},
+  {t:'villa',title:'Three-bedroom townhouse near the beach',area:'Katara',ar:'كتارا',price:19500,beds:3,baths:3,size:240,img:'photo-1600596542815-ffad4c1539a9'},
+  {t:'apartment',title:'One-bedroom apartment, Msheireb',area:'Doha',ar:'الدوحة',price:9000,beds:1,baths:1,size:76,img:'photo-1757924461488-ef9ad0670978'},
+  {t:'villa',title:'Four-bedroom villa with garden',area:'Al Khor',ar:'الخور',price:9800,beds:4,baths:4,size:360,img:'photo-1613490493576-7fde63acd811'},
+];
+const propsEl=document.getElementById('props');
+propsEl.innerHTML=PROPS.map((p,i)=>`
+<article class="prop fade" data-t="${p.t}" data-area="${p.area}" data-beds="${p.beds}" data-price="${p.price}">
+  <a class="ph" href="#contact" data-title="${p.title}"><img loading="lazy" src="${IMG(p.img)}" alt="${p.title}"><span class="tag">For rent</span>${p.tag?`<span class="tag alt">${p.tag}</span>`:''}</a>
+  <div class="body">
+    <div class="price">QAR ${fmt(p.price)} <small>/ month</small></div>
+    <h3><a href="#contact" data-title="${p.title}">${p.title}</a></h3>
+    <div class="loc">${icon('pin')}${p.area}<span lang="ar">${p.ar}</span></div>
+  </div>
+  <div class="feats">${p.beds?`<span>${icon('bed')}${p.beds} ${p.beds>1?'beds':'bed'}</span>`:`<span>${icon('building')}Office</span>`}<span>${icon('bath')}${p.baths} ${p.baths>1?'baths':'bath'}</span><span>${icon('area')}${p.size} m²</span></div>
+</article>`).join('');
+
+/* popular areas — counts from aba-r.com */
+const AREAS=[
+  ['Doha','الدوحة',7,'photo-1716473524861-5f418144b9f2'],
+  ['Al Wakrah','الوكرة',8,'photo-1645311677128-c38aa70d4f63'],
+  ['Al Wukair','الوكير',5,'photo-1580587771525-78b9dba3b914'],
+  ['Lusail','لوسيل',7,'photo-1700901742651-6b353164caf3'],
+  ['The Pearl','اللؤلؤة',5,'photo-1684398863223-1a517d708ed5'],
+  ['Katara','كتارا',7,'photo-1757923926529-d64cfc2d73e1'],
+];
+document.getElementById('areaGrid').innerHTML=AREAS.map(([en,ar,n,img])=>`<a class="area fade" href="#properties" data-area="${en}"><img loading="lazy" src="${IMG(img,800)}" alt="${en}"><div class="t"><h3>${en}<span lang="ar">${ar}</span></h3><span class="n">${n} properties <i>${icon('arrow')}</i></span></div></a>`).join('');
+document.getElementById('footAreas').innerHTML=AREAS.map(a=>`<li><a href="#properties" data-area="${a[0]}">${a[0]}</a></li>`).join('');
+
+/* filtering: chips, search form and area links share one state */
+const state={t:'all',area:'',beds:0,price:0};
+const noneEl=document.getElementById('none');
+function apply(){
+  let shown=0;
+  propsEl.querySelectorAll('.prop').forEach(c=>{
+    const ok=(state.t==='all'||c.dataset.t===state.t)&&(!state.area||c.dataset.area===state.area)&&(+c.dataset.beds>=state.beds)&&(!state.price||+c.dataset.price<=state.price);
+    c.hidden=!ok;if(ok){shown++;c.classList.add('in')}
+  });
+  noneEl.hidden=shown>0;
+  document.querySelectorAll('.filters button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===state.t));
+}
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{state.t=b.dataset.f;apply()}));
+document.getElementById('reset').addEventListener('click',()=>{Object.assign(state,{t:'all',area:'',beds:0,price:0});document.getElementById('search').reset();apply()});
+document.getElementById('search').addEventListener('submit',e=>{
+  e.preventDefault();
+  state.area=document.getElementById('s-area').value;state.t=document.getElementById('s-type').value||'all';
+  state.beds=+document.getElementById('s-beds').value;state.price=+document.getElementById('s-price').value;
+  apply();document.getElementById('properties').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+});
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b))));
+document.querySelectorAll('[data-area]').forEach(a=>{if(a.tagName==='A')a.addEventListener('click',()=>{Object.assign(state,{t:'all',area:a.dataset.area,beds:0,price:0});document.getElementById('s-area').value=a.dataset.area;apply()})});
+document.querySelectorAll('[data-title]').forEach(a=>a.addEventListener('click',()=>{document.getElementById('msg').value=`I'm interested in: ${a.dataset.title}`}));
+
+/* contact form: simple required-field check */
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();const f=e.target;let ok=true;
+  f.querySelectorAll('[required]').forEach(i=>{const bad=!i.value.trim();i.style.borderColor=bad?'#1A2817':'';if(bad&&ok){i.focus();ok=false}});
+  if(ok)f.classList.add('done');
+});
+
+/* header: shadow on scroll, active link, mobile menu */
+const header=document.getElementById('header'),menu=document.getElementById('menu'),burger=document.getElementById('burger');
+addEventListener('scroll',()=>header.classList.toggle('shadow',scrollY>10),{passive:true});
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded','false')}));
+const links=[...menu.querySelectorAll('a')];
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'}).observe(document.getElementById('home'));
+['properties','areas','services','about','contact'].forEach(id=>{const el=document.getElementById(id);new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+id))}),{rootMargin:'-45% 0px -50% 0px'}).observe(el)});
+
+/* gentle fade-in on scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+if(new URLSearchParams(location.search).has('still'))document.querySelectorAll('.fade').forEach(el=>el.classList.add('in'));
+</script>
+</body>
+</html>

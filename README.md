@@ -1,6 +1,6 @@
 # ABAR Real Estate — website directions
 
-Five working homepage designs for [aba-r.com](https://aba-r.com), plus a cover page that presents them side by side.
+Six working homepage designs for [aba-r.com](https://aba-r.com), plus a cover page that presents them side by side.
 
 **Live:** https://txanonymousxt.github.io/abar-website-directions/ — opens on any phone or laptop.
 
@@ -12,6 +12,7 @@ Five working homepage designs for [aba-r.com](https://aba-r.com), plus a cover p
 | `3-peninsula.html` | Qatar's coastline drawn as ridgelines |
 | `4-model-coast.html` | A white scale model of Doha — ABAR's buildings in green |
 | `5-pop-up.html` | A pop-up book of Qatar |
+| `6-simple.html` | A simple, bright site in ABAR's colours |
 
 ## Run it on another device
 
@@ -29,7 +30,7 @@ If a browser blocks anything when opened straight from the file, serve the folde
 python -m http.server 8000
 ```
 
-An internet connection is needed: fonts, photographs and the 3D library load from public CDNs.
+An internet connection is needed: fonts, photographs and (for directions 2, 4 and 5) the 3D library load from public CDNs.
 
 ## Notes
 
