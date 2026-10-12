@@ -48,7 +48,7 @@ header nav .ar{font-family:var(--arabic)}
 /* hero: pick a destination */
 .hero{padding:64px 0 28px;background:linear-gradient(var(--white),var(--soft));border-bottom:1px solid var(--rule)}
 .hero .top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
-.hero h1{font-size:clamp(2.2rem,4.4vw,3.6rem);max-width:13ch}
+.hero .h1{font-size:clamp(2.2rem,4.4vw,3.6rem);max-width:13ch}
 .hero p{color:var(--grey);max-width:44ch;font-size:16.5px}
 .dests{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:36px}
 .dest{position:relative;text-align:left;background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:14px 16px 14px;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s;display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center}
@@ -180,6 +180,137 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 }
 @media (max-width:440px){.dests{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+
+/* ================= cover: the opening page ================= */
+.cover{position:relative;overflow:hidden;min-height:calc(100svh - 72px);display:flex;align-items:center;border-bottom:1px solid var(--rule);background:var(--white)}
+.cover>.wrap{position:relative;z-index:3;width:100%}
+.cv-copy{max-width:580px;padding:64px 0 104px}
+.cv-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;color:var(--forest);font-weight:500;margin:0}
+.cv-eyebrow::before{content:"";width:24px;height:1.5px;background:var(--forest)}
+.cv-h{font-size:clamp(2.6rem,5.3vw,4.8rem);line-height:1.02;letter-spacing:-.04em;margin:22px 0 0;font-weight:600}
+.cv-h span{display:block;color:var(--grey);font-weight:500}
+.cv-p{color:var(--grey);font-size:18px;line-height:1.6;max-width:46ch;margin:24px 0 0}
+.cv-ar{font-family:var(--arabic);color:var(--mute);font-size:16px;margin:12px 0 0;text-align:left}
+.cv-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.cv-btn,.cv-ghost{display:inline-flex;align-items:center;gap:10px;border-radius:10px;padding:14px 20px;font:500 15.5px/1.2 var(--font);cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.cv-btn{background:var(--forest);color:#fff;border:1px solid var(--forest)}
+.cv-btn:hover{background:var(--forest-2);transform:translateY(-1px)}
+.cv-ghost{background:var(--white);color:var(--ink);border:1px solid var(--rule)}
+.cv-ghost:hover{border-color:var(--forest);color:var(--forest)}
+.cv-btn svg,.cv-ghost svg,.place .goto svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cv-facts{display:flex;gap:36px;flex-wrap:wrap;list-style:none;margin:44px 0 0;padding:22px 0 0;border-top:1px solid var(--rule)}
+.cv-facts b{display:block;font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1.1;color:var(--forest);font-variant-numeric:tabular-nums}
+.cv-facts span{display:block;font-size:13.5px;color:var(--grey);margin-top:4px}
+.cv-down{position:absolute;left:50%;bottom:20px;z-index:4;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);text-decoration:none}
+.cv-down i{display:block;width:1.5px;height:34px;background:linear-gradient(var(--forest),rgba(26,40,23,0));transform-origin:top;animation:cvdrip 2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes cvdrip{0%{transform:scaleY(0)}55%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+.cv-copy>*{animation:cvin 1s cubic-bezier(.2,.8,.2,1) backwards}
+.cv-copy>:nth-child(2){animation-delay:.1s}.cv-copy>:nth-child(3){animation-delay:.22s}.cv-copy>:nth-child(4){animation-delay:.3s}.cv-copy>:nth-child(5){animation-delay:.4s}.cv-copy>:nth-child(6){animation-delay:.52s}
+@keyframes cvin{from{opacity:0;transform:translateY(22px)}}
+.cv-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center}
+
+/* ================= who we are ================= */
+.about{position:relative;padding:100px 0 92px;border-bottom:1px solid var(--rule);background:var(--white)}
+.kicker{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--forest);font-weight:500;margin:0}
+.kicker::before{content:"";width:24px;height:1.5px;background:var(--forest)}
+.kicker bdi{font-family:var(--arabic);color:var(--grey);font-weight:400}
+.ab-top{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:end;margin-top:20px}
+.ab-top h2{font-size:clamp(2rem,3.7vw,3.2rem);line-height:1.06;letter-spacing:-.035em;max-width:15ch}
+.ab-top p{color:var(--grey);font-size:17px;line-height:1.65;max-width:52ch;margin:0}
+.ab-top p b{color:var(--ink);font-weight:500}
+.ab-points{list-style:none;margin:60px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--ink)}
+.ab-points li{padding:22px 26px 4px 0}
+.ab-points li+li{padding-left:26px;border-left:1px solid var(--rule)}
+.ab-points .n{font-size:12.5px;letter-spacing:.08em;color:var(--forest);font-variant-numeric:tabular-nums}
+.ab-points h3{font-size:18px;margin:12px 0 8px;letter-spacing:-.015em}
+.ab-points p{color:var(--grey);font-size:15px;line-height:1.6;margin:0}
+.ab-points:not(.in) li,.places:not(.in) .place{opacity:0}
+.ab-points.in li,.places.in .place{animation:abin .8s cubic-bezier(.2,.8,.2,1) backwards}
+.ab-points.in li:nth-child(2),.places.in .place:nth-child(2){animation-delay:.08s}
+.ab-points.in li:nth-child(3),.places.in .place:nth-child(3){animation-delay:.16s}
+.ab-points.in li:nth-child(4),.places.in .place:nth-child(4){animation-delay:.24s}
+.places.in .place:nth-child(5){animation-delay:.32s}.places.in .place:nth-child(6){animation-delay:.4s}.places.in .place:nth-child(7){animation-delay:.48s}
+@keyframes abin{from{opacity:0;transform:translateY(18px)}}
+.places-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px 20px;flex-wrap:wrap;margin-top:76px}
+.places-head h3{font-size:21px;letter-spacing:-.02em}
+.places-head span{color:var(--grey);font-size:14.5px}
+.places{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin-top:20px}
+.place{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:16px 15px 15px;border:1px solid var(--rule);border-radius:12px;background:var(--white);color:var(--ink);font:inherit;cursor:pointer;overflow:hidden;transition:border-color .25s,transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.place::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--forest);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.place:hover{border-color:var(--tint-line);transform:translateY(-3px);box-shadow:0 18px 34px -24px rgba(26,40,23,.55)}
+.place:hover::after{transform:none}
+.place .ll{font-size:10.5px;letter-spacing:.06em;color:var(--mute);font-variant-numeric:tabular-nums;margin-bottom:10px}
+.place b{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.place bdi{font-family:var(--arabic);font-size:13px;color:var(--grey)}
+.place small{font-size:13px;line-height:1.45;color:var(--grey);margin-top:8px}
+.place .goto{margin-top:auto;padding-top:14px;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:var(--forest)}
+
+/* ================= vision ================= */
+.vision{position:relative;overflow:hidden;padding:110px 0;background:var(--tint);border-bottom:1px solid var(--tint-line)}
+.vi-wash{position:absolute;inset:-30%;pointer-events:none;background:radial-gradient(30% 40% at 78% 40%,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 70%),radial-gradient(24% 34% at 12% 80%,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 70%);animation:viw 26s ease-in-out infinite alternate}
+@keyframes viw{50%{transform:translate3d(-4%,3%,0) scale(1.05)}100%{transform:translate3d(3%,-2%,0)}}
+.vision>.wrap{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:60px;align-items:center}
+.vision .kicker bdi{color:var(--forest);opacity:.7}
+.vision h2{font-size:clamp(1.9rem,3.6vw,3.1rem);line-height:1.12;letter-spacing:-.035em;margin-top:22px;max-width:20ch}
+.vision h2 span{opacity:.14;transition:opacity .7s ease}
+.vision.in h2 span{opacity:1}
+.vi-ar{font-family:var(--arabic);font-size:19px;color:var(--forest);margin:22px 0 0;opacity:.8}
+.vi-sub{color:var(--grey);font-size:16.5px;max-width:50ch;margin:18px 0 0;line-height:1.6}
+.vi-sign{margin:30px 0 0;font-size:14px;color:var(--grey)}
+.vi-sign b{color:var(--ink);font-weight:600;letter-spacing:.02em}
+.vi-mark{width:100%;max-width:470px;justify-self:end;overflow:visible;color:var(--forest)}
+.vi-mark .ln{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s cubic-bezier(.6,0,.2,1)}
+.vision.in .vi-mark .ln{stroke-dashoffset:0}
+.vision.in .vi-mark .ln:nth-of-type(2){transition-delay:.25s}.vision.in .vi-mark .ln:nth-of-type(3){transition-delay:.5s}.vision.in .vi-mark .ln:nth-of-type(4){transition-delay:.75s}.vision.in .vi-mark .ln:nth-of-type(5){transition-delay:1s}
+.vi-mark .dia{opacity:0;transition:opacity 1s 1.6s}
+.vision.in .vi-mark .dia{opacity:1}
+.vi-mark .shade{fill:rgba(26,40,23,.08);transform-box:fill-box;transform-origin:50% 100%;animation:shade 16s ease-in-out infinite alternate}
+@keyframes shade{0%{transform:scaleY(-.42) skewX(-48deg)}100%{transform:scaleY(-.42) skewX(48deg)}}
+.vi-mark .sun{transform-box:fill-box;transform-origin:50% 50%;animation:sun 16s ease-in-out infinite alternate}
+@keyframes sun{0%{transform:rotate(-56deg)}100%{transform:rotate(56deg)}}
+
+@media (max-width:1100px){
+  .places{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ab-points{grid-template-columns:1fr 1fr}
+  .ab-points li:nth-child(3){padding-left:0;border-left:0}
+}
+@media (max-width:860px){
+  .cover{min-height:0;display:block}
+  .cv-copy{padding:48px 0 40px}
+  .cv-grid,.ab-top,.vision>.wrap{grid-template-columns:1fr}
+  .cv-p{font-size:16.5px}
+  .cv-facts{gap:22px}
+  .cv-facts b{font-size:25px}
+  .cv-down{display:none}
+  .about{padding:72px 0 64px}
+  .ab-top{gap:20px}
+  .places{grid-template-columns:1fr 1fr}
+  .ab-points{grid-template-columns:1fr}
+  .ab-points li,.ab-points li+li{padding:18px 0 4px;border-left:0}
+  .ab-points li+li{border-top:1px solid var(--rule)}
+  .vision{padding:76px 0}
+  .vi-mark{max-width:300px;justify-self:start}
+}
+
+/* cover: the city, moving to work */
+section[id],.about{scroll-margin-top:70px}
+.cover-city{background:#EFF3EE}
+#city{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+.cover-city .veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.96) 34%,rgba(255,255,255,.7) 46%,rgba(255,255,255,0) 60%)}
+.clock{position:absolute;right:28px;bottom:26px;z-index:3;display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--rule);border-radius:12px;padding:10px 14px;box-shadow:0 14px 30px -24px rgba(34,34,34,.5)}
+.clock b{display:block;font:500 20px/1 var(--mono);color:var(--forest);font-variant-numeric:tabular-nums}
+.clock span{display:block;font-size:12px;color:var(--grey);margin-top:5px;min-width:96px}
+.clock svg{width:130px;height:34px;overflow:visible}
+.clock path{fill:none;stroke:var(--tint-line);stroke-width:2}
+.clock .fillp{fill:rgba(26,40,23,.06);stroke:none}
+.clock circle{fill:var(--forest)}
+@media (max-width:860px){
+  .cover-city{display:flex;flex-direction:column;background:var(--white)}
+  .cover-city>.wrap{order:1}
+  #city{position:relative;order:2;height:400px;border-top:1px solid var(--rule)}
+  .cover-city .veil{display:none}
+  .clock{right:16px;bottom:16px}
+}
 </style>
 </head>
 <body>
@@ -197,16 +328,33 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
       <span><b>ABAR</b><small>REAL ESTATE</small></span>
     </a>
-    <nav aria-label="Main"><a href="#board">Homes</a><a href="#services">Services</a><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a><a class="btn" href="#contact">Book a viewing</a></nav>
+    <nav aria-label="Main"><a href="#board">Homes</a><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a><a class="btn" href="#contact">Book a viewing</a></nav>
   </div>
 </header>
 
 <main>
-<section class="hero" aria-labelledby="h1">
+<section class="cover cover-city" aria-labelledby="cv-t">
+  <canvas id="city" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="cv-copy">
+      <p class="cv-eyebrow">ABAR Real Estate · Doha &amp; beyond</p>
+      <h1 class="cv-h" id="cv-t">Live closer to where your day happens.</h1>
+      <p class="cv-p">ABAR rents and manages homes across Doha, Lusail, The Pearl and Al Wakrah. Before you look at a single listing, tell us where you work — we’ll put the shortest drives first.</p>
+      <p class="cv-ar" lang="ar" dir="rtl">اسكن أقرب إلى حيث يبدأ يومك</p>
+      <div class="cv-acts"><a class="cv-btn" href="#find">Where do you work? <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="cv-ghost" href="#about">Who we are</a></div>
+      <ul class="cv-facts"><li><b data-n="8">8</b><span>workplaces mapped</span></li><li><b data-n="7">7</b><span>areas we rent in</span></li><li><b data-n="15" id="cvN">15</b><span>homes ranked by minutes</span></li></ul>
+    </div>
+  </div>
+  <div class="clock" aria-hidden="true"><div><b id="clk">07:30</b><span id="clkL">Morning rush</span></div><svg viewBox="0 0 130 34"><path class="fillp" id="clkFill"/><path id="clkPath"/><circle id="clkDot" r="3.4"/></svg></div>
+  <a class="cv-down" href="#find" aria-label="Scroll to where you work"><span>Scroll</span><i></i></a>
+</section>
+
+<section class="hero" id="find" aria-labelledby="h1">
   <div class="wrap">
    <div>
     <div class="top">
-      <h1 id="h1">Where do you work?</h1>
+      <h2 id="h1" class="h1">Where do you work?</h2>
       <p>Pick your office, campus or base. We’ll rank every home ABAR has to rent by how long the drive takes.</p>
     </div>
     <div class="dests" id="dests" role="group" aria-label="Your place of work"></div>
@@ -241,6 +389,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   </div>
 </section>
 
+<section class="about" id="about" aria-labelledby="ab-t">
+  <div class="wrap">
+    <p class="kicker">Who we are <bdi lang="ar">من نحن</bdi></p>
+    <div class="ab-top">
+      <h2 id="ab-t">Your trusted partner for renting in Qatar.</h2>
+      <p><b>ABAR Real Estate</b> specialises in rentals and property management across Qatar — apartments, villas, compounds and commercial space. We find the right home or the right tenant, handle the lease, and stay on to look after the property, from the first viewing to the last renewal.</p>
+    </div>
+    <ol class="ab-points">
+      <li><span class="n">01</span><h3>A diverse portfolio</h3><p>Apartments, villas and workspace in the parts of Qatar people want to live and work.</p></li>
+      <li><span class="n">02</span><h3>Local knowledge</h3><p>We know the buildings, the streets and what rents really are — and keep every listing current.</p></li>
+      <li><span class="n">03</span><h3>Clear at every step</h3><p>Prices, contracts and fees explained up front, in English and Arabic.</p></li>
+      <li><span class="n">04</span><h3>One team throughout</h3><p>The people who lease you the home are the people who look after it.</p></li>
+    </ol>
+    <div class="places-head"><h3>Where we work</h3><span>Seven places, known well · see drive times from each</span></div>
+    <div class="places"><button type="button" class="place" data-area="Doha"><span class="ll">25.29° N · 51.53° E</span><b>Doha</b><bdi lang="ar">الدوحة</bdi><small>West Bay towers, Msheireb lanes and Al Sadd</small><span class="goto">Drive times <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Lusail"><span class="ll">25.42° N · 51.49° E</span><b>Lusail</b><bdi lang="ar">لوسيل</bdi><small>Marina apartments and Boulevard offices</small><span class="goto">Drive times <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="The Pearl"><span class="ll">25.37° N · 51.55° E</span><b>The Pearl</b><bdi lang="ar">اللؤلؤة</bdi><small>Island living around Porto Arabia</small><span class="goto">Drive times <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Katara"><span class="ll">25.36° N · 51.52° E</span><b>Katara</b><bdi lang="ar">كتارا</bdi><small>Beachfront, beside the Cultural Village</small><span class="goto">Drive times <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Wakrah"><span class="ll">25.17° N · 51.60° E</span><b>Al Wakrah</b><bdi lang="ar">الوكرة</bdi><small>Family villas near the old souq and the sea</small><span class="goto">Drive times <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Wukair"><span class="ll">25.14° N · 51.52° E</span><b>Al Wukair</b><bdi lang="ar">الوكير</bdi><small>Compounds with gardens, pools and space</small><span class="goto">Drive times <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Khor"><span class="ll">25.68° N · 51.50° E</span><b>Al Khor</b><bdi lang="ar">الخور</bdi><small>A quiet stretch of coast in the north</small><span class="goto">Drive times <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button></div>
+  </div>
+</section>
+
 <section class="svc" id="services" aria-labelledby="svc-t">
   <div class="wrap">
     <h2 id="svc-t">A shorter drive is a start. Here’s the rest of what we do.</h2>
@@ -256,6 +422,31 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   <div class="wrap">
     <div><h2 id="own-t">Own a home near a business district?</h2><p>Homes with short commutes let fastest. We’ll lease yours, collect the rent and look after the maintenance.</p></div>
     <a class="btn" href="#contact">List your property <svg class="ico"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<section class="vision" aria-labelledby="vi-t">
+  <div class="vi-wash" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <p class="kicker">Our vision <bdi lang="ar">رؤيتنا</bdi></p>
+      <h2 id="vi-t">To set the standard for quality, innovation and sustainability in Qatar’s real estate.</h2>
+      <p class="vi-ar" lang="ar" dir="rtl">أن نكون المعيار في الجودة والابتكار والاستدامة في قطاع العقارات في قطر</p>
+      <p class="vi-sub">Shaping thriving communities and delivering lasting value — for the people who live in our homes, and the owners who trust us with them.</p>
+      <p class="vi-sign"><b>ABAR Real Estate</b> · Head office, Muaither, Doha</p>
+    </div>
+    <svg class="vi-mark" viewBox="0 -16 120 96" aria-hidden="true">
+      <g class="sun"><rect x="0" y="-16" width="120" height="136" fill="none"/><circle cx="60" cy="-8" r="2.6" fill="currentColor" opacity=".55"/></g>
+      <g class="shade"><rect x="45" y="8" width="12" height="44"/><rect x="61" y="16" width="12" height="36"/></g>
+      <g fill="none" stroke="currentColor" stroke-width=".9">
+        <path class="ln" pathLength="1" d="M14 52h92"/>
+        <path class="ln" pathLength="1" d="M45 52V8h12v44"/>
+        <path class="ln" pathLength="1" d="M61 52V16h12v36"/>
+        <path class="ln" pathLength="1" d="M49 52V12h4v40"/>
+        <path class="ln" pathLength="1" d="M65 52V20h4v32"/>
+      </g>
+      <path class="dia" d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/>
+    </svg>
   </div>
 </section>
 
@@ -446,6 +637,67 @@ render();
     const k=st.dest+'|'+st.rush;if(k!==key){key=k;build();const dn=DESTS.find(d=>d[0]===st.dest);document.getElementById('mapDest').textContent=dn[1]}
     draw(now/1000,dt)}
   requestAnimationFrame(frame);
+})();
+
+/* ---------- cover: Doha moving to work, morning after morning ---------- */
+(function(){
+  const cv=$('city');if(!cv)return;const g=cv.getContext('2d');const RMc=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const LAND=[[50.6,25.8],[51.49,25.8],[51.505,25.445],[51.515,25.42],[51.53,25.405],[51.536,25.395],[51.526,25.385],[51.518,25.376],[51.529,25.362],[51.535,25.345],[51.54,25.33],[51.547,25.32],[51.539,25.311],[51.525,25.305],[51.516,25.299],[51.521,25.292],[51.535,25.2895],[51.548,25.2905],[51.558,25.2905],[51.572,25.284],[51.6,25.289],[51.637,25.278],[51.646,25.25],[51.641,25.228],[51.619,25.214],[51.613,25.19],[51.608,25.165],[51.603,25.13],[51.598,25.09],[51.592,24.9],[50.6,24.9]];
+  const PEARL=Array.from({length:22},(_,i)=>{const a=i/22*Math.PI*2,r=1+.1*Math.sin(a*3);return[51.553+Math.cos(a)*.0165*r,25.372+Math.sin(a)*.019*r]});
+  const AREA={'Doha':[51.505,25.283],'Lusail':[51.497,25.425],'The Pearl':[51.553,25.372],'Katara':[51.522,25.36],'Al Wakrah':[51.596,25.17],'Al Wukair':[51.52,25.14],'Al Khor':[51.50,25.68]};
+  const DEST={wb:[51.531,25.322,'West Bay'],ms:[51.527,25.288,'Msheireb'],ec:[51.437,25.315,'Education City'],lu:[51.515,25.405,''],hia:[51.608,25.27,'Hamad Airport'],hp:[51.62,25.01,'Hamad Port'],ia:[51.45,25.195,'Industrial Area'],az:[51.443,25.263,'Aspire Zone']};
+  let W=0,H=0,dpr=1,P,routes=[],parts=[],vis=true,last=performance.now(),mob=false;
+  let seed=3;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  function size(){const r=cv.getBoundingClientRect();if(!r.width)return;W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);
+    mob=innerWidth<860;const top=25.47,bot=mob?25.13:25.115,k=H/(top-bot),kx=k*Math.cos(25.3*Math.PI/180),cx=mob?W*.58:W*.7;
+    P=(lon,lat)=>[cx+(lon-51.53)*kx,(top-lat)*k];
+    seed=3;routes=[];
+    Object.entries(AREA).forEach(([a,A])=>Object.entries(DEST).forEach(([d,D])=>{
+      const [x0,y0]=P(A[0],A[1]),[x1,y1]=P(D[0],D[1]),mx=(x0+x1)/2,my=(y0+y1)/2,len=Math.hypot(x1-x0,y1-y0);if(len<8)return;
+      const s=(rnd()<.5?-1:1)*.16,cxp=mx-(y1-y0)/len*len*s,cyp=my+(x1-x0)/len*len*s;
+      routes.push({x0,y0,cxp,cyp,x1,y1,min:(typeof T!=='undefined'&&T[a]&&T[a][d])||25,w:.4+rnd()})}));
+    parts=[];const n=mob?260:520;for(let i=0;i<n;i++){const ri=Math.floor(rnd()*routes.length);parts.push({r:routes[ri],t:rnd(),rank:rnd(),j:(rnd()-.5)*2})}
+  }
+  const dens=h=>.22+.78*Math.exp(-Math.pow((h-7.45)/.8,2));
+  // the little clock: a morning in 40 seconds
+  const H0=5.5,H1=10.5,path=$('clkPath'),fill=$('clkFill'),dotEl=$('clkDot');
+  if(path){let d='';for(let i=0;i<=60;i++){const h=H0+(H1-H0)*i/60,x=i/60*130,y=32-dens(h)*28;d+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)}path.setAttribute('d',d);fill.setAttribute('d',d+'L130 34L0 34Z')}
+  const BZ2=(a,b,c,t)=>{const u=1-t;return u*u*a+2*u*t*b+t*t*c};
+  function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis||!W)return;
+    const tt=now/1000,hour=RMc?7.5:H0+((tt/40)%1)*(H1-H0),D=dens(hour),rush=D>.7;
+    if(path){const x=(hour-H0)/(H1-H0)*130;dotEl.setAttribute('cx',x.toFixed(1));dotEl.setAttribute('cy',(32-D*28).toFixed(1));
+      const hh=Math.floor(hour),mm=Math.floor((hour-hh)*60);$('clk').textContent=`${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
+      $('clkL').textContent=hour<6.4?'Early start':hour<8.6?'Morning rush':hour<9.4?'Easing off':'Clear roads'}
+    g.fillStyle='#EFF3EE';g.fillRect(0,0,W,H);
+    g.fillStyle='#FFFFFF';[LAND,PEARL].forEach(poly=>{g.beginPath();poly.forEach(([lo,la],i)=>{const [x,y]=P(lo,la);i?g.lineTo(x,y):g.moveTo(x,y)});g.closePath();g.fill()});
+    g.strokeStyle='rgba(26,40,23,.045)';g.lineWidth=1;g.beginPath();for(let x=(W*.7)%44;x<W;x+=44){g.moveTo(x,0);g.lineTo(x,H)}for(let y=0;y<H;y+=44){g.moveTo(0,y);g.lineTo(W,y)}g.stroke();
+    g.strokeStyle=`rgba(26,40,23,${.04+D*.05})`;g.lineWidth=1+D*1.2;g.beginPath();routes.forEach(r=>{g.moveTo(r.x0,r.y0);g.quadraticCurveTo(r.cxp,r.cyp,r.x1,r.y1)});g.stroke();
+    g.fillStyle='rgba(26,40,23,.58)';g.beginPath();
+    parts.forEach(p=>{if(p.rank>D)return;const r=p.r;if(!RMc)p.t+=dt*(5.5/r.min)*(rush?.62:1)*.32;if(p.t>1)p.t-=1;
+      const x=BZ2(r.x0,r.cxp,r.x1,p.t)+p.j*1.6,y=BZ2(r.y0,r.cyp,r.y1,p.t)+p.j*1.6;g.moveTo(x+1.5,y);g.arc(x,y,1.5,0,7)});g.fill();
+    g.textBaseline='middle';
+    Object.entries(DEST).forEach(([id,[lo,la,name]],i)=>{const [x,y]=P(lo,la);if(y<-10||y>H+10)return;const pul=RMc?0:(tt*.6+i*.13)%1;
+      g.strokeStyle=`rgba(26,40,23,${.35*(1-pul)})`;g.lineWidth=1.2;g.strokeRect(x-4-pul*9,y-4-pul*9,8+pul*18,8+pul*18);
+      g.fillStyle='#1A2817';g.fillRect(x-4,y-4,8,8);
+      if(name){g.font='500 11px "IBM Plex Mono", monospace';const w=g.measureText(name).width;g.fillStyle='rgba(255,255,255,.9)';g.fillRect(x+9,y-9,w+10,18);g.fillStyle='#1A2817';g.fillText(name,x+14,y+.5)}});
+    Object.entries(AREA).forEach(([a,[lo,la]])=>{const [x,y]=P(lo,la);if(y<-10||y>H+10)return;g.fillStyle='#fff';g.strokeStyle='#1A2817';g.lineWidth=1.6;g.beginPath();g.arc(x,y,4.5,0,7);g.fill();g.stroke();
+      g.font='500 12px "IBM Plex Sans", sans-serif';g.fillStyle='#222';g.fillText(a,x-g.measureText(a).width-10,y)});
+  }
+  const n=$('cvN');if(n&&typeof HOMES!=='undefined'){n.dataset.n=HOMES.length;n.textContent=HOMES.length}
+  new ResizeObserver(size).observe(cv);new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(cv);requestAnimationFrame(frame);
+})();
+window.onArea=()=>document.getElementById('board').scrollIntoView({behavior:'smooth'});
+
+/* ---------- cover facts count up; who we are; vision ---------- */
+(function(){
+  const RMs=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.cv-facts b[data-n]').forEach((b,i)=>{const to=+b.dataset.n;if(RMs){b.textContent=to;return}const t0=performance.now()+700+i*120;
+    const f=t=>{const k=Math.max(0,Math.min(1,(t-t0)/1300));b.textContent=Math.round(to*(1-Math.pow(1-k,4)));if(k<1)requestAnimationFrame(f)};b.textContent='0';requestAnimationFrame(f)});
+  const vh=document.querySelector('.vision h2');if(vh)vh.innerHTML=vh.textContent.split(' ').map((w,i)=>`<span style="transition-delay:${i*55}ms">${w}</span>`).join(' ');
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});
+  document.querySelectorAll('.ab-points,.places,.vision').forEach(el=>io.observe(el));
+  document.querySelectorAll('.place').forEach(p=>p.addEventListener('click',()=>window.onArea&&onArea(p.dataset.area)));
+  document.querySelectorAll('.cv-down,.cv-acts a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(!t||!t.offsetParent)return;e.preventDefault();t.scrollIntoView({behavior:RMs?'auto':'smooth',block:'start'})}));
 })();
 </script>
 </body>

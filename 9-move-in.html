@@ -46,7 +46,7 @@ header nav .ar{font-family:var(--arabic);font-size:14px}
 .hero{padding:64px 0 70px}
 .hero .wrap{display:grid;grid-template-columns:1fr 470px;gap:64px;align-items:center}
 .eyebrow{font-size:14px;color:var(--grey)}
-.hero h1{font-size:clamp(2.5rem,5vw,4.2rem);margin-top:16px}
+.hero .h1{font-size:clamp(2.5rem,5vw,4.2rem);margin-top:16px}
 .hero p.lead{color:var(--grey);font-size:17.5px;max-width:40ch;margin-top:18px}
 .result{margin-top:36px;padding-top:24px;border-top:1px solid var(--rule);display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap}
 .result .n{font-size:64px;font-weight:600;line-height:.9;letter-spacing:-.04em;color:var(--forest);font-variant-numeric:tabular-nums}
@@ -176,6 +176,127 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   .cal{padding:16px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}html{scroll-behavior:auto}}
+
+/* ================= cover: the opening page ================= */
+.cover{position:relative;overflow:hidden;min-height:calc(100svh - 72px);display:flex;align-items:center;border-bottom:1px solid var(--rule);background:var(--white)}
+.cover>.wrap{position:relative;z-index:3;width:100%}
+.cv-copy{max-width:580px;padding:64px 0 104px}
+.cv-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;color:var(--forest);font-weight:500;margin:0}
+.cv-eyebrow::before{content:"";width:24px;height:1.5px;background:var(--forest)}
+.cv-h{font-size:clamp(2.6rem,5.3vw,4.8rem);line-height:1.02;letter-spacing:-.04em;margin:22px 0 0;font-weight:600}
+.cv-h span{display:block;color:var(--grey);font-weight:500}
+.cv-p{color:var(--grey);font-size:18px;line-height:1.6;max-width:46ch;margin:24px 0 0}
+.cv-ar{font-family:var(--arabic);color:var(--mute);font-size:16px;margin:12px 0 0;text-align:left}
+.cv-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.cv-btn,.cv-ghost{display:inline-flex;align-items:center;gap:10px;border-radius:10px;padding:14px 20px;font:500 15.5px/1.2 var(--font);cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.cv-btn{background:var(--forest);color:#fff;border:1px solid var(--forest)}
+.cv-btn:hover{background:var(--forest-2);transform:translateY(-1px)}
+.cv-ghost{background:var(--white);color:var(--ink);border:1px solid var(--rule)}
+.cv-ghost:hover{border-color:var(--forest);color:var(--forest)}
+.cv-btn svg,.cv-ghost svg,.place .goto svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cv-facts{display:flex;gap:36px;flex-wrap:wrap;list-style:none;margin:44px 0 0;padding:22px 0 0;border-top:1px solid var(--rule)}
+.cv-facts b{display:block;font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1.1;color:var(--forest);font-variant-numeric:tabular-nums}
+.cv-facts span{display:block;font-size:13.5px;color:var(--grey);margin-top:4px}
+.cv-down{position:absolute;left:50%;bottom:20px;z-index:4;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);text-decoration:none}
+.cv-down i{display:block;width:1.5px;height:34px;background:linear-gradient(var(--forest),rgba(26,40,23,0));transform-origin:top;animation:cvdrip 2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes cvdrip{0%{transform:scaleY(0)}55%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+.cv-copy>*{animation:cvin 1s cubic-bezier(.2,.8,.2,1) backwards}
+.cv-copy>:nth-child(2){animation-delay:.1s}.cv-copy>:nth-child(3){animation-delay:.22s}.cv-copy>:nth-child(4){animation-delay:.3s}.cv-copy>:nth-child(5){animation-delay:.4s}.cv-copy>:nth-child(6){animation-delay:.52s}
+@keyframes cvin{from{opacity:0;transform:translateY(22px)}}
+.cv-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center}
+
+/* ================= who we are ================= */
+.about{position:relative;padding:100px 0 92px;border-bottom:1px solid var(--rule);background:var(--white)}
+.kicker{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--forest);font-weight:500;margin:0}
+.kicker::before{content:"";width:24px;height:1.5px;background:var(--forest)}
+.kicker bdi{font-family:var(--arabic);color:var(--grey);font-weight:400}
+.ab-top{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:end;margin-top:20px}
+.ab-top h2{font-size:clamp(2rem,3.7vw,3.2rem);line-height:1.06;letter-spacing:-.035em;max-width:15ch}
+.ab-top p{color:var(--grey);font-size:17px;line-height:1.65;max-width:52ch;margin:0}
+.ab-top p b{color:var(--ink);font-weight:500}
+.ab-points{list-style:none;margin:60px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--ink)}
+.ab-points li{padding:22px 26px 4px 0}
+.ab-points li+li{padding-left:26px;border-left:1px solid var(--rule)}
+.ab-points .n{font-size:12.5px;letter-spacing:.08em;color:var(--forest);font-variant-numeric:tabular-nums}
+.ab-points h3{font-size:18px;margin:12px 0 8px;letter-spacing:-.015em}
+.ab-points p{color:var(--grey);font-size:15px;line-height:1.6;margin:0}
+.ab-points:not(.in) li,.places:not(.in) .place{opacity:0}
+.ab-points.in li,.places.in .place{animation:abin .8s cubic-bezier(.2,.8,.2,1) backwards}
+.ab-points.in li:nth-child(2),.places.in .place:nth-child(2){animation-delay:.08s}
+.ab-points.in li:nth-child(3),.places.in .place:nth-child(3){animation-delay:.16s}
+.ab-points.in li:nth-child(4),.places.in .place:nth-child(4){animation-delay:.24s}
+.places.in .place:nth-child(5){animation-delay:.32s}.places.in .place:nth-child(6){animation-delay:.4s}.places.in .place:nth-child(7){animation-delay:.48s}
+@keyframes abin{from{opacity:0;transform:translateY(18px)}}
+.places-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px 20px;flex-wrap:wrap;margin-top:76px}
+.places-head h3{font-size:21px;letter-spacing:-.02em}
+.places-head span{color:var(--grey);font-size:14.5px}
+.places{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin-top:20px}
+.place{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:16px 15px 15px;border:1px solid var(--rule);border-radius:12px;background:var(--white);color:var(--ink);font:inherit;cursor:pointer;overflow:hidden;transition:border-color .25s,transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.place::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--forest);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.place:hover{border-color:var(--tint-line);transform:translateY(-3px);box-shadow:0 18px 34px -24px rgba(26,40,23,.55)}
+.place:hover::after{transform:none}
+.place .ll{font-size:10.5px;letter-spacing:.06em;color:var(--mute);font-variant-numeric:tabular-nums;margin-bottom:10px}
+.place b{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.place bdi{font-family:var(--arabic);font-size:13px;color:var(--grey)}
+.place small{font-size:13px;line-height:1.45;color:var(--grey);margin-top:8px}
+.place .goto{margin-top:auto;padding-top:14px;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:var(--forest)}
+
+/* ================= vision ================= */
+.vision{position:relative;overflow:hidden;padding:110px 0;background:var(--tint);border-bottom:1px solid var(--tint-line)}
+.vi-wash{position:absolute;inset:-30%;pointer-events:none;background:radial-gradient(30% 40% at 78% 40%,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 70%),radial-gradient(24% 34% at 12% 80%,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 70%);animation:viw 26s ease-in-out infinite alternate}
+@keyframes viw{50%{transform:translate3d(-4%,3%,0) scale(1.05)}100%{transform:translate3d(3%,-2%,0)}}
+.vision>.wrap{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:60px;align-items:center}
+.vision .kicker bdi{color:var(--forest);opacity:.7}
+.vision h2{font-size:clamp(1.9rem,3.6vw,3.1rem);line-height:1.12;letter-spacing:-.035em;margin-top:22px;max-width:20ch}
+.vision h2 span{opacity:.14;transition:opacity .7s ease}
+.vision.in h2 span{opacity:1}
+.vi-ar{font-family:var(--arabic);font-size:19px;color:var(--forest);margin:22px 0 0;opacity:.8}
+.vi-sub{color:var(--grey);font-size:16.5px;max-width:50ch;margin:18px 0 0;line-height:1.6}
+.vi-sign{margin:30px 0 0;font-size:14px;color:var(--grey)}
+.vi-sign b{color:var(--ink);font-weight:600;letter-spacing:.02em}
+.vi-mark{width:100%;max-width:470px;justify-self:end;overflow:visible;color:var(--forest)}
+.vi-mark .ln{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s cubic-bezier(.6,0,.2,1)}
+.vision.in .vi-mark .ln{stroke-dashoffset:0}
+.vision.in .vi-mark .ln:nth-of-type(2){transition-delay:.25s}.vision.in .vi-mark .ln:nth-of-type(3){transition-delay:.5s}.vision.in .vi-mark .ln:nth-of-type(4){transition-delay:.75s}.vision.in .vi-mark .ln:nth-of-type(5){transition-delay:1s}
+.vi-mark .dia{opacity:0;transition:opacity 1s 1.6s}
+.vision.in .vi-mark .dia{opacity:1}
+.vi-mark .shade{fill:rgba(26,40,23,.08);transform-box:fill-box;transform-origin:50% 100%;animation:shade 16s ease-in-out infinite alternate}
+@keyframes shade{0%{transform:scaleY(-.42) skewX(-48deg)}100%{transform:scaleY(-.42) skewX(48deg)}}
+.vi-mark .sun{transform-box:fill-box;transform-origin:50% 50%;animation:sun 16s ease-in-out infinite alternate}
+@keyframes sun{0%{transform:rotate(-56deg)}100%{transform:rotate(56deg)}}
+
+@media (max-width:1100px){
+  .places{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ab-points{grid-template-columns:1fr 1fr}
+  .ab-points li:nth-child(3){padding-left:0;border-left:0}
+}
+@media (max-width:860px){
+  .cover{min-height:0;display:block}
+  .cv-copy{padding:48px 0 40px}
+  .cv-grid,.ab-top,.vision>.wrap{grid-template-columns:1fr}
+  .cv-p{font-size:16.5px}
+  .cv-facts{gap:22px}
+  .cv-facts b{font-size:25px}
+  .cv-down{display:none}
+  .about{padding:72px 0 64px}
+  .ab-top{gap:20px}
+  .places{grid-template-columns:1fr 1fr}
+  .ab-points{grid-template-columns:1fr}
+  .ab-points li,.ab-points li+li{padding:18px 0 4px;border-left:0}
+  .ab-points li+li{border-top:1px solid var(--rule)}
+  .vision{padding:76px 0}
+  .vi-mark{max-width:300px;justify-self:start}
+}
+
+/* cover: a year of days */
+.cover-year .glow2{position:absolute;inset:-20%;z-index:0;pointer-events:none;background:radial-gradient(30% 40% at 72% 50%,var(--tint) 0%,rgba(239,243,238,0) 70%),radial-gradient(24% 30% at 10% 20%,#F2F5F1 0%,rgba(242,245,241,0) 70%);animation:glow 26s ease-in-out infinite alternate}
+.yearwrap{position:relative;display:flex;flex-direction:column;align-items:center}
+#year{display:block;width:100%;aspect-ratio:1/1;max-height:min(700px,calc(100svh - 150px));cursor:pointer;touch-action:manipulation}
+.yearcap{font-size:13px;color:var(--grey);margin:2px 0 0;text-align:center}
+.yearcap b{color:var(--ink);font-weight:500}
+.cv-btn span{font-weight:600}
+.cover-year .cv-facts{gap:30px}
+@media (max-width:860px){#year{max-height:none}.cover-year .cv-copy{padding-bottom:8px}.yearwrap{padding-bottom:40px}}
 </style>
 </head>
 <body>
@@ -192,17 +313,33 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <svg viewBox="0 0 120 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.4"><path d="M45 52V8h12v44M49 52V12h4v40"/><path d="M61 52V16h12v36M65 52V20h4v32"/><path d="M14 52h92"/></g><path d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/></svg>
       <span><b>ABAR</b><small>REAL ESTATE</small></span>
     </a>
-    <nav aria-label="Main"><a href="#free">Homes</a><a href="#plan">Your plan</a><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a><a class="btn" href="#contact">Book a viewing</a></nav>
+    <nav aria-label="Main"><a href="#free">Homes</a><a href="#about">About</a><a href="#plan">Your plan</a><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a><a class="btn" href="#contact">Book a viewing</a></nav>
   </div>
 </header>
 
 <main>
-<section class="hero" aria-labelledby="h1">
+<section class="cover cover-year" aria-labelledby="cv-t">
+  <div class="glow2" aria-hidden="true"></div>
+  <div class="wrap cv-grid">
+    <div class="cv-copy">
+      <p class="cv-eyebrow">ABAR Real Estate · Rentals across Qatar</p>
+      <h1 class="cv-h" id="cv-t">Every home has a day it becomes yours.</h1>
+      <p class="cv-p">ABAR leases and looks after homes across Qatar, and we know when each one comes free. Start with the day you need the keys — we’ll show what’s ready by then and plan the move back from it.</p>
+      <p class="cv-ar" lang="ar" dir="rtl">لكل بيتٍ يومٌ يصبح فيه بيتك</p>
+      <div class="cv-acts"><a class="cv-btn" href="#pickdate">See what’s free by <span id="cvDate">1 Nov</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="cv-ghost" href="#about">Who we are</a></div>
+      <ul class="cv-facts"><li><b data-n="16" id="cvN">16</b><span>homes with free dates</span></li><li><b data-n="365">365</b><span>days, one dot each</span></li><li><b data-n="4">4</b><span>weeks, viewing to keys</span></li></ul>
+    </div>
+    <div class="yearwrap"><canvas id="year" aria-label="The next twelve months as a spiral of days. Choose a day to set your move-in date."></canvas><p class="yearcap"><b>The next twelve months</b> · one ring per month, one dot per day · tap a day</p></div>
+  </div>
+  <a class="cv-down" href="#pickdate" aria-label="Scroll to the calendar"><span>Scroll</span><i></i></a>
+</section>
+
+<section class="hero" id="pickdate" aria-labelledby="h1">
   <div class="glow" aria-hidden="true"></div>
   <div class="wrap">
     <div>
       <p class="eyebrow">ABAR Real Estate · rentals across Qatar</p>
-      <h1 id="h1">When do you move in?</h1>
+      <h2 id="h1" class="h1">When do you move in?</h2>
       <p class="lead">Pick the day you need the keys. We’ll show every home that’s free by then — and a plan to get you there on time.</p>
       <div class="result" aria-live="polite"><span class="n" id="n">0</span><span class="t"><b id="nLabel">homes free</b><span id="nDate">by your date</span></span></div>
       <div class="quick" id="quick" role="group" aria-label="Quick dates"></div>
@@ -238,10 +375,53 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   </div>
 </section>
 
+<section class="about" id="about" aria-labelledby="ab-t">
+  <div class="wrap">
+    <p class="kicker">Who we are <bdi lang="ar">من نحن</bdi></p>
+    <div class="ab-top">
+      <h2 id="ab-t">Your trusted partner for renting in Qatar.</h2>
+      <p><b>ABAR Real Estate</b> specialises in rentals and property management across Qatar — apartments, villas, compounds and commercial space. We find the right home or the right tenant, handle the lease, and stay on to look after the property, from the first viewing to the last renewal.</p>
+    </div>
+    <ol class="ab-points">
+      <li><span class="n">01</span><h3>A diverse portfolio</h3><p>Apartments, villas and workspace in the parts of Qatar people want to live and work.</p></li>
+      <li><span class="n">02</span><h3>Local knowledge</h3><p>We know the buildings, the streets and what rents really are — and keep every listing current.</p></li>
+      <li><span class="n">03</span><h3>Clear at every step</h3><p>Prices, contracts and fees explained up front, in English and Arabic.</p></li>
+      <li><span class="n">04</span><h3>One team throughout</h3><p>The people who lease you the home are the people who look after it.</p></li>
+    </ol>
+    <div class="places-head"><h3>Where we work</h3><span>Seven places, known well · see what’s free in each</span></div>
+    <div class="places"><button type="button" class="place" data-area="Doha"><span class="ll">25.29° N · 51.53° E</span><b>Doha</b><bdi lang="ar">الدوحة</bdi><small>West Bay towers, Msheireb lanes and Al Sadd</small><span class="goto">What’s free <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Lusail"><span class="ll">25.42° N · 51.49° E</span><b>Lusail</b><bdi lang="ar">لوسيل</bdi><small>Marina apartments and Boulevard offices</small><span class="goto">What’s free <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="The Pearl"><span class="ll">25.37° N · 51.55° E</span><b>The Pearl</b><bdi lang="ar">اللؤلؤة</bdi><small>Island living around Porto Arabia</small><span class="goto">What’s free <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Katara"><span class="ll">25.36° N · 51.52° E</span><b>Katara</b><bdi lang="ar">كتارا</bdi><small>Beachfront, beside the Cultural Village</small><span class="goto">What’s free <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Wakrah"><span class="ll">25.17° N · 51.60° E</span><b>Al Wakrah</b><bdi lang="ar">الوكرة</bdi><small>Family villas near the old souq and the sea</small><span class="goto">What’s free <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Wukair"><span class="ll">25.14° N · 51.52° E</span><b>Al Wukair</b><bdi lang="ar">الوكير</bdi><small>Compounds with gardens, pools and space</small><span class="goto">What’s free <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Khor"><span class="ll">25.68° N · 51.50° E</span><b>Al Khor</b><bdi lang="ar">الخور</bdi><small>A quiet stretch of coast in the north</small><span class="goto">What’s free <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button></div>
+  </div>
+</section>
+
 <section class="owner" aria-labelledby="own-t">
   <div class="wrap">
     <div><h2 id="own-t">Is your property free soon?</h2><p>Tell us the date it becomes vacant. We’ll market it ahead of time so the next tenant moves in as the last one leaves.</p></div>
     <a class="btn" href="#contact">List your property <svg class="ico"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<section class="vision" aria-labelledby="vi-t">
+  <div class="vi-wash" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <p class="kicker">Our vision <bdi lang="ar">رؤيتنا</bdi></p>
+      <h2 id="vi-t">To set the standard for quality, innovation and sustainability in Qatar’s real estate.</h2>
+      <p class="vi-ar" lang="ar" dir="rtl">أن نكون المعيار في الجودة والابتكار والاستدامة في قطاع العقارات في قطر</p>
+      <p class="vi-sub">Shaping thriving communities and delivering lasting value — for the people who live in our homes, and the owners who trust us with them.</p>
+      <p class="vi-sign"><b>ABAR Real Estate</b> · Head office, Muaither, Doha</p>
+    </div>
+    <svg class="vi-mark" viewBox="0 -16 120 96" aria-hidden="true">
+      <g class="sun"><rect x="0" y="-16" width="120" height="136" fill="none"/><circle cx="60" cy="-8" r="2.6" fill="currentColor" opacity=".55"/></g>
+      <g class="shade"><rect x="45" y="8" width="12" height="44"/><rect x="61" y="16" width="12" height="36"/></g>
+      <g fill="none" stroke="currentColor" stroke-width=".9">
+        <path class="ln" pathLength="1" d="M14 52h92"/>
+        <path class="ln" pathLength="1" d="M45 52V8h12v44"/>
+        <path class="ln" pathLength="1" d="M61 52V16h12v36"/>
+        <path class="ln" pathLength="1" d="M49 52V12h4v40"/>
+        <path class="ln" pathLength="1" d="M65 52V20h4v32"/>
+      </g>
+      <path class="dia" d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/>
+    </svg>
   </div>
 </section>
 
@@ -298,7 +478,7 @@ const same=(a,b)=>a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()
 const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
 const nice=(d,o={})=>d.toLocaleDateString('en-GB',{weekday:o.wd?'long':undefined,day:'numeric',month:'long',year:o.y?'numeric':undefined});
 const short=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-const FIRST=new Date(2026,9,1),LAST=new Date(2027,1,1);
+const FIRST=new Date(2026,9,1),LAST=new Date(2027,9,1);
 let sel=D('2026-11-01'),view=new Date(sel.getFullYear(),sel.getMonth(),1);
 
 const QUICK=[['As soon as possible',TODAY],['In two weeks',addDays(TODAY,14)],['1 November',D('2026-11-01')],['1 December',D('2026-12-01')],['1 January',D('2027-01-01')]];
@@ -411,6 +591,78 @@ render();
   (function loop(now){requestAnimationFrame(loop);if(vis)draw(now/1000)})(performance.now());
 })();
 
+
+/* ---------- cover: the coming year, one ring per month ---------- */
+(function(){
+  const cv=$('year');if(!cv)return;const g=cv.getContext('2d');const RMy=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const START=new Date(TODAY.getFullYear(),TODAY.getMonth(),1),END=new Date(START.getFullYear(),START.getMonth()+12,1);
+  const days=[];for(let d=new Date(START);d<END;d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1))days.push(d);
+  const free=new Map();HOMES.forEach(h=>{const d=h.avail<TODAY?TODAY:h.avail;const k=d.toDateString();free.set(k,(free.get(k)||0)+1)});
+  const ti=days.findIndex(d=>d.toDateString()===TODAY.toDateString());
+  let W=0,H=0,dpr=1,cx=0,cy=0,R=0,r0=0,dr=0,pts=[],hover=-1,shownSel=-1,fromI=ti,fillT=1,last=performance.now(),vis=true;
+  const short=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  function size(){const r=cv.getBoundingClientRect();if(!r.width)return;W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);
+    cx=W/2;cy=H/2;R=Math.min(W,H)/2-30;r0=R*.3;dr=(R-r0)/12;
+    pts=days.map(d=>{const m=(d.getFullYear()-START.getFullYear())*12+d.getMonth()-START.getMonth(),f=(d.getDate()-1)/31,a=-Math.PI/2+f*Math.PI*2,rr=r0+(m+f)*dr;return{d,m,a,rr,x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*rr}})}
+  const selIndex=()=>days.findIndex(d=>d.toDateString()===sel.toDateString());
+  function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis||!W)return;const t=now/1000;
+    const si=selIndex();if(si!==shownSel){fromI=shownSel<0?ti:Math.min(shownSel,si);if(shownSel<0)fromI=ti;fillT=RMy?1:0;shownSel=si;
+      const c=$('cvDate');if(c)c.textContent=short(sel)}
+    fillT=Math.min(1,fillT+dt*(RMy?99:.9));const ease=1-Math.pow(1-fillT,3),reach=fromI+(si-fromI)*ease;
+    g.clearRect(0,0,W,H);
+    // month rings and the sweeping hand
+    g.strokeStyle='rgba(26,40,23,.05)';g.lineWidth=1;for(let m=0;m<=12;m++){g.beginPath();g.arc(cx,cy,r0+m*dr-dr*.5,0,7);g.stroke()}
+    const hand=RMy?-Math.PI/2:-Math.PI/2+t*.32;
+    const sw=g.createRadialGradient(cx,cy,r0*.6,cx,cy,R+12);sw.addColorStop(0,'rgba(26,40,23,0)');sw.addColorStop(1,'rgba(26,40,23,.07)');
+    g.fillStyle=sw;g.beginPath();g.moveTo(cx,cy);g.arc(cx,cy,R+12,hand-.55,hand);g.closePath();g.fill();
+    g.strokeStyle='rgba(26,40,23,.22)';g.beginPath();g.moveTo(cx+Math.cos(hand)*r0*.7,cy+Math.sin(hand)*r0*.7);g.lineTo(cx+Math.cos(hand)*(R+14),cy+Math.sin(hand)*(R+14));g.stroke();
+    // the days
+    pts.forEach((p,i)=>{let behind=((hand-p.a)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);const boost=RMy?0:Math.exp(-behind*2.4);
+      let rad=1.6+p.rr/R*2.2,col='#D4DCD0';
+      if(i<ti){col='#EEF1ED';rad*=.8}
+      else if(i<=si&&i<=reach+.5){col='#1A2817';rad*=1.18}
+      else if(i<=si){col='#BFCBBA'}
+      rad*=1+boost*.55;
+      g.fillStyle=col;g.beginPath();g.arc(p.x,p.y,rad,0,7);g.fill();
+      if(i>=ti&&free.has(p.d.toDateString())){g.strokeStyle=i<=si?'rgba(26,40,23,.9)':'rgba(26,40,23,.45)';g.lineWidth=1.3;g.beginPath();g.arc(p.x,p.y,rad+3.6+(RMy?0:Math.sin(t*2.4+i)*.6),0,7);g.stroke()}
+      if(i===ti){const q=RMy?0:(t*.7)%1;g.strokeStyle=`rgba(26,40,23,${.6*(1-q)})`;g.lineWidth=1.4;g.beginPath();g.arc(p.x,p.y,rad+2+q*14,0,7);g.stroke()}
+    });
+    // keys day
+    if(si>=0){const p=pts[si];g.fillStyle='#1A2817';g.beginPath();g.arc(p.x,p.y,7.5,0,7);g.fill();g.fillStyle='#fff';g.beginPath();g.arc(p.x,p.y,2.6,0,7);g.fill()}
+    // month labels along the top
+    g.font='500 11px "Albert Sans", sans-serif';g.textAlign='right';g.textBaseline='middle';
+    for(let m=0;m<12;m++){const d=new Date(START.getFullYear(),START.getMonth()+m,1);g.fillStyle=m===0||d.getMonth()===0?'#222':'#727272';
+      g.fillText(d.toLocaleDateString('en-GB',{month:'short'})+(d.getMonth()===0?' '+d.getFullYear():''),cx-15,cy-(r0+m*dr))}
+    // centre: your keys
+    g.textAlign='center';g.fillStyle='#727272';g.font='500 12px "Albert Sans", sans-serif';g.fillText('Keys on',cx,cy-r0*.42);
+    g.fillStyle='#1A2817';g.font=`600 ${Math.round(Math.max(18,r0*.36))}px "Albert Sans", sans-serif`;g.fillText(short(sel),cx,cy);
+    const n=HOMES.filter(h=>h.avail<=sel).length;g.fillStyle='#727272';g.font='500 12px "Albert Sans", sans-serif';g.fillText(`${n} home${n===1?'':'s'} free`,cx,cy+r0*.42);
+    // hover
+    if(hover>=0){const p=pts[hover],f=free.get(p.d.toDateString());const lab=p.d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+(f?` · ${f} free`:'');
+      g.strokeStyle='#1A2817';g.lineWidth=1.4;g.beginPath();g.arc(p.x,p.y,8,0,7);g.stroke();
+      g.font='600 12px "Albert Sans", sans-serif';const w=g.measureText(lab).width+18,lx=Math.min(W-w-4,Math.max(4,p.x-w/2)),ly=p.y<cy?p.y+14:p.y-38;
+      g.fillStyle='#1A2817';g.beginPath();g.roundRect(lx,ly,w,24,12);g.fill();g.fillStyle='#fff';g.textAlign='left';g.fillText(lab,lx+9,ly+12.5)}
+  }
+  function hit(e){const r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let best=-1,bd=Math.max(10,dr*.6);pts.forEach((p,i)=>{const d=Math.hypot(p.x-x,p.y-y);if(d<bd){bd=d;best=i}});return best}
+  cv.addEventListener('pointermove',e=>{hover=hit(e);if(hover>=0&&hover<ti)hover=-1});
+  cv.addEventListener('pointerleave',()=>hover=-1);
+  cv.addEventListener('click',e=>{const i=hit(e);if(i>=ti&&i>=0)pick(new Date(days[i]))});
+  const n=$('cvN');if(n){n.dataset.n=HOMES.length;n.textContent=HOMES.length}
+  new ResizeObserver(size).observe(cv);new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(cv);requestAnimationFrame(frame);
+})();
+window.onArea=()=>document.getElementById('free').scrollIntoView({behavior:'smooth'});
+
+/* ---------- cover facts count up; who we are; vision ---------- */
+(function(){
+  const RMs=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.cv-facts b[data-n]').forEach((b,i)=>{const to=+b.dataset.n;if(RMs){b.textContent=to;return}const t0=performance.now()+700+i*120;
+    const f=t=>{const k=Math.max(0,Math.min(1,(t-t0)/1300));b.textContent=Math.round(to*(1-Math.pow(1-k,4)));if(k<1)requestAnimationFrame(f)};b.textContent='0';requestAnimationFrame(f)});
+  const vh=document.querySelector('.vision h2');if(vh)vh.innerHTML=vh.textContent.split(' ').map((w,i)=>`<span style="transition-delay:${i*55}ms">${w}</span>`).join(' ');
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});
+  document.querySelectorAll('.ab-points,.places,.vision').forEach(el=>io.observe(el));
+  document.querySelectorAll('.place').forEach(p=>p.addEventListener('click',()=>window.onArea&&onArea(p.dataset.area)));
+  document.querySelectorAll('.cv-down,.cv-acts a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(!t||!t.offsetParent)return;e.preventDefault();t.scrollIntoView({behavior:RMs?'auto':'smooth',block:'start'})}));
+})();
 </script>
 </body>
 </html>

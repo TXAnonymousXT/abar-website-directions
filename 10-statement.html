@@ -54,8 +54,8 @@ header .right .ar{font-family:var(--arabic)}
 .hero{position:relative;overflow:hidden;padding:64px 0 0;border-bottom:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
 .hero>.wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:center}
 .eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:13.5px;color:var(--forest);background:var(--tint);border:1px solid var(--tint-line);border-radius:30px;padding:4px 12px}
-.hero h1{font-size:clamp(2.4rem,4.6vw,3.9rem);margin-top:20px}
-.hero h1 span{color:var(--grey);font-weight:500}
+.hero .h1{font-size:clamp(2.4rem,4.6vw,3.9rem);margin-top:20px}
+.hero .h1 span{color:var(--grey);font-weight:500}
 .hero p.lead{color:var(--grey);font-size:17.5px;max-width:44ch;margin-top:20px}
 .hero .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
 .hero .proof{display:flex;gap:26px;margin-top:34px;font-size:14px;color:var(--grey);flex-wrap:wrap}
@@ -102,7 +102,7 @@ header .right .ar{font-family:var(--arabic)}
 /* renter hero */
 .rhero{position:relative;overflow:hidden;padding:60px 0 70px;border-bottom:1px solid var(--rule);background:linear-gradient(var(--white),var(--soft))}
 .rhero>.wrap{position:relative;z-index:2}
-.rhero h1{font-size:clamp(2.2rem,4.2vw,3.4rem);max-width:18ch;margin-top:18px}
+.rhero .h1{font-size:clamp(2.2rem,4.2vw,3.4rem);max-width:18ch;margin-top:18px}
 .rhero p.lead{color:var(--grey);font-size:17px;max-width:52ch;margin-top:16px}
 .rfilters{display:flex;gap:8px;flex-wrap:wrap;margin:30px 0 26px}
 .rfilters button{border:1px solid var(--rule);background:var(--white);border-radius:30px;padding:8px 15px;font-size:14px;cursor:pointer;color:var(--grey)}
@@ -261,6 +261,145 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   .flowband{margin-top:56px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ================= cover: the opening page ================= */
+.cover{position:relative;overflow:hidden;min-height:calc(100svh - 72px);display:flex;align-items:center;border-bottom:1px solid var(--rule);background:var(--white)}
+.cover>.wrap{position:relative;z-index:3;width:100%}
+.cv-copy{max-width:580px;padding:64px 0 104px}
+.cv-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:13.5px;color:var(--forest);font-weight:500;margin:0}
+.cv-eyebrow::before{content:"";width:24px;height:1.5px;background:var(--forest)}
+.cv-h{font-size:clamp(2.6rem,5.3vw,4.8rem);line-height:1.02;letter-spacing:-.04em;margin:22px 0 0;font-weight:600}
+.cv-h span{display:block;color:var(--grey);font-weight:500}
+.cv-p{color:var(--grey);font-size:18px;line-height:1.6;max-width:46ch;margin:24px 0 0}
+.cv-ar{font-family:var(--arabic);color:var(--mute);font-size:16px;margin:12px 0 0;text-align:left}
+.cv-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.cv-btn,.cv-ghost{display:inline-flex;align-items:center;gap:10px;border-radius:10px;padding:14px 20px;font:500 15.5px/1.2 var(--font);cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.cv-btn{background:var(--forest);color:#fff;border:1px solid var(--forest)}
+.cv-btn:hover{background:var(--forest-2);transform:translateY(-1px)}
+.cv-ghost{background:var(--white);color:var(--ink);border:1px solid var(--rule)}
+.cv-ghost:hover{border-color:var(--forest);color:var(--forest)}
+.cv-btn svg,.cv-ghost svg,.place .goto svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cv-facts{display:flex;gap:36px;flex-wrap:wrap;list-style:none;margin:44px 0 0;padding:22px 0 0;border-top:1px solid var(--rule)}
+.cv-facts b{display:block;font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1.1;color:var(--forest);font-variant-numeric:tabular-nums}
+.cv-facts span{display:block;font-size:13.5px;color:var(--grey);margin-top:4px}
+.cv-down{position:absolute;left:50%;bottom:20px;z-index:4;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);text-decoration:none}
+.cv-down i{display:block;width:1.5px;height:34px;background:linear-gradient(var(--forest),rgba(26,40,23,0));transform-origin:top;animation:cvdrip 2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes cvdrip{0%{transform:scaleY(0)}55%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+.cv-copy>*{animation:cvin 1s cubic-bezier(.2,.8,.2,1) backwards}
+.cv-copy>:nth-child(2){animation-delay:.1s}.cv-copy>:nth-child(3){animation-delay:.22s}.cv-copy>:nth-child(4){animation-delay:.3s}.cv-copy>:nth-child(5){animation-delay:.4s}.cv-copy>:nth-child(6){animation-delay:.52s}
+@keyframes cvin{from{opacity:0;transform:translateY(22px)}}
+.cv-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center}
+
+/* ================= who we are ================= */
+.about{position:relative;padding:100px 0 92px;border-bottom:1px solid var(--rule);background:var(--white)}
+.kicker{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--forest);font-weight:500;margin:0}
+.kicker::before{content:"";width:24px;height:1.5px;background:var(--forest)}
+.kicker bdi{font-family:var(--arabic);color:var(--grey);font-weight:400}
+.ab-top{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:end;margin-top:20px}
+.ab-top h2{font-size:clamp(2rem,3.7vw,3.2rem);line-height:1.06;letter-spacing:-.035em;max-width:15ch}
+.ab-top p{color:var(--grey);font-size:17px;line-height:1.65;max-width:52ch;margin:0}
+.ab-top p b{color:var(--ink);font-weight:500}
+.ab-points{list-style:none;margin:60px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--ink)}
+.ab-points li{padding:22px 26px 4px 0}
+.ab-points li+li{padding-left:26px;border-left:1px solid var(--rule)}
+.ab-points .n{font-size:12.5px;letter-spacing:.08em;color:var(--forest);font-variant-numeric:tabular-nums}
+.ab-points h3{font-size:18px;margin:12px 0 8px;letter-spacing:-.015em}
+.ab-points p{color:var(--grey);font-size:15px;line-height:1.6;margin:0}
+.ab-points:not(.in) li,.places:not(.in) .place{opacity:0}
+.ab-points.in li,.places.in .place{animation:abin .8s cubic-bezier(.2,.8,.2,1) backwards}
+.ab-points.in li:nth-child(2),.places.in .place:nth-child(2){animation-delay:.08s}
+.ab-points.in li:nth-child(3),.places.in .place:nth-child(3){animation-delay:.16s}
+.ab-points.in li:nth-child(4),.places.in .place:nth-child(4){animation-delay:.24s}
+.places.in .place:nth-child(5){animation-delay:.32s}.places.in .place:nth-child(6){animation-delay:.4s}.places.in .place:nth-child(7){animation-delay:.48s}
+@keyframes abin{from{opacity:0;transform:translateY(18px)}}
+.places-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px 20px;flex-wrap:wrap;margin-top:76px}
+.places-head h3{font-size:21px;letter-spacing:-.02em}
+.places-head span{color:var(--grey);font-size:14.5px}
+.places{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin-top:20px}
+.place{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:16px 15px 15px;border:1px solid var(--rule);border-radius:12px;background:var(--white);color:var(--ink);font:inherit;cursor:pointer;overflow:hidden;transition:border-color .25s,transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.place::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--forest);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.place:hover{border-color:var(--tint-line);transform:translateY(-3px);box-shadow:0 18px 34px -24px rgba(26,40,23,.55)}
+.place:hover::after{transform:none}
+.place .ll{font-size:10.5px;letter-spacing:.06em;color:var(--mute);font-variant-numeric:tabular-nums;margin-bottom:10px}
+.place b{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.place bdi{font-family:var(--arabic);font-size:13px;color:var(--grey)}
+.place small{font-size:13px;line-height:1.45;color:var(--grey);margin-top:8px}
+.place .goto{margin-top:auto;padding-top:14px;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:var(--forest)}
+
+/* ================= vision ================= */
+.vision{position:relative;overflow:hidden;padding:110px 0;background:var(--tint);border-bottom:1px solid var(--tint-line)}
+.vi-wash{position:absolute;inset:-30%;pointer-events:none;background:radial-gradient(30% 40% at 78% 40%,rgba(255,255,255,.75) 0%,rgba(255,255,255,0) 70%),radial-gradient(24% 34% at 12% 80%,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 70%);animation:viw 26s ease-in-out infinite alternate}
+@keyframes viw{50%{transform:translate3d(-4%,3%,0) scale(1.05)}100%{transform:translate3d(3%,-2%,0)}}
+.vision>.wrap{position:relative;display:grid;grid-template-columns:1.25fr 1fr;gap:60px;align-items:center}
+.vision .kicker bdi{color:var(--forest);opacity:.7}
+.vision h2{font-size:clamp(1.9rem,3.6vw,3.1rem);line-height:1.12;letter-spacing:-.035em;margin-top:22px;max-width:20ch}
+.vision h2 span{opacity:.14;transition:opacity .7s ease}
+.vision.in h2 span{opacity:1}
+.vi-ar{font-family:var(--arabic);font-size:19px;color:var(--forest);margin:22px 0 0;opacity:.8}
+.vi-sub{color:var(--grey);font-size:16.5px;max-width:50ch;margin:18px 0 0;line-height:1.6}
+.vi-sign{margin:30px 0 0;font-size:14px;color:var(--grey)}
+.vi-sign b{color:var(--ink);font-weight:600;letter-spacing:.02em}
+.vi-mark{width:100%;max-width:470px;justify-self:end;overflow:visible;color:var(--forest)}
+.vi-mark .ln{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s cubic-bezier(.6,0,.2,1)}
+.vision.in .vi-mark .ln{stroke-dashoffset:0}
+.vision.in .vi-mark .ln:nth-of-type(2){transition-delay:.25s}.vision.in .vi-mark .ln:nth-of-type(3){transition-delay:.5s}.vision.in .vi-mark .ln:nth-of-type(4){transition-delay:.75s}.vision.in .vi-mark .ln:nth-of-type(5){transition-delay:1s}
+.vi-mark .dia{opacity:0;transition:opacity 1s 1.6s}
+.vision.in .vi-mark .dia{opacity:1}
+.vi-mark .shade{fill:rgba(26,40,23,.08);transform-box:fill-box;transform-origin:50% 100%;animation:shade 16s ease-in-out infinite alternate}
+@keyframes shade{0%{transform:scaleY(-.42) skewX(-48deg)}100%{transform:scaleY(-.42) skewX(48deg)}}
+.vi-mark .sun{transform-box:fill-box;transform-origin:50% 50%;animation:sun 16s ease-in-out infinite alternate}
+@keyframes sun{0%{transform:rotate(-56deg)}100%{transform:rotate(56deg)}}
+
+@media (max-width:1100px){
+  .places{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ab-points{grid-template-columns:1fr 1fr}
+  .ab-points li:nth-child(3){padding-left:0;border-left:0}
+}
+@media (max-width:860px){
+  .cover{min-height:0;display:block}
+  .cv-copy{padding:48px 0 40px}
+  .cv-grid,.ab-top,.vision>.wrap{grid-template-columns:1fr}
+  .cv-p{font-size:16.5px}
+  .cv-facts{gap:22px}
+  .cv-facts b{font-size:25px}
+  .cv-down{display:none}
+  .about{padding:72px 0 64px}
+  .ab-top{gap:20px}
+  .places{grid-template-columns:1fr 1fr}
+  .ab-points{grid-template-columns:1fr}
+  .ab-points li,.ab-points li+li{padding:18px 0 4px;border-left:0}
+  .ab-points li+li{border-top:1px solid var(--rule)}
+  .vision{padding:76px 0}
+  .vi-mark{max-width:300px;justify-self:start}
+}
+
+/* cover: twelve statements a year */
+section[id],.hero,.rhero{scroll-margin-top:70px}
+.cover-stmt{background:linear-gradient(var(--white),var(--soft))}
+.ring{position:relative;height:min(560px,calc(100svh - 170px));min-height:420px;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.ring:active{cursor:grabbing}
+.ring-in{position:absolute;inset:0;perspective:1500px}
+.ring-floor{position:absolute;left:8%;right:8%;top:calc(50% + 120px);height:80px;border-radius:50%;background:radial-gradient(closest-side,rgba(26,40,23,.13),rgba(26,40,23,0))}
+.ring-path{position:absolute;left:4%;right:4%;top:50%;height:120px;margin-top:-20px;border:1px dashed rgba(26,40,23,.13);border-radius:50%}
+.sc{position:absolute;left:50%;top:50%;width:240px;margin:-158px 0 0 -120px;background:#fff;border:1px solid var(--rule);border-radius:12px;padding:14px 16px 12px;box-shadow:0 26px 50px -34px rgba(34,34,34,.55);font-size:11.5px;will-change:transform,opacity}
+.sc-h{display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.sc-h svg{width:26px;color:var(--ink)}
+.sc-h b{display:block;font-size:9.5px;letter-spacing:.24em;line-height:1.2}
+.sc-h small{display:block;font-size:9.5px;color:var(--grey);line-height:1.2}
+.sc-h em{margin-left:auto;font-style:normal;font-weight:600;font-size:12px}
+.sc ul{list-style:none;margin:6px 0 0;padding:0}
+.sc li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--rule);white-space:nowrap}
+.sc li span:first-child{overflow:hidden;text-overflow:ellipsis}
+.sc li span:last-child{font-family:var(--mono);color:var(--grey)}
+.sc li:first-child span:last-child{color:var(--ink)}
+.sc li.q span{color:var(--mute)}
+.sc-net{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;padding-top:9px;border-top:1.5px solid var(--ink)}
+.sc-net span{color:var(--grey);font-size:11px}
+.sc-net b{font-family:var(--mono);font-weight:500;font-size:17px;color:var(--forest);letter-spacing:-.02em}
+.cover-stmt .cv-acts button{font-family:inherit}
+.cover-stmt .cv-copy{max-width:600px}
+.cover-stmt .cv-h{font-size:clamp(2.5rem,4.3vw,3.9rem)}
+@media (max-width:860px){.ring{height:380px;min-height:0}.ring-in{transform:scale(.78)}.cover-stmt .cv-copy{padding-bottom:0}}
 </style>
 </head>
 <body data-mode="own">
@@ -282,19 +421,35 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <button type="button" data-m="own" aria-pressed="true"><span class="long">I own property</span><span class="short">Owners</span></button>
       <button type="button" data-m="rent" aria-pressed="false"><span class="long">I’m looking to rent</span><span class="short">Renters</span></button>
     </div>
-    <div class="right"><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a></div>
+    <div class="right"><a href="#about">About</a><a href="#contact">Contact</a><a class="ar" href="#" lang="ar">عربي</a></div>
   </div>
 </header>
 
 <main>
+<section class="cover cover-stmt" aria-labelledby="cv-t">
+  <div class="wash" aria-hidden="true"></div>
+  <div class="wrap cv-grid">
+    <div class="cv-copy">
+      <p class="cv-eyebrow">ABAR Real Estate · Leasing &amp; property management</p>
+      <h1 class="cv-h" id="cv-t">Twelve statements a year.<span>Not one surprise.</span></h1>
+      <p class="cv-p">ABAR finds tenants, collects rent and looks after homes and buildings across Qatar — then shows owners exactly where every riyal went, on the 5th of every month. Renting from us? You deal with the same team that fixes things.</p>
+      <p class="cv-ar" lang="ar" dir="rtl">نُدير عقارك بوضوح، شهراً بعد شهر</p>
+      <div class="cv-acts"><button type="button" class="cv-btn" data-go="own">I own property <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button type="button" class="cv-ghost" data-go="rent">I’m looking to rent</button></div>
+      <ul class="cv-facts"><li><b data-n="12">12</b><span>statements a year</span></li><li><b>5th</b><span>of every month, on time</span></li><li><b data-n="1">1</b><span>team for lease, keys and repairs</span></li></ul>
+    </div>
+    <div class="ring" id="ring" aria-hidden="true"><div class="ring-floor"></div><div class="ring-path"></div><div class="ring-in" id="ringIn"></div></div>
+  </div>
+  <a class="cv-down" href="#statement" aria-label="Scroll down"><span>Scroll</span><i></i></a>
+</section>
+
 <!-- owners -->
-<section class="hero own-only" aria-labelledby="h1">
+<section class="hero own-only" id="statement" aria-labelledby="h1">
   <div class="wash" aria-hidden="true"></div>
   <canvas id="streams" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
       <span class="eyebrow">Property management · Qatar</span>
-      <h1 id="h1">Your property, managed. <span>Your statement, every month.</span></h1>
+      <h2 id="h1" class="h1">Your property, managed. <span>Your statement, every month.</span></h2>
       <p class="lead">We find the tenant, collect the rent and handle the repairs — then send you a clear statement on the 5th of every month. This is what one looks like.</p>
       <div class="acts"><a class="btn" href="#estimate">Estimate your rent <svg class="ico"><use href="#i-arrow"/></svg></a><a class="btn line" href="#handle">What we handle</a></div>
       <div class="proof"><span><svg class="ico"><use href="#i-check"/></svg>Specialised in rentals</span><span><svg class="ico"><use href="#i-check"/></svg>Residential and commercial</span><span><svg class="ico"><use href="#i-check"/></svg>One team, one contact</span></div>
@@ -328,7 +483,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   <div class="wash" aria-hidden="true"></div>
   <div class="wrap">
     <span class="eyebrow">Homes for rent · Qatar</span>
-    <h1 id="rh1">Rent a home we look after ourselves.</h1>
+    <h2 id="rh1" class="h1">Rent a home we look after ourselves.</h2>
     <p class="lead">Every home below is in a property ABAR manages — so the people who lease it to you are the people who fix things when they break.</p>
     <div class="rfilters" role="group" aria-label="Filter homes"><button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="apartment" aria-pressed="false">Apartments</button><button type="button" data-f="villa" aria-pressed="false">Villas</button><button type="button" data-f="commercial" aria-pressed="false">Commercial</button></div>
     <div class="grid" id="rgrid"></div>
@@ -364,6 +519,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
   </div>
 </section>
 
+<section class="about" id="about" aria-labelledby="ab-t">
+  <div class="wrap">
+    <p class="kicker">Who we are <bdi lang="ar">من نحن</bdi></p>
+    <div class="ab-top">
+      <h2 id="ab-t">Your trusted partner for renting in Qatar.</h2>
+      <p><b>ABAR Real Estate</b> specialises in rentals and property management across Qatar — apartments, villas, compounds and commercial space. We find the right home or the right tenant, handle the lease, and stay on to look after the property, from the first viewing to the last renewal.</p>
+    </div>
+    <ol class="ab-points">
+      <li><span class="n">01</span><h3>A diverse portfolio</h3><p>Apartments, villas and workspace in the parts of Qatar people want to live and work.</p></li>
+      <li><span class="n">02</span><h3>Local knowledge</h3><p>We know the buildings, the streets and what rents really are — and keep every listing current.</p></li>
+      <li><span class="n">03</span><h3>Clear at every step</h3><p>Prices, contracts and fees explained up front, in English and Arabic.</p></li>
+      <li><span class="n">04</span><h3>One team throughout</h3><p>The people who lease you the home are the people who look after it.</p></li>
+    </ol>
+    <div class="places-head"><h3>Where we work</h3><span>Seven places, known well · talk to us about any of them</span></div>
+    <div class="places"><button type="button" class="place" data-area="Doha"><span class="ll">25.29° N · 51.53° E</span><b>Doha</b><bdi lang="ar">الدوحة</bdi><small>West Bay towers, Msheireb lanes and Al Sadd</small><span class="goto">Talk to us <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Lusail"><span class="ll">25.42° N · 51.49° E</span><b>Lusail</b><bdi lang="ar">لوسيل</bdi><small>Marina apartments and Boulevard offices</small><span class="goto">Talk to us <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="The Pearl"><span class="ll">25.37° N · 51.55° E</span><b>The Pearl</b><bdi lang="ar">اللؤلؤة</bdi><small>Island living around Porto Arabia</small><span class="goto">Talk to us <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Katara"><span class="ll">25.36° N · 51.52° E</span><b>Katara</b><bdi lang="ar">كتارا</bdi><small>Beachfront, beside the Cultural Village</small><span class="goto">Talk to us <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Wakrah"><span class="ll">25.17° N · 51.60° E</span><b>Al Wakrah</b><bdi lang="ar">الوكرة</bdi><small>Family villas near the old souq and the sea</small><span class="goto">Talk to us <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Wukair"><span class="ll">25.14° N · 51.52° E</span><b>Al Wukair</b><bdi lang="ar">الوكير</bdi><small>Compounds with gardens, pools and space</small><span class="goto">Talk to us <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button><button type="button" class="place" data-area="Al Khor"><span class="ll">25.68° N · 51.50° E</span><b>Al Khor</b><bdi lang="ar">الخور</bdi><small>A quiet stretch of coast in the north</small><span class="goto">Talk to us <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button></div>
+  </div>
+</section>
+
 <section class="handle" id="handle" aria-labelledby="hd-t">
   <div class="wrap">
     <div class="head"><h2 id="hd-t"><span class="own-only">Everything after “for rent”, handled</span><span class="rent-only">What “managed by ABAR” means for you</span></h2><p class="own-only">You keep the asset. We keep it let, paid and in good repair — and tell you what happened every month.</p><p class="rent-only">One team leases the home, collects the rent and answers when something needs fixing.</p></div>
@@ -395,6 +568,31 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 </section>
 <section class="strip rent-only" aria-labelledby="so-t">
   <div class="wrap"><div><h2 id="so-t">Own property in Qatar?</h2><p>See the statement our owners receive every month, and estimate what your property would rent for.</p></div><button class="btn line" type="button" data-switch="own">Switch to the owner view <svg class="ico"><use href="#i-arrow"/></svg></button></div>
+</section>
+
+<section class="vision" aria-labelledby="vi-t">
+  <div class="vi-wash" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <p class="kicker">Our vision <bdi lang="ar">رؤيتنا</bdi></p>
+      <h2 id="vi-t">To set the standard for quality, innovation and sustainability in Qatar’s real estate.</h2>
+      <p class="vi-ar" lang="ar" dir="rtl">أن نكون المعيار في الجودة والابتكار والاستدامة في قطاع العقارات في قطر</p>
+      <p class="vi-sub">Shaping thriving communities and delivering lasting value — for the people who live in our homes, and the owners who trust us with them.</p>
+      <p class="vi-sign"><b>ABAR Real Estate</b> · Head office, Muaither, Doha</p>
+    </div>
+    <svg class="vi-mark" viewBox="0 -16 120 96" aria-hidden="true">
+      <g class="sun"><rect x="0" y="-16" width="120" height="136" fill="none"/><circle cx="60" cy="-8" r="2.6" fill="currentColor" opacity=".55"/></g>
+      <g class="shade"><rect x="45" y="8" width="12" height="44"/><rect x="61" y="16" width="12" height="36"/></g>
+      <g fill="none" stroke="currentColor" stroke-width=".9">
+        <path class="ln" pathLength="1" d="M14 52h92"/>
+        <path class="ln" pathLength="1" d="M45 52V8h12v44"/>
+        <path class="ln" pathLength="1" d="M61 52V16h12v36"/>
+        <path class="ln" pathLength="1" d="M49 52V12h4v40"/>
+        <path class="ln" pathLength="1" d="M65 52V20h4v32"/>
+      </g>
+      <path class="dia" d="M8 52l3-3 3 3-3 3zM106 52l3-3 3 3-3 3z" fill="currentColor"/>
+    </svg>
+  </div>
 </section>
 
 <section class="contact" id="contact" aria-labelledby="con-t">
@@ -496,7 +694,7 @@ document.querySelectorAll('.rfilters button').forEach(b=>b.onclick=()=>{document
 document.querySelectorAll('#rgrid .card').forEach(c=>c.onclick=()=>{$('who').value='Looking to rent';$('msgText').value=`I'm interested in: ${c.dataset.t}`});
 
 /* ---------- audience switch ---------- */
-function setMode(m,scroll){document.body.dataset.mode=m;document.querySelectorAll('.mode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));$('who').value=m==='own'?'A property owner':'Looking to rent';history.replaceState(null,'',m==='rent'?'#rent':'#own');if(scroll)scrollTo({top:0,behavior:reduce?'auto':'smooth'})}
+function setMode(m,scroll){document.body.dataset.mode=m;document.querySelectorAll('.mode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));$('who').value=m==='own'?'A property owner':'Looking to rent';history.replaceState(null,'',m==='rent'?'#rent':'#own');if(scroll)document.querySelector(m==='rent'?'.rhero':'.hero').scrollIntoView({behavior:reduce?'auto':'smooth'})}
 document.querySelectorAll('.mode button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
 document.querySelectorAll('[data-switch]').forEach(b=>b.onclick=()=>setMode(b.dataset.switch,true));
 if(location.hash==='#rent')setMode('rent');
@@ -654,6 +852,42 @@ if(lastEst&&SWARM)SWARM.set(...lastEst);
 /* ---------- quiet reveals ---------- */
 (function(){const els=document.querySelectorAll('.items,.steps');
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});els.forEach(e=>io.observe(e))})();
+
+/* ---------- cover: a year of statements, turning ---------- */
+(function(){
+  const ring=$('ring'),inn=$('ringIn');if(!ring)return;
+  const months=['Nov 2025','Dec 2025','Jan 2026','Feb 2026','Mar 2026','Apr 2026','May 2026','Jun 2026','Jul 2026','Aug 2026','Sep 2026','Oct 2026'];
+  const rep=[[['Water heater',380]],[],[['Pool pump',780]],[],[['AC service, 2 units',450]],[['Repaint, one room',1150]],[['Door lock',140]],[['AC gas top-up',260]],[],[['Kitchen tap replaced',320]],[],[['AC service, 2 units',450],['Garden irrigation timer',180]]];
+  const cards=months.map((m,i)=>{const items=rep[i],net=RENT*(1-FEE)-items.reduce((s,x)=>s+x[1],0),el=document.createElement('div');el.className='sc';
+    el.innerHTML=`<div class="sc-h"><svg viewBox="0 0 120 64"><g fill="none" stroke="currentColor" stroke-width="3.4"><path d="M45 52V8h12v44M61 52V16h12v36M14 52h92"/></g></svg><span><b>ABAR</b><small>Owner statement</small></span><em>${m}</em></div><ul><li><span>Rent received</span><span>${money(RENT,2)}</span></li><li><span>Management fee</span><span>−${money(RENT*FEE,2)}</span></li>${items.length?items.map(([t,a])=>`<li><span>${t}</span><span>−${money(a,2)}</span></li>`).join(''):'<li class="q"><span>No repairs this month</span><span>0.00</span></li>'}</ul><div class="sc-net"><span>Paid to you</span><b>${money(net,2)}</b></div>`;
+    inn.appendChild(el);return el});
+  const N=cards.length,step=360/N;let rot=-(N-1)*step+8,vel=0,drag=null,last=performance.now(),vis=true;
+  function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis)return;
+    if(!drag){if(!reduce)rot+=(4+vel)*dt;vel*=Math.exp(-dt*1.6)}
+    const R=Math.min(400,ring.clientWidth*.6);
+    cards.forEach((c,i)=>{const deg=i*step+rot,a=deg*Math.PI/180,f=(Math.cos(a)+1)/2;
+      c.style.transform=`translate3d(${(Math.sin(a)*R).toFixed(1)}px,${(-f*14).toFixed(1)}px,${(Math.cos(a)*R-R).toFixed(1)}px) rotateY(${deg.toFixed(2)}deg)`;
+      c.style.opacity=(.14+.86*Math.pow(f,1.8)).toFixed(3);c.style.zIndex=Math.round(f*100)})}
+  ring.addEventListener('pointerdown',e=>{drag={x:e.clientX,r:rot,t:performance.now(),v:0};ring.setPointerCapture(e.pointerId)});
+  ring.addEventListener('pointermove',e=>{if(!drag)return;const nr=drag.r+(e.clientX-drag.x)*.3,now=performance.now();drag.v=(nr-rot)/Math.max(.008,(now-drag.t)/1000);drag.t=now;rot=nr});
+  const end=()=>{if(drag){vel=Math.max(-240,Math.min(240,drag.v*.6));drag=null}};ring.addEventListener('pointerup',end);ring.addEventListener('pointercancel',end);
+  new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(ring);requestAnimationFrame(frame);
+  document.querySelectorAll('.cover-stmt [data-go]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.go,true)));
+  document.querySelector('.cover-stmt .cv-down').addEventListener('click',e=>{e.preventDefault();document.querySelector(document.body.dataset.mode==='rent'?'.rhero':'.hero').scrollIntoView({behavior:reduce?'auto':'smooth'})});
+})();
+window.onArea=a=>{$('who').value=document.body.dataset.mode==='rent'?'Looking to rent':'A property owner';$('msgText').value=`I'd like to talk about property in ${a}.`;$('contact').scrollIntoView({behavior:reduce?'auto':'smooth'})};
+
+/* ---------- cover facts count up; who we are; vision ---------- */
+(function(){
+  const RMs=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.cv-facts b[data-n]').forEach((b,i)=>{const to=+b.dataset.n;if(RMs){b.textContent=to;return}const t0=performance.now()+700+i*120;
+    const f=t=>{const k=Math.max(0,Math.min(1,(t-t0)/1300));b.textContent=Math.round(to*(1-Math.pow(1-k,4)));if(k<1)requestAnimationFrame(f)};b.textContent='0';requestAnimationFrame(f)});
+  const vh=document.querySelector('.vision h2');if(vh)vh.innerHTML=vh.textContent.split(' ').map((w,i)=>`<span style="transition-delay:${i*55}ms">${w}</span>`).join(' ');
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});
+  document.querySelectorAll('.ab-points,.places,.vision').forEach(el=>io.observe(el));
+  document.querySelectorAll('.place').forEach(p=>p.addEventListener('click',()=>window.onArea&&onArea(p.dataset.area)));
+  document.querySelectorAll('.cv-down,.cv-acts a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(!t||!t.offsetParent)return;e.preventDefault();t.scrollIntoView({behavior:RMs?'auto':'smooth',block:'start'})}));
+})();
 </script>
 </body>
 </html>
